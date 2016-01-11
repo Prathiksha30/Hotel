@@ -1,3 +1,25 @@
+<?php session_start(); ?>
+<?php 
+/*function getUSerName($emailId)
+  {
+    if($stmt = $conn->prepare("SELECT user_id, name, image FROM user_guest WHERE email_id= ? "))
+    {
+      $stmt->bind_param('s',$emailId);
+      $stmt->execute();
+          $stmt->bind_result($name, $image);
+          while ($stmt->fetch())
+            {
+                  $rows = array('name' => $name, 'image' => $image);
+              }
+          $stmt->close();
+          return $rows;
+          }
+      else 
+        {
+          printf("Error message: %s\n", $conn->error);
+        }
+   }  */
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -76,11 +98,11 @@
                             <span class="profile-ava">
                                 <img alt="" src="img/avatar1_small.jpg">
                             </span>
-                            <span class="username">Jenifer Smith</span>
+                            <span class="username"> <?php echo "Hi, ".$_SESSION['email_id'] ?></span>
                             <b class="caret"></b>
                         </a>
                         
-                    </li>
+                    </li> 
                     <!-- user login dropdown end -->
                 </ul>
                 <!-- notificatoin dropdown end-->

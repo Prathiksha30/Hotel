@@ -1,4 +1,8 @@
-<?php include('header.html') ?>
+<?php 
+	include('header.php') 
+	//session_start();
+?>
+
 
  <section id="main-content">
           <section class="wrapper">  
@@ -52,7 +56,7 @@
                         </div>
 
                         <div class="chat-content">
-                          <div class="chat-meta">John Smith <span class="pull-right">3 hours ago</span></div>
+                          <div class="chat-meta"><?php echo "".$_SESSION['name'];?> <span class="pull-right"> 3 hours ago</span></div>
                           <?php echo $desc; ?>
                           <div class="clearfix"></div>
                         </div>

@@ -1,21 +1,8 @@
-<?php include 'hoteldb.php'; ?>
-<?php session_start(); ?>
-<?php
-
-/*if( isset($_SESSION["email"]) && $_SESSION["email"] )
-    {
-        header("Location: index.php");
-        exit;
-    }*/
-?>
-<?php
-	if (isset($_POST['submit'])) 
-	{
-	    $emailId=$_POST['email'];
-	    $room = $_POST['roomno'];
-	} 
-?>
 <!DOCTYPE html>
+<?php 
+	include 'hoteldb.php'; 
+	session_start();
+?>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -50,7 +37,7 @@
 
     <div class="container">
 
-      <form class="login-form" action="index.php">        
+      <form class="login-form" action="" method="POST">        
         <div class="login-wrap">
             <p class="login-img"><i class="icon_lock_alt"></i></p>
             <div class="input-group">
@@ -62,7 +49,7 @@
                 <input type="text" name="roomno" class="form-control" placeholder="Room Number">
             </div>
            
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+            <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">Login</button>
             <!-- <button class="btn btn-info btn-lg btn-block" type="submit">Signup</button> -->
         </div>
       </form>
@@ -72,3 +59,40 @@
 
   </body>
 </html>
+
+<?php
+	global $conn;
+	if (isset($_POST['submit'])) 
+	{
+	    $email_id=$_POST['email'];
+	    $room = $_POST['roomno'];
+	 	//echo "hi";
+	
+
+	 if($stmt = $conn->prepare("SELECT name, image FROM user_guest WHERE email_id= ?"))
+	 {
+	 	$stmt->bind_param('s', $email_id);
+		$stmt->execute();
+		$stmt->store_result();
+		$stmt->bind_result($name, $image);
+		$stmt->fetch();
+		if($stmt->num_rows > 0)
+		{
+			
+			$_SESSION['email_id']=$email_id;
+			$_SESSION['name']=$name;
+			//var_dump($name);
+
+			
+			header("location:login_success.php");
+		}
+		else
+		{
+			echo "Wrong Email ID and Room Number";
+			//header("location:login.php");
+		}
+		$stmt->close();
+	 }
+	}
+		
+?>
