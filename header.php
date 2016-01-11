@@ -98,7 +98,7 @@
                             <span class="profile-ava">
                                 <img alt="" src="img/avatar1_small.jpg">
                             </span>
-                            <span class="username"> <?php echo "Hi, ".$_SESSION['email_id'] ?></span>
+                            <span class="username"> <?php echo "".$_SESSION['name'] ?></span>
                             <b class="caret"></b>
                         </a>
                         

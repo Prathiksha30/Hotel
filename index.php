@@ -1,6 +1,7 @@
 <?php 
-	include('header.php') 
+	include('header.php'); 
 	//session_start();
+	include('hoteldb.php');
 ?>
 
 
@@ -35,12 +36,6 @@
 						<!-- <a class="btn btn-primary" href="" title="Bootstrap 3 themes generator">Post</a> -->
                         <!-- <button type="submit" class="btn btn-info">Send</button> -->
                       </form>
-						<?php 
-	 						if(isset($_POST['send']))
-					 		{
-					 			$desc=$_POST['feedtext'];
-					 		}
-					 			?>
                   <!-- </div> -->
                   </div>
                   <br><br><br><br>
@@ -115,3 +110,32 @@
             </div>
 
 </body>
+</div>
+</section>
+</section>
+</html>
+<?php 
+	global $conn;
+	if(isset($_POST['send']))	
+	{
+		$feedtext=$_POST['feedtext'];
+		$uname=$_SESSION['name'];
+		//Enter feed details into table
+		if($stmt = $conn->prepare("INSERT INTO feeds(feed_text, created_at) VALUES(?, now())"))
+		{
+			$stmt->bind_param('s', $feedtext);
+			$stmt->execute();
+			$stmt->close();
+		}
+		if($stmt2 = $conn->prepare("INSERT INTO feed_user(user_id) VALUES(?)"))
+		{
+			$stmt2->bind_param('i', $_SESSION['user_id']);
+			$stmt2->execute();
+			$stmt2->close();
+		}
+		else{
+			echo "Error with insertion!";
+		}
+		
+	}
+?>
