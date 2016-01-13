@@ -107,6 +107,22 @@
 
 
               </div> 
+              <div>
+              <!-- FOR EACH INVALID ARGUMENT SUPPLIED -->
+              	<?php
+              	$feedDeets=getFeedDetails();
+                      foreach ($feedDeets as $feedDetails):
+                      	echo "Feed ID :".$feedDetails['feed_id'];
+                      echo "Feed Text :".$feedDetails['feed_text'];
+                      echo "Created AT : ".$feedDetails['created_at'];
+                      echo "User ID :".$feedDetails['user_id'];
+                      endforeach; 
+                      ?>
+                                
+                                 
+                                      
+                              
+              </div>
             </div>
 
 </body>
@@ -114,6 +130,8 @@
 </section>
 </section>
 </html>
+
+<!-- Inserting feeds into the databse. IT WORKS :D -->
 <?php 
 	global $conn;
 	if(isset($_POST['send']))	
@@ -141,4 +159,45 @@
 			echo "Error with insertion 1";
 		}
 	}
+?>
+<!-- Fetching Feed data. WORKS! -->
+<?php
+	
+	function getFeedDetails()
+	{
+		global $conn;
+		if($stmt = $conn->prepare("SELECT feed_id, feed_text, created_at, u_id FROM `feeds` f LEFT JOIN `feed_user` fu ON f.feed_id = fu.f_id ")) 
+		{
+			$stmt->execute();
+			$stmt->bind_result($feed_id, $feed_text, $created_at, $user_id);
+			while ($stmt->fetch()) 
+			{
+				$rows = array('feed_id' => $feed_id , 'feed_text' => $feed_text, 'created_at' => $created_at, 'user_id' => $user_id );
+			}
+			$stmt->close();
+			print_r($rows);
+			echo "Name : ".getUserName($rows['user_id']);
+		}
+		else{
+			echo "Error with Feed Details!";
+		}
+	}
+	function getUserName($user_id)
+	{
+		global $conn;
+		if($stmt = $conn->prepare("SELECT name FROM user_guest WHERE user_id = $user_id"))
+		{
+			//$stmt->bind_result('i',$user_id);
+			$stmt->execute();
+		    $stmt->store_result();
+		    $stmt->bind_result($name);
+		    $stmt->fetch();
+		    $stmt->close();
+		    return $name;
+		}
+		else{
+			echo "Error with User Name selection!";
+		}
+
+	}	
 ?>
