@@ -126,7 +126,7 @@
 			$stmt->bind_param('s', $feedtext);
 			$stmt->execute();
 			$stmt->close();
-		}
+		
 		if($stmt2 = $conn->prepare("INSERT INTO feed_user(user_id) VALUES(?)"))
 		{
 			$stmt2->bind_param('i', $_SESSION['user_id']);
@@ -136,6 +136,9 @@
 		else{
 			echo "Error with insertion!";
 		}
-		
+		}
+		else{
+			echo "Error with insertion 1";
+		}
 	}
 ?>
