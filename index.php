@@ -20,13 +20,9 @@
                   </div>  
                   <div class="clearfix"></div>
                 </div> <br>
-
-
                 <div class="panel-body">
                   <!-- Widget content -->
                    <div class="col-sm-10"> 
-                  <!-- <div class="widget-foot"> -->
-                     
                       <form class="form-inline" method="POST">
 						<div class="col-sm-11">
 						<input class="form-control input-lg m-bot15" type="text" name="feedtext" placeholder="Say something..">
@@ -36,39 +32,27 @@
 						<!-- <a class="btn btn-primary" href="" title="Bootstrap 3 themes generator">Post</a> -->
                         <!-- <button type="submit" class="btn btn-info">Send</button> -->
                       </form>
-                  <!-- </div> -->
-                  </div>
+                     </div>
                   <br><br><br><br>
-                  <div class="padd sscroll">
-                    
-                    <ul class="chats">
-                    	 <?php $feedDeets[]=getFeedDetails();
-                      foreach ($feedDeets as $feedDetails):
+                   <?php /*$feedDeets[]=getFeedDetails();*/
+                      foreach (getFeedDetails() as $feedDetails):
                       	?>
+                  <div class="padd sscroll">
+                    <ul class="chats">
                       <!-- Chat by us. Use the class "by-me". -->
                       <li class="by-me">
                         <!-- Use the class "pull-left" in avatar -->
                         <div class="avatar pull-left">
                           <img src="img/user.jpg" alt=""/>
                         </div>
-<!-- 
-                      	echo "Feed ID :".$feedDetails['feed_id'];
-                      echo "Feed Text :".
-                      
-                      echo "User ID :".$feedDetails['user_id'];
-                      echo "Name: ".getUserName($feedDetails['user_id']);
-                      endforeach;  -->
-                     
                         <div class="chat-content">
                           <div class="chat-meta"><?php echo "".getUserName($feedDetails['u_id']);?> <span class="pull-right"> <?php echo "".$feedDetails['created_at'];?></span></div>
                           <?php echo $feedDetails['feed_text']; ?>
                           <div class="clearfix"></div>
                         </div>
                       </li> 
-
                       <!-- Chat by other. Use the class "by-other". -->
                      <!--  <li class="by-other">
-                       
                         <div class="avatar pull-right">
                           <img src="img/user22.png" alt=""/>
                         </div>
@@ -106,26 +90,16 @@
                           <div class="clearfix"></div>
                         </div>
                       </li>        -->                                                                           
-
                     </ul>
-
                   </div>
                   <!-- Widget footer -->
-<?php  endforeach; 
-                      ?>
                 </div>
 
 
               </div> 
-              <div>
-              
-              
-                                
-                                 
-                                      
-                              
-              </div>
-            </div>
+           <?php  endforeach; 
+                      ?>
+            </div> 
 
 </body>
 </div>
@@ -160,6 +134,7 @@
 		else{
 			echo "Error with insertion 1";
 		}
+		echo "<meta http-equiv='refresh' content='0'>"; //to refresh page after post is submitted
 	}
 ?>
 <!-- Fetching Feed data. WORKS! -->
@@ -168,18 +143,15 @@
 	function getFeedDetails()
 	{
 		global $conn;
-		if($stmt = $conn->prepare("SELECT feed_id, feed_text, created_at, u_id FROM `feeds` f LEFT JOIN `feed_user` fu ON f.feed_id = fu.f_id ")) 
+		if($stmt = $conn->prepare("SELECT feed_id, feed_text, created_at, u_id FROM `feeds` f LEFT JOIN `feed_user` fu ON f.feed_id = fu.f_id ORDER BY created_at DESC")) 
 		{
 			$stmt->execute();
 			$stmt->bind_result($feed_id, $feed_text, $created_at, $u_id);
 			while ($stmt->fetch()) 
 			{
-				$rows = array('feed_id' => $feed_id , 'feed_text' => $feed_text, 'created_at' => $created_at, 'u_id' => $u_id );
+				$rows[] = array('feed_id' => $feed_id , 'feed_text' => $feed_text, 'created_at' => $created_at, 'u_id' => $u_id );
 			}
 			$stmt->close();
-
-			/*print_r($rows);
-			echo "Name : ".;*/
 			return $rows;
 		}
 		else{
