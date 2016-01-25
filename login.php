@@ -67,7 +67,6 @@
 	    $email_id=$_POST['email'];
 	    $room = $_POST['roomno'];
 	 	//echo "hi";
-	
 
 	 if($stmt = $conn->prepare("SELECT user_id, name, image FROM user_guest WHERE email_id= ?"))
 	 {
@@ -83,7 +82,7 @@
 			$_SESSION['name']=$name;
             $_SESSION['user_id']=$user_id;
 			//var_dump($name);
-
+            $_SESSION['roomno']=$room;
 			
 			header("location:login_success.php");
 		}
