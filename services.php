@@ -188,10 +188,10 @@ include('hoteldb.php');
                                       <a data-toggle="tab" href="#RoomService">Room Service</a>
                                   </li>
                                   <li class="">
-                                      <a data-toggle="tab" href="#Restaurant&Bar">Restaurant & Bar</a>
+                                      <a data-toggle="tab" href="#Restaurant_Bar">Restaurant & Bar</a>
                                   </li>
                                   <li class="">
-                                      <a data-toggle="tab" href="#Recreation&LeisureServices">Recreation & Leisure Services</a>
+                                      <a data-toggle="tab" href="#Recreation_LeisureServices">Recreation & Leisure Services</a>
                                   </li>
                                   <li class="">
                                       <a data-toggle="tab" href="#TransportaionFacility">Transportaion Facility</a>
@@ -301,10 +301,10 @@ include('hoteldb.php');
                                             </div>
                                             </form>
                                   </div>
-                                  <div id="Restaurant&Bar" class="tab-pane">
+                                  <div id="Restaurant_Bar" class="tab-pane">
                                       page 2
                                   </div>
-                                  <div id="Recreation&LeisureServices" class="tab-pane">
+                                  <div id="Recreation_LeisureServices" class="tab-pane">
                                       page 3
                                   </div>                                  
                                   <div id="TransportaionFacility" class="tab-pane">
