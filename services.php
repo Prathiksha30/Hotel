@@ -1,3 +1,7 @@
+<?php
+session_start();
+include('hoteldb.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -184,10 +188,10 @@
                                       <a data-toggle="tab" href="#RoomService">Room Service</a>
                                   </li>
                                   <li class="">
-                                      <a data-toggle="tab" href="#Restaurant&Bar">Restaurant & Bar</a>
+                                      <a data-toggle="tab" href="#Restaurant_Bar">Restaurant & Bar</a>
                                   </li>
                                   <li class="">
-                                      <a data-toggle="tab" href="#Recreation&LeisureServices">Recreation & Leisure Services</a>
+                                      <a data-toggle="tab" href="#Recreation_LeisureServices">Recreation & Leisure Services</a>
                                   </li>
                                   <li class="">
                                       <a data-toggle="tab" href="#TransportaionFacility">Transportaion Facility</a>
@@ -197,12 +201,110 @@
                           <div class="panel-body">
                               <div class="tab-content">
                                   <div id="RoomService" class="tab-pane active">
-                                     page 1
+                                    <br>
+                                      <!--carousel start-->                
+                                      <section class="panel">
+                                          <div id="c-slide" class="carousel slide auto panel-body">
+                                              <ol class="carousel-indicators out">
+                                                  <li class="active" data-slide-to="0" data-target="#c-slide"></li>
+                                                  <li class="" data-slide-to="1" data-target="#c-slide"></li>
+                                                  <li class="" data-slide-to="2" data-target="#c-slide"></li>
+                                              </ol>
+                                              <div class="carousel-inner">
+                                                  <div class="item text-center active">
+                                                      <h3>Select</h3>
+                                                      <small class="">Select the service you require</small>
+                                                  </div>
+                                                  <div class="item text-center">
+                                                      <h3>Order Notes</h3>
+                                                      <small class="">Want a little less sugar, little more spice? Let us know.</small>
+                                                  </div>
+                                                  <div class="item text-center">
+                                                      <h3>Done</h3>
+                                                      <small class="">Click on Submit and the request will go to the room service department</small>
+                                                  </div>
+                                                  
+                                              </div>
+                                              <a data-slide="prev" href="#c-slide" class="left carousel-control">
+                                                  <i class="arrow_carrot-left_alt2"></i>
+                                              </a>
+                                              <a data-slide="next" href="#c-slide" class="right carousel-control">
+                                                  <i class="arrow_carrot-right_alt2"></i>
+                                              </a>
+                                          </div>
+                                      </section>
+                                      <!--carousel end-->
+                                      <!--form start form takes in the room service request from guests-->
+                                        <form  method="POST" action="">
+                                        <div class="row">
+                                        <div class="col-lg-4">
+                                           
+                                            <div class="radiobox">
+                                                  <label>
+                                                      <input type="radio" name="req"  value="Extra Mattress" >
+                                                      Extra Mattress
+                                                  </label>
+                                            </div>
+                                                  <!-- <div class="col-sm-6">
+                                                  <label>Select Qunatity
+                                                          <div class="col-lg-6">
+                                                              <select class="form-control m-bot10">
+                                                                  <option>1</option>
+                                                                  <option>2</option>
+                                                              </select>
+                                                        </div> 
+
+                                                  </label>
+                                                  </div>
+                                           -->
+                                            
+                                            
+                                            </div>
+                                            </div>
+                                            
+                                            <div class="radiobutton">
+                                                  <label>
+                                                      <input type="radio" name="req" value="Something isn't working">
+                                                      Something isn't working (mention in the comment what isn't working)
+                                                  </label>
+                                            </div>
+                                            <div class="radiobutton">
+                                                  <label>
+                                                      <input type="radio" name="req" value="Need Some toiletries">
+                                                      Need Some toiletries (please mention in the comment what toiletries you want)
+                                                  </label>
+                                            </div>
+                                            <div class="radiobutton">
+                                                  <label>
+                                                      <input type="radio" name="req" value="Clean My Room" >
+                                                      Clean My Room
+                                                  </label>
+                                            </div>
+                                            <div class="radiobutton">
+                                                  <label>
+                                                      <input type="radio" name="req" value="Provide with an iron box" >
+                                                      Provide with an iron box
+                                                  </label>
+                                            </div>
+                                            <div class="radiobutton">
+                                                  <label>
+                                                      <input type="radio" name="req" value="Refil the minifridge" >
+                                                      Refil the minifridge
+                                                  </label>
+                                            </div>
+                                            <div class="col-sm-10"> Comment:
+                                               <input type="text" name="comment" class="form-control">
+                                            </div>
+                                            <br>
+                                            <div class="col-lg-offset-2 col-lg-10">
+                                              <input type="submit" name="submit" value="Submit" class="btn btn-success">
+                                            </div>
+                                            </form>
                                   </div>
-                                  <div id="Restaurant&Bar" class="tab-pane">
+                                  <div id="Restaurant_Bar" class="tab-pane">
                                       page 2
                                   </div>
-                                  <div id="Recreation&LeisureServices" class="tab-pane">
+                                  <div id="Recreation_LeisureServices" class="tab-pane">
                                       page 3
                                   </div>                                  
                                   <div id="TransportaionFacility" class="tab-pane">
@@ -233,3 +335,22 @@
     <script src="js/scripts.js"></script>
   </body>
 </html>
+<?php
+if(isset($_POST['submit']))
+ {
+?>
+  <script type='text/javascript'>alert("your request has been send to the room service department");
+  window.location.href = "index.php"
+  </script>";
+  <?php 
+  global $conn;
+  $req = $_POST['req'];
+  $comment = $_POST['comment'];
+  $message=$req."-".$comment;  
+  echo $message;
+  if ($stmt = $conn->prepare("INSERT INTO `user_services`(`dept_id`, `user_id`, `room_no`, `status`, `message`) VALUES ('1','1','101','pending',?)")) 
+  {
+    $stmt->bind_param("s",$message);
+    $stmt->execute();
+  }
+}
