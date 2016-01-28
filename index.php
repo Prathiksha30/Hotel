@@ -20,13 +20,9 @@
                   </div>  
                   <div class="clearfix"></div>
                 </div> <br>
-
-
                 <div class="panel-body">
                   <!-- Widget content -->
                    <div class="col-sm-10"> 
-                  <!-- <div class="widget-foot"> -->
-                     
                       <form class="form-inline" method="POST">
 						<div class="col-sm-11">
 						<input class="form-control input-lg m-bot15" type="text" name="feedtext" placeholder="Say something..">
@@ -36,42 +32,39 @@
 						<!-- <a class="btn btn-primary" href="" title="Bootstrap 3 themes generator">Post</a> -->
                         <!-- <button type="submit" class="btn btn-info">Send</button> -->
                       </form>
-                  <!-- </div> -->
-                  </div>
+                     </div>
                   <br><br><br><br>
+                   <?php /*$feedDeets[]=getFeedDetails();*/
+                      foreach (getFeedDetails() as $feedDetails):
+                      	?>
                   <div class="padd sscroll">
-                    
                     <ul class="chats">
-                    	
                       <!-- Chat by us. Use the class "by-me". -->
                       <li class="by-me">
                         <!-- Use the class "pull-left" in avatar -->
                         <div class="avatar pull-left">
                           <img src="img/user.jpg" alt=""/>
                         </div>
-
                         <div class="chat-content">
-                          <div class="chat-meta"><?php echo "".$_SESSION['name'];?> <span class="pull-right"> 3 hours ago</span></div>
-                          <?php echo $desc; ?>
+                          <div class="chat-meta"><?php echo "".getUserName($feedDetails['u_id']);?> <span class="pull-right"> <?php echo "".$feedDetails['created_at'];?></span></div>
+                          <?php echo $feedDetails['feed_text']; ?>
                           <div class="clearfix"></div>
                         </div>
                       </li> 
-
                       <!-- Chat by other. Use the class "by-other". -->
-                      <li class="by-other">
-                        <!-- Use the class "pull-right" in avatar -->
+                     <!--  <li class="by-other">
                         <div class="avatar pull-right">
                           <img src="img/user22.png" alt=""/>
                         </div>
 
                         <div class="chat-content">
-                          <!-- In the chat meta, first include "time" then "name" -->
+                         
                           <div class="chat-meta">3 hours ago <span class="pull-right">Jenifer Smith</span></div>
                           Vivamus diam elit diam, consectetur fconsectetur dapibus adipiscing elit.
                           <div class="clearfix"></div>
                         </div>
-                      </li>   
-
+                      </li>    -->
+<!-- 
                       <li class="by-me">
                         <div class="avatar pull-left">
                           <img src="img/user.jpg" alt=""/>
@@ -82,48 +75,31 @@
                           Vivamus diam elit diam, consectetur fermentum sed dapibus eget, Vivamus consectetur dapibus adipiscing elit.
                           <div class="clearfix"></div>
                         </div>
-                      </li>  
+                      </li>   -->
 
-                      <li class="by-other">
+                      <!-- <li class="by-other"> -->
                         <!-- Use the class "pull-right" in avatar -->
-                        <div class="avatar pull-right">
+                       <!--  <div class="avatar pull-right">
                           <img src="img/user22.png" alt=""/>
                         </div>
 
                         <div class="chat-content">
-                          <!-- In the chat meta, first include "time" then "name" -->
+                         
                           <div class="chat-meta">3 hours ago <span class="pull-right">Jenifer Smith</span></div>
                           Vivamus diam elit diam, consectetur fermentum sed dapibus eget, Vivamus consectetur dapibus adipiscing elit.
                           <div class="clearfix"></div>
                         </div>
-                      </li>                                                                                  
-
+                      </li>        -->                                                                           
                     </ul>
-
                   </div>
                   <!-- Widget footer -->
-
                 </div>
 
 
               </div> 
-              <div>
-              <!-- FOR EACH INVALID ARGUMENT SUPPLIED -->
-              	<?php
-              	$feedDeets=getFeedDetails();
-                      foreach ($feedDeets as $feedDetails):
-                      	echo "Feed ID :".$feedDetails['feed_id'];
-                      echo "Feed Text :".$feedDetails['feed_text'];
-                      echo "Created AT : ".$feedDetails['created_at'];
-                      echo "User ID :".$feedDetails['user_id'];
-                      endforeach; 
+           <?php  endforeach; 
                       ?>
-                                
-                                 
-                                      
-                              
-              </div>
-            </div>
+            </div> 
 
 </body>
 </div>
@@ -145,7 +121,7 @@
 			$stmt->execute();
 			$stmt->close();
 		
-		if($stmt2 = $conn->prepare("INSERT INTO feed_user(user_id) VALUES(?)"))
+		if($stmt2 = $conn->prepare("INSERT INTO feed_user(u_id) VALUES(?)"))
 		{
 			$stmt2->bind_param('i', $_SESSION['user_id']);
 			$stmt2->execute();
@@ -158,6 +134,7 @@
 		else{
 			echo "Error with insertion 1";
 		}
+		echo "<meta http-equiv='refresh' content='0'>"; //to refresh page after post is submitted
 	}
 ?>
 <!-- Fetching Feed data. WORKS! -->
@@ -166,17 +143,16 @@
 	function getFeedDetails()
 	{
 		global $conn;
-		if($stmt = $conn->prepare("SELECT feed_id, feed_text, created_at, u_id FROM `feeds` f LEFT JOIN `feed_user` fu ON f.feed_id = fu.f_id ")) 
+		if($stmt = $conn->prepare("SELECT feed_id, feed_text, created_at, u_id FROM `feeds` f LEFT JOIN `feed_user` fu ON f.feed_id = fu.f_id ORDER BY created_at DESC")) 
 		{
 			$stmt->execute();
-			$stmt->bind_result($feed_id, $feed_text, $created_at, $user_id);
+			$stmt->bind_result($feed_id, $feed_text, $created_at, $u_id);
 			while ($stmt->fetch()) 
 			{
-				$rows = array('feed_id' => $feed_id , 'feed_text' => $feed_text, 'created_at' => $created_at, 'user_id' => $user_id );
+				$rows[] = array('feed_id' => $feed_id , 'feed_text' => $feed_text, 'created_at' => $created_at, 'u_id' => $u_id );
 			}
 			$stmt->close();
-			print_r($rows);
-			echo "Name : ".getUserName($rows['user_id']);
+			return $rows;
 		}
 		else{
 			echo "Error with Feed Details!";
