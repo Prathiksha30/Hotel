@@ -50,6 +50,7 @@
                           <?php echo $feedDetails['feed_text']; ?>
                           <div class="clearfix"></div>
                         </div>
+                          <a> Comment </a>
                       </li> 
                       <!-- Chat by other. Use the class "by-other". -->
                      <!--  <li class="by-other">
