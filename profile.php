@@ -292,6 +292,7 @@ function getUserdetails($user_id)
   $emailid = $_POST['emailid'];
   $mobileno = $_POST['mobileno'];
   $age = $_POST['age'];
+  $file=$_POST['file']
   $pic = $_FILES["file"]["name"];
   $gender = $_POST['sex'];
  ?>

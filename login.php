@@ -68,7 +68,7 @@
 	    $room = $_POST['roomno'];
 	 	//echo "hi";
 
-	 if($stmt = $conn->prepare("SELECT user_id, name, image FROM user_guest WHERE email_id= ?"))
+	 if($stmt = $conn->prepare("SELECT user_id, name, user_image FROM user_guest WHERE email_id= ?"))
 	 {
 	 	$stmt->bind_param('s', $email_id);
 		$stmt->execute();
