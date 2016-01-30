@@ -350,7 +350,7 @@ function getUserInfo($user_id)
   </script>";
   <?php   
   global $conn;
-    if ($stmt = $conn->prepare("UPDATE `user_guest` SET `name`=?,`username`=?,`email_id`=?,`ph_no`=?,`age`=?,`image`=?,`gender`=? WHERE `user_id`=?")) 
+    if ($stmt = $conn->prepare("UPDATE `user_guest` SET `name`=?,`username`=?,`email_id`=?,`ph_no`=?,`age`=?,`user_image`=?,`gender`=? WHERE `user_id`=?")) 
       {
         $stmt->bind_param("ssssissi", $name,$username,$emailid,$mobileno,$age,$pic,$gender,$_SESSION['user_id']);
         $stmt->execute();
