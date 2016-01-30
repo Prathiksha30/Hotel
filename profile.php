@@ -5,13 +5,13 @@ include('hoteldb.php');
 function getUserNameandRoom($user_id)
 {
     global $conn;
-    if ($stmt = $conn->prepare("SELECT username, room_no, user_image FROM `user_guest` WHERE user_id = ?"))
+    if ($stmt = $conn->prepare("SELECT username, room_no, image FROM `user_guest` WHERE user_id = ?"))
         {
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
-        $stmt->bind_result($username, $room_no, $user_image);
+        $stmt->bind_result($username, $room_no, $image);
         while ($stmt->fetch()) {
-          $rows[] = array('username' => $username, 'room_no' => $room_no, 'user_image' => $user_image);
+          $rows[] = array('username' => $username, 'room_no' => $room_no, 'image' => $image);
         }
         $stmt->close();
         return $rows;
@@ -39,7 +39,24 @@ function getUserdetails($user_id)
     }
 }
 
-
+function getUserInfo($user_id)
+{
+    global $conn;
+    if ($stmt = $conn->prepare("SELECT firstname, secondname, photoAd ,Credits FROM `userdetails` WHERE user_id = ?"))
+        {
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $stmt->bind_result($firstname, $secondname, $photoAd, $Credits);
+        while ($stmt->fetch()) {
+          $rows[] = array('firstname' => $firstname, 'secondname' => $secondname, 'photoAd' => $photoAd,'Credits'=>$Credits);
+        }
+        $stmt->close();
+        return $rows;
+    }
+    else {
+        printf("Error message: %s\n", $conn->error);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,7 +131,7 @@ function getUserdetails($user_id)
                               ?>
                               </h4>               
                               <div class="follow-ava">
-                                  <img src="<?php echo 'upload/'.$name[0]['user_image']; ?>" alt="<?php echo "sorry"?>">
+                                  <img src="<?php echo 'upload/'.$name[0]['image']; ?>" alt="<?php echo "sorry"?>">
                               </div>
                             </div>
                             <div class="col-lg-4 col-sm-4 follow-info">
@@ -230,7 +247,7 @@ function getUserdetails($user_id)
                                                   <div class="form-group">
                                                       <label class="col-lg-2 control-label">Image: </label>
                                                       <div class="col-lg-6">
-                                                          <input type="file" name="file" id="file" size="80">
+                                                          <input type="file" name="profilepic" id="file" size="80">
                                                       
                                                       </div>
                                                   </div>
@@ -283,31 +300,6 @@ function getUserdetails($user_id)
 
   </body>
 </html>
-<?php
-
- if(isset($_POST['submit']))
- {
-  $name = $_POST['guestname'];
-  $username = $_POST['username'];
-  $emailid = $_POST['emailid'];
-  $mobileno = $_POST['mobileno'];
-  $age = $_POST['age'];
-  $pic = $_FILES["file"]["name"];
-  $gender = $_POST['sex'];
- ?>
-  <script type='text/javascript'>alert("Your personal details have been updated. Your name, room number, email id and mobile number will be hidden from other guests");
-    window.location.href = "profile.php"
-  </script>";
-  <?php   
-  global $conn;
-   if ($stmt = $conn->prepare("UPDATE `user_guest` SET `name`=?,`username`=?,`email_id`=?,`ph_no`=?,`age`=?,`user_image`=?,`gender`=? WHERE `user_id`=?")) 
-     {
-        $stmt->bind_param("ssssissi", $name, $username, $emailid, $mobileno, $age, $pic, $gender, $_SESSION['user_id']);
-        $stmt->execute();
-      }
-  // header("Location: http://localhost:8080/snappy/profile.php#");
-}
-?>
 <!-- START CODE TO UPLOAD THE FILE -->
  <?php
     $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");
@@ -341,3 +333,27 @@ function getUserdetails($user_id)
        }       
 ?>
 <!-- END CODE TO UPLOAD THE FILE -->
+<?php
+
+ if(isset($_POST['submit']))
+ {
+  $name = $_POST['guestname'];
+  $username = $_POST['username'];
+  $emailid = $_POST['emailid'];
+  $mobileno = $_POST['mobileno'];
+  $age= $_POST['age'];
+  $pic=$_FILES["file"]["name"];
+  $gender = $_POST['sex'];
+ ?>
+  <script type='text/javascript'>alert("Your personal details have been updated. Your name, room number, email id and mobile number will be hidden from other guests");
+    window.location.href = "profile.php"
+  </script>";
+  <?php   
+  global $conn;
+    if ($stmt = $conn->prepare("UPDATE `user_guest` SET `name`=?,`username`=?,`email_id`=?,`ph_no`=?,`age`=?,`image`=?,`gender`=? WHERE `user_id`=?")) 
+      {
+        $stmt->bind_param("ssssissi", $name,$username,$emailid,$mobileno,$age,$pic,$gender,$_SESSION['user_id']);
+        $stmt->execute();
+      }
+  // header("Location: http://localhost:8080/snappy/profile.php#");
+}

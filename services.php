@@ -22,6 +22,7 @@ include('hoteldb.php');
     <!-- font icon -->
     <link href="css/elegant-icons-style.css" rel="stylesheet" />
     <link href="css/font-awesome.min.css" rel="stylesheet" />
+  
     <!-- Custom styles -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet" />
@@ -302,7 +303,207 @@ include('hoteldb.php');
                                             </form>
                                   </div>
                                   <div id="Restaurant_Bar" class="tab-pane">
-                                      page 2
+                                  <!--modal start-->
+                                          <section class="panel">
+                                              <header class="panel-heading">
+                                                  Menue
+                                              </header>
+                                              <div class="panel-body">
+                                                  <a class="btn btn-success" data-toggle="modal" href="#myModal">
+                                                      Breakfast
+                                                  </a>
+                                                  <a class="btn btn-warning" data-toggle="modal" href="#myModal2">
+                                                      Lunch
+                                                  </a>
+                                                  <a class="btn btn-danger" data-toggle="modal" href="#myModal3">
+                                                      Dinner
+                                                  </a>
+                                                  <a class="btn btn-info popovers" data-toggle="modal" href="#myModal3">
+                                                      Snacks and Drinks
+                                                  </a>
+                                                  <!-- Modal -->
+                                                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                      <div class="modal-dialog">
+                                                          <div class="modal-content">
+                                                              <div class="modal-header">
+                                                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                  <h4 class="modal-title">Breakfast Menu</h4>
+                                                              </div>
+                                                              <div class="modal-body">
+                                                              <table>
+                                                                <th>Item</th>
+                                                                <th>Price</th>
+                                                                <?php
+                                                                 if (!is_null(getMenu('breakfast'))) {
+                                                                  foreach (getMenu('breakfast') as $menu ):
+                                                              ?>
+                                                                  <tr>
+                                                                  <td style="padding:5px;"> <?php echo $menu['fooditem_name']; ?> </td>
+                                                                  <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
+                                                                  <td>
+                                                                  <form id='myform' method='POST' action='#'>
+                                                                    <input type='button' value='-' class='qtyminus' field='quantity' />
+                                                                    <input type='text' name='quantity' value='0' class='qty' />
+                                                                    <input type='button' value='+' class='qtyplus' field='quantity' />
+                                                                  </form>
+                                                                    <!-- <div class="btn-group no-pad item-count">
+                                                                      <button type="button" class="remove-item-qty  icon-swgy-circle-minus btn btn-none" rel="771049" price=<?php echo $menu['fooditem_price']; ?>></button>
+                                                                      <font class="item-qty outerfontqty_771049 btn btn-none">0</font>
+                                                                      <button type="button" class="add-item-qty btn icon-swgy-plus-circle btn-none" rel="771049" tabindex=385 price=<?php echo $menu['fooditem_price']; ?>></button>
+                                                                    </div> -->
+                                                                  </td>
+                                                                  </tr>
+                                                                  <?php endforeach; } ?>
+                                                              </table>
+                                                              </div>
+                                                              <div class="modal-footer">
+                                                                  <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                                                  <button class="btn btn-danger" type="button"> Confirm</button>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <!-- modal -->
+                                                  <!-- Modal -->
+                                                  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                      <div class="modal-dialog">
+                                                          <div class="modal-content">
+                                                              <div class="modal-header">
+                                                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                  <h4 class="modal-title">Lunch Menu</h4>
+                                                              </div>
+                                                              <div class="modal-body">
+                                                              <table>
+                                                                <th>Item</th>
+                                                                <th>Price</th>
+                                                                <?php
+                                                                 if (!is_null(getMenu('lunch'))) {
+                                                                  foreach (getMenu('lunch') as $menu ):
+                                                              ?>
+                                                                  <tr>
+                                                                  <td style="padding:5px;"> <?php echo $menu['fooditem_name']; ?> </td>
+                                                                  <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
+                                                                  </tr>
+                                                                  <?php endforeach; } ?>
+                                                              </table>
+                                                              </div>
+                                                              <div class="modal-footer">
+                                                                  <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                                                  <button class="btn btn-warning" type="button"> Confirm</button>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <!-- modal -->
+                                                  <!-- Modal -->
+                                                  <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                      <div class="modal-dialog">
+                                                          <div class="modal-content">
+                                                              <div class="modal-header">
+                                                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                  <h4 class="modal-title">Dinner Menu</h4>
+                                                              </div>
+                                                              <div class="modal-body">
+                                                                  <table>
+                                                                <th>Item</th>
+                                                                <th>Price</th>
+                                                                <?php
+                                                                 if (!is_null(getMenu('dinner'))) {
+                                                                  foreach (getMenu('dinner') as $menu ):
+                                                              ?>
+                                                                  <tr>
+                                                                  <td style="padding:5px;"> <?php echo $menu['fooditem_name']; ?> </td>
+                                                                  <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
+                                                                  </tr>
+                                                                  <?php endforeach; } ?>
+                                                              </table>
+                                                              </div>
+                                                              <div class="modal-footer">
+                                                                  <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                                                  <button class="btn btn-danger" type="button"> Confirm</button>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <!-- modal -->
+                                                  <!-- Modal -->
+                                                  <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                      <div class="modal-dialog">
+                                                          <div class="modal-content">
+                                                              <div class="modal-header">
+                                                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                  <h4 class="modal-title">Dinner Menu</h4>
+                                                              </div>
+                                                              <div class="modal-body">
+                                                                  <table>
+                                                                <th>Item</th>
+                                                                <th>Price</th>
+                                                                <?php
+                                                                 if (!is_null(getMenu('snacks&drinks'))) {
+                                                                  foreach (getMenu('snacks&drinks') as $menu ):
+                                                              ?>
+                                                                  <tr>
+                                                                  <td style="padding:5px;"> <?php echo $menu['fooditem_name']; ?> </td>
+                                                                  <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
+                                                                  <td>
+                                                                  <div class="col-md-2 col-sm-2 col-xs-6 text-right">
+                                                                    <!-- <div class="btn-group no-pad item-count">
+                                                                      <button type="button" class="remove-item-qty  icon-swgy-circle-minus btn btn-none" rel="771049" price=<?php echo $menu['fooditem_price']; ?>></button>
+                                                                      <font class="item-qty outerfontqty_771049 btn btn-none">0</font>
+                                                                      <button type="button" class="add-item-qty btn icon-swgy-plus-circle btn-none" rel="771049" tabindex=385 price=<?php echo $menu['fooditem_price']; ?>></button>
+                                                                    </div> -->
+                                                                  </div>
+                                                                  </td>
+                                                                  </tr>
+                                                                  <?php endforeach; } ?>
+                                                              </table>
+                                                              </div>
+                                                              <div class="modal-footer">
+                                                                  <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                                                                  <button class="btn btn-danger" type="button"> Confirm</button>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <!-- modal -->
+
+                                              </div>
+                                          </section>
+                                          <!--modal start-->
+                                      <!-- swiggy code starts here -->
+                                      <!-- <div class="restaurant-menu-listing">
+                                        <div class="banner-common hide cart-error-banner"></div>
+                                        <div class="container">
+                                      <div class="row">
+                                      <div class="col-md-3 col-xs-12">
+                                      <div class="sidebar-wrapper " id="sidebar-wrapper">
+                                          <div class="cusines">
+                                            <div class="search-box">
+                                              <input class="search" type="text" placeholder="Search by items" id="item-filter">
+                                            </div>
+                                              <div class="category-list">
+                                                    <ul class="sub-category resto_sub_cat">
+                                                        <li class="active">
+                                                          <a class="selection_cate" data-id="all" title="All">All</a>
+                                                        </li>
+                                                        <li class="">
+                                                          <a class="selection_cate" data-id="12794" title="Ice Creams">Ice Creams</a>
+                                                        </li>
+                                                        <li class="">
+                                                          <a class="selection_cate" data-id="12802" title="Beverages">Beverages</a>
+                                                        </li>
+                                                        <li class="">
+                                                          <a class="selection_cate" data-id="212947" title="Mousse">Mousse</a>
+                                                        </li>
+                                                    </ul>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      </div>
+                                      </div>
+                                      </div>
+                                      </div>  -->                                     
+                                     <!-- swiggy code ends here -->
                                   </div>
                                   <div id="Recreation_LeisureServices" class="tab-pane">
                                       page 3
@@ -333,9 +534,29 @@ include('hoteldb.php');
     <script src="js/gritter.js" type="text/javascript"></script>
     <!--custome script for all page-->
     <script src="js/scripts.js"></script>
+    <!-- custom qunatity button + and - -->
+    <script src="js/custom-quantitybutton.js"></script>
   </body>
 </html>
 <?php
+function getMenu($category)
+{
+  global $conn;
+  if ($stmt = $conn->prepare("SELECT fooditem_name, fooditem_price FROM `restaurant_menu` WHERE category=?")) 
+  {
+     $stmt->bind_param("s", $category);
+    $stmt->execute();
+    $stmt->bind_result($fooditem_name, $fooditem_price);
+    while ($stmt->fetch()) {
+          $rows[] = array('fooditem_name' => $fooditem_name, 'fooditem_price' => $fooditem_price);
+        }
+    $stmt->close();
+    return $rows;
+    }
+    else {
+        printf("Error message: %s\n", $conn->error);
+    }
+}
 if(isset($_POST['submit']))
  {
 ?>
