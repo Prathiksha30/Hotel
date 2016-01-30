@@ -334,17 +334,17 @@ include('hoteldb.php');
                                                                 <th>Item</th>
                                                                 <th>Price</th>
                                                                 <?php
-                                                                 if (!is_null(getMenu('breakfast'))) {
-                                                                  foreach (getMenu('breakfast') as $menu ):
-                                                              ?>
+                                                                  if (!is_null(getMenu('breakfast'))) {
+                                                                    foreach (getMenu('breakfast') as $key => $menu ):
+                                                                ?>
                                                                   <tr>
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_name']; ?> </td>
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
                                                                   <td>
                                                                   <form id='myform' method='POST' action='#'>
-                                                                    <input type='button' value='-' class='qtyminus' field='quantity' />
-                                                                    <input type='text' name='quantity' value='0' class='qty' />
-                                                                    <input type='button' value='+' class='qtyplus' field='quantity' />
+                                                                    <input type='button' value='-' class='qtyminus' field='quantity_<?php echo $key; ?>' />
+                                                                    <input type='text' name='quantity_<?php echo $key; ?>' value='0' class='qty'/>
+                                                                    <input type='button' value='+' class='qtyplus' field='quantity_<?php echo $key; ?>'/>
                                                                   </form>
                                                                     <!-- <div class="btn-group no-pad item-count">
                                                                       <button type="button" class="remove-item-qty  icon-swgy-circle-minus btn btn-none" rel="771049" price=<?php echo $menu['fooditem_price']; ?>></button>
