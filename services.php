@@ -306,7 +306,7 @@ include('hoteldb.php');
                                   <!--modal start-->
                                           <section class="panel">
                                               <header class="panel-heading">
-                                                  Menue
+                                                  Menu
                                               </header>
                                               <div class="panel-body">
                                                   <a class="btn btn-success" data-toggle="modal" href="#myModal">

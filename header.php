@@ -144,7 +144,7 @@
                       </a>
                   </li>
                   <li>                     
-                      <a class="" href="chart-chartjs.html">
+                      <a class="" href="profile.php">
                           <i class="icon_piechart"></i>
                           <span>My Profile</span>
                           
