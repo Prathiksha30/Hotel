@@ -346,12 +346,12 @@ include('hoteldb.php');
                                                                     <input type='text' name='quantity' value='0' class='qty' />
                                                                     <input type='button' value='+' class='qtyplus' field='quantity' />
                                                                   </form>
+                                                                  </td>
                                                                     <!-- <div class="btn-group no-pad item-count">
                                                                       <button type="button" class="remove-item-qty  icon-swgy-circle-minus btn btn-none" rel="771049" price=<?php echo $menu['fooditem_price']; ?>></button>
                                                                       <font class="item-qty outerfontqty_771049 btn btn-none">0</font>
                                                                       <button type="button" class="add-item-qty btn icon-swgy-plus-circle btn-none" rel="771049" tabindex=385 price=<?php echo $menu['fooditem_price']; ?>></button>
                                                                     </div> -->
-                                                                  </td>
                                                                   </tr>
                                                                   <?php endforeach; } ?>
                                                               </table>
@@ -383,6 +383,13 @@ include('hoteldb.php');
                                                                   <tr>
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_name']; ?> </td>
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
+                                                                  <td>
+                                                                  <form id='myform' method='POST' action='#'>
+                                                                    <input type='button' value='-' class='qtyminus' field='quantity' />
+                                                                    <input type='text' name='quantity' value='0' class='qty' />
+                                                                    <input type='button' value='+' class='qtyplus' field='quantity' />
+                                                                  </form>
+                                                                  </td>
                                                                   </tr>
                                                                   <?php endforeach; } ?>
                                                               </table>
@@ -414,6 +421,13 @@ include('hoteldb.php');
                                                                   <tr>
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_name']; ?> </td>
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
+                                                                  <td>
+                                                                  <form id='myform' method='POST' action='#'>
+                                                                    <input type='button' value='-' class='qtyminus' field='quantity' />
+                                                                    <input type='text' name='quantity' value='0' class='qty' />
+                                                                    <input type='button' value='+' class='qtyplus' field='quantity' />
+                                                                  </form>
+                                                                  </td>
                                                                   </tr>
                                                                   <?php endforeach; } ?>
                                                               </table>
@@ -446,13 +460,11 @@ include('hoteldb.php');
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_name']; ?> </td>
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
                                                                   <td>
-                                                                  <div class="col-md-2 col-sm-2 col-xs-6 text-right">
-                                                                    <!-- <div class="btn-group no-pad item-count">
-                                                                      <button type="button" class="remove-item-qty  icon-swgy-circle-minus btn btn-none" rel="771049" price=<?php echo $menu['fooditem_price']; ?>></button>
-                                                                      <font class="item-qty outerfontqty_771049 btn btn-none">0</font>
-                                                                      <button type="button" class="add-item-qty btn icon-swgy-plus-circle btn-none" rel="771049" tabindex=385 price=<?php echo $menu['fooditem_price']; ?>></button>
-                                                                    </div> -->
-                                                                  </div>
+                                                                  <form id='myform' method='POST' action='#'>
+                                                                    <input type='button' value='-' class='qtyminus' field='quantity' />
+                                                                    <input type='text' name='quantity' value='0' class='qty' />
+                                                                    <input type='button' value='+' class='qtyplus' field='quantity' />
+                                                                  </form>
                                                                   </td>
                                                                   </tr>
                                                                   <?php endforeach; } ?>
