@@ -86,7 +86,8 @@
                       <li class="by-me">
                         <!-- Use the class "pull-left" in avatar -->
                         <div class="avatar pull-left">
-                          <img src="img/user.jpg" alt=""/>
+                          <img src="<?php echo 'profilePhoto/'.getUserImage($feedDetails['u_id'])?>" alt="" height="50" width="50">
+                          
                         </div>
                         <div class="chat-content">
                           <div class="chat-meta"><?php echo "".getUserName($feedDetails['u_id']);?> <span class="pull-right"> <?php echo "".$feedDetails['created_at'];?></span></div>
@@ -204,20 +205,37 @@
 	function getUserName($user_id)
 	{
 		global $conn;
-		if($stmt = $conn->prepare("SELECT name FROM user_guest WHERE user_id = $user_id"))
+		if($stmt = $conn->prepare("SELECT username FROM user_guest WHERE user_id = $user_id"))
 		{
 			//$stmt->bind_result('i',$user_id);
 			$stmt->execute();
 		    $stmt->store_result();
-		    $stmt->bind_result($name);
+		    $stmt->bind_result($username);
 		    $stmt->fetch();
 		    $stmt->close();
-		    return $name;
+		    return $username;
 		}
 		else{
 			echo "Error with User Name selection!";
 		}
 
+	}
+	function getUserImage($user_id)
+	{
+		global $conn;
+		if($stmt = $conn->prepare("SELECT user_image FROM user_guest WHERE user_id = $user_id"))
+		{
+			//$stmt->bind_result('i',$user_id);
+			$stmt->execute();
+		    $stmt->store_result();
+		    $stmt->bind_result($user_image);
+		    $stmt->fetch();
+		    $stmt->close();
+		    return $user_image;
+		}
+		else{
+			echo "Error with image selection!";
+		}
 	}	
 ?>
 <!-- For Modal Form -->
