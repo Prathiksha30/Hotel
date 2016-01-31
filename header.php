@@ -213,3 +213,6 @@ function getUserInfo($user_id)
     <script src="js/form-component.js"></script>
     <!-- custome script for all page -->
     <script src="js/scripts.js"></script>
+    <!-- custome qunatity change button -->
+    <script src="js/custom-quantitybutton.js"></script>
+    
