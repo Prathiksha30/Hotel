@@ -147,6 +147,7 @@ function getUserInfo($user_id)
               <!-- sidebar menu start-->
               <ul class="sidebar-menu">                
                   <li class="active">
+                  
                       <a class="" href="index.php">Feed
                           <i class="icon_house_alt"></i>
                       </a>

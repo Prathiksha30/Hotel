@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('hoteldb.php');
+include('header.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
