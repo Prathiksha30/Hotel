@@ -114,7 +114,7 @@ function getUserdetails($user_id)
                               ?>
                               </h4>               
                               <div class="follow-ava">
-                                  <img src="<?php echo 'upload/'.$name[0]['user_image']; ?>" alt="<?php echo "sorry"?>">
+                                  <img src="<?php echo 'profilePhoto/'.$name[0]['user_image']; ?>" alt="<?php echo "sorry"?>">
                               </div>
                             </div>
                             <div class="col-lg-4 col-sm-4 follow-info">
@@ -306,14 +306,14 @@ function getUserdetails($user_id)
                 } 
             else 
                 {
-                if (file_exists("upload/" . $_FILES["file"]["name"])) 
+                if (file_exists("profilePhoto/" . $_FILES["file"]["name"])) 
                     {
                         echo $_FILES["file"]["name"] . " already exists. ";
                     } 
                 else 
                     {
                         move_uploaded_file($_FILES["file"]["tmp_name"],
-                       "upload/" . $Img);
+                       "profilePhoto/" . $Img);
                     }
                 }
        }       
