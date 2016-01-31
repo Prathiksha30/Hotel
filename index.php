@@ -3,10 +3,8 @@
 	//session_start();
 	include('hoteldb.php');
 ?>
-
-
- <section id="main-content">
-          <section class="wrapper">  
+<section id="main-content">
+ <section class="wrapper">  
 <div class="row">
             <div class="col-lg-12">
             <!-- col-md-4 portlets -->
@@ -15,9 +13,51 @@
 				<div class="panel-heading">
                   <div class="pull-left">Live Feed</div>
                   <div class="widget-icons pull-right">
-                   <!--  <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
-                    <a href="#" class="wclose"><i class="fa fa-times"></i></a> -->
-                  </div>  
+                  <a href="#myModal1" data-toggle="modal" class="btn btn-primary">
+                                  Modal
+                              </a>
+                  </div> 
+                  <!-- FOR THE MODAL -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal1" class="modal fade">
+                                  <div class="modal-dialog">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                              <h4 class="modal-title">Update your information!</h4>
+                                          </div>
+                                          <div class="modal-body">
+
+                                              <form role="form" method="POST" action="">
+                                                  <div class="form-group">
+                                                      <label >Username</label>
+                                                      <input type="text" name="username" placeholder="Choose a username" class="form-control" required>
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label>Email ID: </label>
+                                                      <input type="email" class="form-control" name="emailid" placeholder="Ex: asds@asds.com">
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label >Choose a profile photo: </label>
+                                                      <input type="file" name="file">
+                                                      
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label >Age: </label>
+                                                      <input type="number" name="age" class="form-control" required>
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label class="col-lg-2 control-label">Gender</label>
+                                                      <div class="col-lg-6">
+                                                          <input type="radio" name="sex" value ="male" checked>Male
+                                                          <input type="radio" name="sex" value ="female">Female
+                                                      </div>
+                                                  </div>
+                                                  <input type="submit" name="submit" value="Submit" class="btn btn-success">
+                                              </form>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
                   <div class="clearfix"></div>
                 </div> <br>
                 <div class="panel-body">
@@ -177,4 +217,62 @@
 		}
 
 	}	
+?>
+<!-- For Modal Form -->
+<?php
+if(isset($_POST['submit']))
+ {
+  $username = $_POST['username'];
+  $emailid = $_POST['emailid'];
+  $age= $_POST['age'];
+  $Img=$_FILES["file"]["name"];
+  $gender = $_POST['sex'];
+ ?>
+  <?php   
+  global $conn;
+    if ($stmt = $conn->prepare("UPDATE `user_guest` SET `username`=?, `email_id`=?, `age`=?, `user_image`=?, `gender`=? WHERE `user_id`=?")) 
+      {
+        $stmt->bind_param("ssissi", $username,$emailid,$age,$Img,$gender,$_SESSION['user_id']);
+        $stmt->execute();
+      }
+      else{
+      	echo "Error with insertion";
+      }
+  // header("Location: http://localhost:8080/snappy/profile.php#");
+}
+?>
+<!-- CODE TO UPLOAD THE FILE -->
+ <?php
+
+
+    $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");
+    $temp = explode(".", $_FILES["file"]["name"]); //breaking it into 2
+    $extension = end($temp);
+
+     if ((($_FILES["file"]["type"] == "image/gif")
+     || ($_FILES["file"]["type"] == "image/jpeg")
+     || ($_FILES["file"]["type"] == "image/jpg")
+     || ($_FILES["file"]["type"] == "image/pjpeg")
+     || ($_FILES["file"]["type"] == "image/x-png")
+     || ($_FILES["file"]["type"] == "image/png"))
+     && ($_FILES["file"]["size"] < 1000000)
+     && in_array($extension, $allowedExts)) 
+        {
+            if ($_FILES["file"]["error"] > 0) 
+                {
+                     echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
+                } 
+            else 
+                {
+                if (file_exists("upload/" . $_FILES["file"]["name"])) 
+                    {
+                        echo $_FILES["file"]["name"] . " already exists. ";
+                    } 
+                else 
+                    {
+                        move_uploaded_file($_FILES["file"]["tmp_name"],
+                       "upload/" . $Img);
+                    }
+                }
+       }       
 ?>

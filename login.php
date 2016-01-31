@@ -49,7 +49,7 @@
                 <input type="text" name="roomno" class="form-control" placeholder="Room Number">
             </div>
            
-            <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">Login</button>
+            <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit"> Login </button>
             <!-- <button class="btn btn-info btn-lg btn-block" type="submit">Signup</button> -->
         </div>
       </form>

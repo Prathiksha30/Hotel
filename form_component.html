@@ -691,30 +691,36 @@
                                       <div class="modal-content">
                                           <div class="modal-header">
                                               <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                                              <h4 class="modal-title">Form Tittle</h4>
+                                              <h4 class="modal-title">Update your information!</h4>
                                           </div>
                                           <div class="modal-body">
 
                                               <form role="form">
                                                   <div class="form-group">
-                                                      <label for="exampleInputEmail1">Email address</label>
-                                                      <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Enter email">
+                                                      <label >Username</label>
+                                                      <input type="text" name="username" placeholder="Choose a username" class="form-control" required>
                                                   </div>
                                                   <div class="form-group">
-                                                      <label for="exampleInputPassword1">Password</label>
-                                                      <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password">
+                                                      <label>Email ID: </label>
+                                                      <input type="email" class="form-control" name="emailid" placeholder="Ex: asds@asds.com">
                                                   </div>
                                                   <div class="form-group">
-                                                      <label for="exampleInputFile">File input</label>
-                                                      <input type="file" id="exampleInputFile3">
-                                                      <p class="help-block">Example block-level help text here.</p>
+                                                      <label >Choose a profile photo: </label>
+                                                      <input type="file" name="file">
+                                                      
                                                   </div>
-                                                  <div class="checkbox">
-                                                      <label>
-                                                          <input type="checkbox"> Check me out
-                                                      </label>
+                                                  <div class="form-group">
+                                                      <label >Age: </label>
+                                                      <input type="number" name="age" class="form-control" required>
                                                   </div>
-                                                  <button type="submit" class="btn btn-primary">Submit</button>
+                                                  <div class="form-group">
+                                                      <label class="col-lg-2 control-label">Gender</label>
+                                                      <div class="col-lg-6">
+                                                          <input type="radio" name="sex" value ="male" checked>Male
+                                                          <input type="radio" name="sex" value ="female">Female
+                                                      </div>
+                                                  </div>
+                                                  <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                                               </form>
                                           </div>
                                       </div>
