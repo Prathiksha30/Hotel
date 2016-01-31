@@ -7,7 +7,7 @@
 <?php session_start(); ?>
 <?php
 global $conn;
-if( isset($_SESSION["email"]) && $_SESSION["email"] )
+if( isset($_SESSION["email_id"]) && $_SESSION["email_id"] )
     {
        session_destroy();
       header("Location: login.php");
