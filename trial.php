@@ -34,20 +34,7 @@ include('hoteldb.php'); ?>
   </head>
 
   <body>
-  <form class="form-horizontal" role="form" action="" method="POST"> 
-    <div class="form-group">
-                                                      <label class="col-lg-2 control-label">Image: </label>
-                                                      <div class="col-lg-6">
-                                                          <input type="file" name="file" id="file" size="80">
-                                                      
-                                                      </div>
-                                                  </div> 
-                                                  <div class="form-group">
-                                                      <div class="col-lg-offset-2 col-lg-10">
-                                                      <input type="submit" name="submit" value="Submit" class="btn btn-success">
-                                                      </div>
-                                                  </div>
-                                                  </form>
+ 
      <div class="padd sscroll">
                     <ul class="chats">
        <li class="by-me">
@@ -63,47 +50,218 @@ include('hoteldb.php'); ?>
                           <a href="#comment"> Comment </a>
                       </li> 
                       </ul>
-     </div>   
-     <div id="comment">
-     HI THERE
-      <?php 
-          if($_POST)
-          {
-            global $conn;
-            $comm=$_POST['comm'];
-            if($stmt = $conn->prepare("INSERT INTO comments(comment_text, comment_date) VALUES(?, now())"))
-            {
-              $stmt->bind_param('s', $comm);
-              $stmt->execute();
-              $stmt->close();
-            }
-          }
-      ?>
-       <script>
-       $(document).ready(function()){
-        $('#comm').keyup(function(e))
-        {
-          if(e.keyCode == 13) //enter key
-          {
-            var comm= $('#comm').val()
-            if(comm=="")
-            {
-              alert("Write something...");
-            }
-            else
-            {
-              $(#commentbox).append("<div class=\'commentarea\>"+comm+"</div>");
-              $.post("trial.php", {comm:comm}, function(data))
-              {
+                      <style>
+body
+{
+font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+font-size:12px;
+}
+.main{
+width:450px;
+padding:3px;
+border:1px solid #ececec;
+}
+.status{
+background-color:#D2F2EE;
+width:440px;
+}
 
-              })
-            $('#comm').val("");
-            }
-          }
-        });
-       });
+.comment{
+padding:5px; vertical-align:top; margin-top:2px;
+}
+.comment_but{
+text-align:right;
+padding:3px;
+margin-right:16px;
+}
+.comment_but a{
+text-decoration:none;
+color:#6F88DF;
+font-size:10px;
+}
+.comment_but a:hover{
+text-decoration:underline;
+}
+.new_comment_table
+{
+clear:left;
+float:none;
+overflow:hidden;
+padding:5px 0 4px 5px;
+width:380px;
+font-size:11px;
+margin:1px 0 0 25px;
+}
+.new_comment_row
+{
+background-color:#ECEFF5;
+}
+.new_comment_img
+{
+width:50px;
+margin-top:2px;
+vertical-align:top
+}
+.new_comment_text
+{
+width:300px;
+margin-top:2px;
+vertical-align:top;
+}
+#comm_row{
+display:none;
+background-color:#ECEFF5;
+border-bottom:1px solid #E5EAF1;
+width:350px;
+margin:2px 0 0 40px;
+}
+.comm_input{
+overflow:hidden;
+height:29px;
+margin:5px 5px 0 0;
+min-height:29px;
+width:298px;
+border:1px solid #BDC7D8;
+font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+font-size:11px;
+padding:3px;
+}
+.post_but{
+background:#EEEEEE;
+border-color:#999999 #999999 #888888;
+border-style:solid;
+border-width:1px;
+color:#333333;
+cursor:pointer;
+display:inline-block;
+font-size:11px;
+font-weight:bold;
+line-height:normal !important;
+padding:2px 6px;
+text-align:center;
+text-decoration:none;
+vertical-align:middle;
+white-space:nowrap;
+float:right;
+}
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+ var counter=1;
+ /*Show input box*/
+ $('#comment_but').click(function()
+ {
+  $('#comm_row').slideDown();
+ });
+ 
+ /*Delete the comment*/
+ $('.comment_del_but').live("click",function() 
+ {
+  var ID = $(this).attr("id");
+  if(confirm("Are you sure to delete this Comment?"))
+  {
+   $("#new_comment_table"+ID).slideUp();
+   /*
+    Write AJAX logic for deletion here
+   */
+  }
+ });
+ 
+ /* Post your comment */
+ $('#post_but').click(function()
+ {
+  var comm = $('#comm_input').val();
+  if(comm.length != 0)
+  {
+   /*Disables the input box*/
+      $('#comm_input').attr({'disabled':'true'});
+   /*Disables the post button*/
+      $('#post_but').attr({'disabled':'true'});
+
+   /*Send ajax request*/
+   $.ajax({
+     'url':'post.php','data':'comment='+comm,
+     'type':'POST',
+     'success':function(data)
+     {
+      if(data.length)
+      {
+       /*Create new table for new post*/
+       var htm = '<table class="new_comment_table" id="new_comment_table'+counter+'" align="center">';
+        htm += '<tr class="new_comment_row" id="'+counter+'">';
+     htm += '<td class="new_comment_img" id="new_comment_img"><img src="web.PNG" height="50" width="50"></td>';
+     htm += '<td class="new_comment_text" id="new_comment_text"><b>Arvind : </b>'+ data;
+     htm += '<br /><div class="comment_del_but" id="'+counter+'" align="right""><a href="#">Delete</a></div>';
+     htm += '</td>';
+     htm += '</tr>';
+     htm += '</table>';
+
+       /*Append new table in predefined area*/
+       $('#new_comment_here').append(htm);
+          $('#comm_input').removeAttr('disabled');
+          $('#post_but').removeAttr('disabled');
+       counter++;
+    }
+   }
+   });
+  }
+
+ });
+});
 </script>
-     </div>                                          
+</head>
+
+<body>
+
+<div>
+<a href="http://www.webspeaks.in">Webspeaks.in</a>
+<a href="http://arvind-bh.blogspot.com">
+ <img src="http://www.logomaker.com/logo-images/ba3c91fee33721fb.gif"/ width="200" height="120" title="Web Speaks">
+</a>
+</div>
+
+<table border="0" cellpadding="0" cellspacing="0" class="main">
+ <tr class="status">
+  <td>
+   <table>
+   <tr>
+    <td class="comment" ><img src="web.PNG" height="50" width="50"></td>
+    <td class="comment"><b>Arvind : </b>Facebook like comment post with jquery. This Tutorial shows how to post facebook like comments with jquery & PHP.</td>
+   </tr>
+   <tr>
+    <td colspan="2" class="comment_but">
+     <a href="#" id="comment_but">Comment</a>
+    </td>
+   </tr>
+   </table>
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2" id="new_comment_here">
+  
+  </td>
+ </tr>
+ <tr class="comm_row" id="comm_row" align="center">
+  <td colspan="2" align="center">
+  <textarea class="comm_input" id="comm_input"></textarea><br/>
+  <button class="post_but" id="post_but">Comment!</button>
+  </td>
+ </tr>
+</table>
+</body>
+</html>
+     </div>   
+               <?php
+$comment=$_POST['comment'];
+if($comment!="")
+{
+// mysql_query("insert into comments (`comm`) values ('$comment')");
+ echo "$comment";
+}
+?>       
   </body>
   </html>
   <?php 
