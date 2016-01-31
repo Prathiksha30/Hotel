@@ -1,19 +1,17 @@
 <?php session_start(); ?>
 <?php 
-/*function getUSerName($emailId)
+/*function getUserImage($emailId)
   {
-    if($stmt = $conn->prepare("SELECT name, user_image FROM user_guest WHERE email_id= ? "))
+    if($stmt = $conn->prepare("SELECT user_image FROM user_guest WHERE email_id= ? "))
     {
       $stmt->bind_param('s',$emailId);
       $stmt->execute();
-          $stmt->bind_result($name, $img);
-          while ($stmt->fetch())
-            {
-                  $rows = array('name' => $name, 'user_image' => $img);
-              }
-          $stmt->close();
-          return $rows;
-          }
+      $stmt->store_result();
+      $stmt->bind_result($img);
+      $stmt->fetch();
+      $stmt->close();
+      return $img;
+    }
       else 
         {
           printf("Error message: %s\n", $conn->error);
@@ -91,13 +89,12 @@
             <div class="top-nav notification-row">                
                 <!-- notificatoin dropdown start-->
                 <ul class="nav pull-right top-menu">
-                   
+                  
                     <!-- user login dropdown start-->
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="profile-ava">
-                                <img alt="" src="<?php 
-                                echo 'profilePhoto/'.$rows['img'];?>">
+                               
                             </span>
                             <span class="username"> <?php echo "".$_SESSION['name'] ?></span>
                             <b class="caret"></b>

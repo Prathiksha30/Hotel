@@ -68,12 +68,12 @@
 	    $room = $_POST['roomno'];
 	 	//echo "hi";
 
-	 if($stmt = $conn->prepare("SELECT user_id, name, user_image FROM user_guest WHERE email_id= ?"))
+	 if($stmt = $conn->prepare("SELECT user_id, name FROM user_guest WHERE email_id= ?"))
 	 {
 	 	$stmt->bind_param('s', $email_id);
 		$stmt->execute();
 		$stmt->store_result();
-		$stmt->bind_result($user_id, $name, $img);
+		$stmt->bind_result($user_id, $name);
 		$stmt->fetch();
 		if($stmt->num_rows > 0)
 		{
@@ -82,7 +82,6 @@
 			$_SESSION['name']=$name;
             $_SESSION['user_id']=$user_id;
 			//var_dump($name);
-            $_SESSION['user_image']=$img;
             $_SESSION['roomno']=$room;
 			
 			header("location:login_success.php");
