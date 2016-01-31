@@ -74,7 +74,7 @@ function getUserInfo($user_id)
             </div>
 
            <!--logo start-->
-     <a href="index.php" class="logo">AMIGO DE<span class="lite">HOTEL</span></a>
+     <a href="index.php" class="logo">AMIGO DE <span class="lite">HOTEL</span></a>
             <!--logo end-->
 
             <div class="nav search-row" id="top_menu">
