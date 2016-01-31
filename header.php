@@ -2,14 +2,14 @@
 <?php 
 /*function getUSerName($emailId)
   {
-    if($stmt = $conn->prepare("SELECT user_id, name, image FROM user_guest WHERE email_id= ? "))
+    if($stmt = $conn->prepare("SELECT name, user_image FROM user_guest WHERE email_id= ? "))
     {
       $stmt->bind_param('s',$emailId);
       $stmt->execute();
-          $stmt->bind_result($name, $image);
+          $stmt->bind_result($name, $img);
           while ($stmt->fetch())
             {
-                  $rows = array('name' => $name, 'image' => $image);
+                  $rows = array('name' => $name, 'user_image' => $img);
               }
           $stmt->close();
           return $rows;
@@ -73,7 +73,7 @@
             </div>
 
             <!--logo start-->
-            <a href="index.html" class="logo">Nice <span class="lite">Admin</span></a>
+            <a href="index.html" class="logo"> Hotel <span class="lite"> Hotel</span></a>
             <!--logo end-->
 
             <div class="nav search-row" id="top_menu">
@@ -96,7 +96,8 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="profile-ava">
-                                <img alt="" src="img/avatar1_small.jpg">
+                                <img alt="" src="<?php 
+                                echo 'profilePhoto/'.$rows['img'];?>">
                             </span>
                             <span class="username"> <?php echo "".$_SESSION['name'] ?></span>
                             <b class="caret"></b>

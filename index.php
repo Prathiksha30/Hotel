@@ -18,9 +18,7 @@
 				<div class="panel-heading">
                   <div class="pull-left">Live Feed</div>
                   <div class="widget-icons pull-right">
-                  <a href="#myModal1" data-toggle="modal" class="btn btn-primary">
-                                  Modal
-                              </a>
+                 
                   </div> 
                   <!-- FOR THE MODAL -->
     <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal1" class="modal fade">
@@ -32,7 +30,7 @@
                                           </div>
                                           <div class="modal-body">
 
-                                              <form role="form" method="POST" action="">
+                                              <form role="form" method="POST" action="" enctype="multipart/form-data">
                                                   <div class="form-group">
                                                       <label >Username</label>
                                                       <input type="text" name="username" placeholder="Choose a username" class="form-control" required>
@@ -43,7 +41,7 @@
                                                   </div>
                                                   <div class="form-group">
                                                       <label >Choose a profile photo: </label>
-                                                      <input type="file" name="file">
+                                                      <input type="file" name="file" id="file">
                                                       
                                                   </div>
                                                   <div class="form-group">
@@ -95,7 +93,6 @@
                           <?php echo $feedDetails['feed_text']; ?>
                           <div class="clearfix"></div>
                         </div>
-                          <a> Comment </a>
                       </li> 
                       <!-- Chat by other. Use the class "by-other". -->
                      <!--  <li class="by-other">
@@ -237,7 +234,7 @@ if(isset($_POST['submit']))
   global $conn;
     if ($stmt = $conn->prepare("UPDATE `user_guest` SET `username`=?, `email_id`=?, `age`=?, `user_image`=?, `gender`=? WHERE `user_id`=?")) 
       {
-        $stmt->bind_param("ssissi", $username,$emailid,$age,$Img,$gender,$_SESSION['user_id']);
+        $stmt->bind_param("ssissi", $username, $emailid, $age, $Img, $gender, $_SESSION['user_id']);
         $stmt->execute();
       }
       else{
@@ -251,7 +248,7 @@ if(isset($_POST['submit']))
 
 
     $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");
-    $temp = explode(".", $_FILES["file"]["name"]); //breaking it into 2
+    $temp = explode(".", $_FILES["file"]["name"]); //gets file name
     $extension = end($temp);
 
      if ((($_FILES["file"]["type"] == "image/gif")
@@ -269,14 +266,14 @@ if(isset($_POST['submit']))
                 } 
             else 
                 {
-                if (file_exists("upload/" . $_FILES["file"]["name"])) 
+                if (file_exists("profilePhoto/" . $_FILES["file"]["name"])) 
                     {
                         echo $_FILES["file"]["name"] . " already exists. ";
                     } 
                 else 
                     {
                         move_uploaded_file($_FILES["file"]["tmp_name"],
-                       "upload/" . $Img);
+                       "profilePhoto/".$Img);
                     }
                 }
        }       
