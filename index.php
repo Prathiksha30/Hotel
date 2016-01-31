@@ -3,6 +3,11 @@
 	//session_start();
 	include('hoteldb.php');
 ?>
+<script type="text/javascript">
+    $(window).load(function(){
+        $('#myModal1').modal('show');
+    });
+</script>
 <section id="main-content">
  <section class="wrapper">  
 <div class="row">
