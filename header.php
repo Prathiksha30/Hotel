@@ -1,25 +1,4 @@
 <?php session_start(); ?>
-<?php 
-/*function getUSerName($emailId)
-  {
-    if($stmt = $conn->prepare("SELECT user_id, name, image FROM user_guest WHERE email_id= ? "))
-    {
-      $stmt->bind_param('s',$emailId);
-      $stmt->execute();
-          $stmt->bind_result($name, $image);
-          while ($stmt->fetch())
-            {
-                  $rows = array('name' => $name, 'image' => $image);
-              }
-          $stmt->close();
-          return $rows;
-          }
-      else 
-        {
-          printf("Error message: %s\n", $conn->error);
-        }
-   }  */
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -118,7 +97,7 @@
                   <li class="active">
                       <a class="" href="index.php">
                           <i class="icon_house_alt"></i>
-                          <span>Feed</span>
+                          <span><a href="index.php">Feed</span>
                       </a>
                   </li>
                   <li>
@@ -132,7 +111,7 @@
                   <li>
                       <a href="" class="">
                           <i class="icon_desktop"></i>
-                          <span>Services</span>
+                          <span><a href="services.php">Services</span>
                          
                       </a>
                      
@@ -140,13 +119,13 @@
                   <li>
                       <a class="" href="widgets.html">
                           <i class="icon_genius"></i>
-                          <span>Events</span>
+                          <span><a href="events.php">Events</span>
                       </a>
                   </li>
                   <li>                     
                       <a class="" href="profile.php">
                           <i class="icon_piechart"></i>
-                          <span>My Profile</span>
+                          <span><a href="gprofile.php">My Profile</span>
                           
                       </a>
                                          
