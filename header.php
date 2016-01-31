@@ -1,4 +1,25 @@
-<?php session_start(); ?>
+<?php
+session_start();
+include('hoteldb.php');
+function getUserInfo($user_id)
+{
+    global $conn;
+    if ($stmt = $conn->prepare("SELECT name,user_image FROM `user_guest` WHERE user_id = ?"))
+        {
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $stmt->bind_result($name,$user_image);
+        while ($stmt->fetch()) {
+          $rows[] = array('name' => $name,'user_image' => $user_image);
+        }
+        $stmt->close();
+        return $rows;
+    }
+    else {
+        printf("Error message: %s\n", $conn->error);
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,8 +73,8 @@
                 <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
             </div>
 
-            <!--logo start-->
-            <a href="index.html" class="logo"> Hotel <span class="lite"> Hotel</span></a>
+           <!--logo start-->
+     <a href="index.php" class="logo">AMIGO DE<span class="lite">HOTEL</span></a>
             <!--logo end-->
 
             <div class="nav search-row" id="top_menu">
@@ -71,23 +92,53 @@
             <div class="top-nav notification-row">                
                 <!-- notificatoin dropdown start-->
                 <ul class="nav pull-right top-menu">
-                  
                     <!-- user login dropdown start-->
+               
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="profile-ava">
-                               
+                            <span class="follow-ava">
+                              
+                             <!-- IMAGE COMES HERE-->
+                              
                             </span>
-                            <span class="username"> <?php echo "".$_SESSION['name'] ?></span>
+                            <span class="username">
+                            <?php
+                                $name = getUserInfo($_SESSION['user_id']);
+                                echo $name[0]['name'];
+                              ?>
+                            </span>
                             <b class="caret"></b>
                         </a>
-                        
-                    </li> 
+                       <ul class="dropdown-menu extended logout">
+                            <div class="log-arrow-up"></div>
+                            <li class="eborder-top">
+                                <a href="profile.php"><i class="icon_profile"></i> My Profile</a>
+                            </li>
+                            <li>
+                                <a href="index.php"><i class="icon-dashboard-l"></i>Feeds</a>
+                            </li>
+                            <li>
+                                <a href="services.php"><i class="icon-task-l"></i> Services</a>
+                            </li>
+                            <!-- <li>
+                                <a href="#"><i class="icon_chat_alt"></i> Chats</a>
+                            </li> -->
+                            <li>
+                                <a href="logout.php"><i class="icon-login-l "></i> Log Out</a>
+                            </li>
+                            <!-- <li>
+                                <a href="documentation.html"><i class="icon_key_alt"></i> Documents</a>
+                            </li> -->
+                           <!--  <li>
+                                <a href="documentation.html"><i class="icon_key_alt"></i> Documentation</a>
+                            </li> -->
+                        </ul>
+                    </li>
                     <!-- user login dropdown end -->
                 </ul>
                 <!-- notificatoin dropdown end-->
             </div>
-      </header>      
+      </header>
       <!--header end-->
 
       <!--sidebar start-->
@@ -96,38 +147,29 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu">                
                   <li class="active">
-                      <a class="" href="index.php">
+                      <a class="" href="index.php">Feed
                           <i class="icon_house_alt"></i>
-                          <span><a href="index.php">Feed</span>
                       </a>
                   </li>
                   <li>
-                      <a href="" class="">
-                          <i class="icon_document_alt"></i>
-                          <span>Chat</span>
-                          
+                      <a href="#" class="">Chat
+                          <i class="icon_document_alt"></i>                          
                       </a>
                       
                   </li>       
                   <li>
-                      <a href="" class="">
-                          <i class="icon_desktop"></i>
-                          <span><a href="services.php">Services</span>
-                         
-                      </a>
-                     
+                      <a href="services.php" class="">Services
+                          <i class="icon_desktop"></i>                         
+                      </a>                     
                   </li>
                   <li>
-                      <a class="" href="widgets.html">
-                          <i class="icon_genius"></i>
-                          <span><a href="events.php">Events</span>
+                      <a class="#" href="widgets.html">Events
+                          <i class="icon_genius"></i>                          
                       </a>
                   </li>
                   <li>                     
-                      <a class="" href="profile.php">
-                          <i class="icon_piechart"></i>
-                          <span><a href="gprofile.php">My Profile</span>
-                          
+                      <a class="profile.php" href="profile.php">My Profile
+                          <i class="icon_piechart"></i>                                                  
                       </a>
                                          
                   </li>

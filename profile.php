@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('hoteldb.php');
+include("header.php");
 
 function getUserNameandRoom($user_id)
 {
@@ -283,12 +284,36 @@ function getUserdetails($user_id)
 
   </body>
 </html>
-<!-- START CODE TO UPLOAD THE FILE -->
-  <?php
+<?php
+
+if(isset($_POST['submit']))
+ {
+  $name = $_POST['guestname'];
+  $ph_no = $_POST['mobileno'];
+  $username = $_POST['username'];
+  $email_id = $_POST['emailid'];
+  $age= $_POST['age'];
+  $Img=$_FILES["file"]["name"];
+  $gender = $_POST['sex'];
+ ?>
+  <?php   
+  global $conn;
+    if ($stmt = $conn->prepare("UPDATE `user_guest` SET `name`=?,`username`=?, `email_id`=?,`ph_no`=?, `age`=?, `user_image`=?, `gender`=? WHERE `user_id`=?")) 
+      {
+        $stmt->bind_param("ssssissi", $name, $username, $email_id, $ph_no, $age, $Img, $gender, $_SESSION['user_id']);
+        $stmt->execute();
+      }
+      else{
+        echo "Error with insertion";
+      }
+}
+?>
+<!-- CODE TO UPLOAD THE FILE -->
+ <?php
 
 
     $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");
-    $temp = explode(".", $_FILES["file"]["name"]); //breaking it into 2
+    $temp = explode(".", $_FILES["file"]["name"]); //gets file name
     $extension = end($temp);
 
      if ((($_FILES["file"]["type"] == "image/gif")
@@ -313,33 +338,8 @@ function getUserdetails($user_id)
                 else 
                     {
                         move_uploaded_file($_FILES["file"]["tmp_name"],
-                       "profilePhoto/" . $Img);
+                       "profilePhoto/".$Img);
                     }
                 }
        }       
 ?>
-<!-- END CODE TO UPLOAD THE FILE -->
-<?php
-
- if(isset($_POST['submit']))
- {
-  $name = $_POST['guestname'];
-  $username = $_POST['username'];
-  $emailid = $_POST['emailid'];
-  $mobileno = $_POST['mobileno'];
-  $age= $_POST['age'];
-  $Img = $_FILES["file"]["name"];
-  $gender = $_POST['sex'];
- ?>
-  <script type='text/javascript'>alert("Your personal details have been updated. Your name, room number, email id and mobile number will be hidden from other guests");
-    window.location.href = "profile.php"
-  </script>";
-  <?php   
-  global $conn;
-    if ($stmt = $conn->prepare("UPDATE `user_guest` SET `name`=?,`username`=?,`email_id`=?,`ph_no`=?,`age`=?,`user_image`=?,`gender`=? WHERE `user_id`=?")) 
-      {
-        $stmt->bind_param("ssssissi", $name,$username,$emailid,$mobileno,$age,$Img,$gender,$_SESSION['user_id']);
-        $stmt->execute();
-      }
-  // header("Location: http://localhost:8080/snappy/profile.php#");
-}
