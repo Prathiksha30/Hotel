@@ -47,6 +47,6 @@ $(".qtyminus").click(function(e) {
     price = $('input[name='+item_price+']').val();
     if (!totalamount)
         totalamount = 0;
-    totalamount = parseInt(totalamount) + parseInt(price);
+    totalamount = parseInt(totalamount) - parseInt(price);
     document.getElementById("cartTotal").innerHTML = totalamount;
 }); 
