@@ -124,7 +124,7 @@ include('header.php');
                                             <div class="radiobutton">
                                                   <label>
                                                       <input type="radio" name="req" value="Refil the minifridge" >
-                                                      Refil the minifridge
+                                                      Refill the minifridge
                                                   </label>
                                             </div>
                                             <div class="col-sm-10"> Comment:
@@ -155,6 +155,10 @@ include('header.php');
                                                   <a class="btn btn-info popovers" data-toggle="modal" href="#myModal3">
                                                       Snacks and Drinks
                                                   </a>
+                                                  <div>
+                                                    <label class="col-lg-2 control-label">Total Bill Amount: </label>
+                                                    <label id="cartTotal">0</label>
+                                                  </div>
                                                   <!-- Modal -->
                                                   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                       <div class="modal-dialog">
@@ -169,16 +173,18 @@ include('header.php');
                                                                 <th>Price</th>
                                                                 <?php
                                                                   if (!is_null(getMenu('breakfast'))) {
-                                                                    foreach (getMenu('breakfast') as $key => $menu ):
+                                                                    foreach (getMenu('breakfast') as $key1 => $menu ):
                                                                 ?>
                                                                   <tr>
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_name']; ?> </td>
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
                                                                   <td>
-                                                                  <form id='myform' method='POST' action='#'>
-                                                                    <input type='button' value='-' class='qtyminus' field='quantity_<?php echo $key; ?>' />
-                                                                    <input type='text' name='quantity_<?php echo $key; ?>' value='0' class='qty'/>
-                                                                    <input type='button' value='+' class='qtyplus' field='quantity_<?php echo $key; ?>'/>
+                                                                  <form id='myform' method='POST' action=''>
+                                                                    <input type ='hidden' class="item_name" value=<?php echo $menu['fooditem_name']; ?> field='item_name_<?php echo $key1; ?>' name="item_name_<?php echo $key1; ?>"/>
+                                                                    <input type ='hidden' class="price_quantity_<?php echo $key1; ?>" value=<?php echo $menu['fooditem_price']; ?> field='price_quantity_<?php echo $key1; ?>' name="price_quantity_<?php echo $key1; ?>"/>
+                                                                    <input type='button' value='-' class='qtyminus' field='quantity_<?php echo $key1; ?>' />
+                                                                    <input type='text' name='quantity_<?php echo $key1; ?>' value='0' class='qty' />
+                                                                    <input type='button' value='+' class='qtyplus' field='quantity_<?php echo $key1; ?>' />
                                                                   </form>
                                                                   </td>
                                                                     <!-- <div class="btn-group no-pad item-count">
@@ -212,16 +218,18 @@ include('header.php');
                                                                 <th>Price</th>
                                                                 <?php
                                                                  if (!is_null(getMenu('lunch'))) {
-                                                                  foreach (getMenu('lunch') as $menu ):
+                                                                  foreach (getMenu('lunch') as $key2 => $menu ):
                                                               ?>
                                                                   <tr>
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_name']; ?> </td>
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
                                                                   <td>
-                                                                  <form id='myform' method='POST' action='#'>
-                                                                    <input type='button' value='-' class='qtyminus' field='quantity' />
-                                                                    <input type='text' name='quantity' value='0' class='qty' />
-                                                                    <input type='button' value='+' class='qtyplus' field='quantity' />
+                                                                  <form id='myform' method='POST' action=''>
+                                                                    <input type ='hidden' class="item_name" value=<?php echo $menu['fooditem_name']; ?> field='item_name1_<?php echo $key2; ?>' name="item_name1_<?php echo $key2; ?>"/>
+                                                                    <input type ='hidden' class="price_quantity1_<?php echo $key2; ?>" value=<?php echo $menu['fooditem_price']; ?> field='price_quantity1_<?php echo $key2; ?>' name="price_quantity1_<?php echo $key2; ?>"/>
+                                                                    <input type='button' value='-' class='qtyminus' field='quantity1_<?php echo $key2; ?>' />
+                                                                    <input type='text' name='quantity1_<?php echo $key2; ?>' value='0' class='qty' />
+                                                                    <input type='button' value='+' class='qtyplus' field='quantity1_<?php echo $key2; ?>' />
                                                                   </form>
                                                                   </td>
                                                                   </tr>
@@ -250,16 +258,18 @@ include('header.php');
                                                                 <th>Price</th>
                                                                 <?php
                                                                  if (!is_null(getMenu('dinner'))) {
-                                                                  foreach (getMenu('dinner') as $menu ):
+                                                                  foreach (getMenu('dinner') as $key3 => $menu ):
                                                               ?>
                                                                   <tr>
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_name']; ?> </td>
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
                                                                   <td>
-                                                                  <form id='myform' method='POST' action='#'>
-                                                                    <input type='button' value='-' class='qtyminus' field='quantity' />
-                                                                    <input type='text' name='quantity' value='0' class='qty' />
-                                                                    <input type='button' value='+' class='qtyplus' field='quantity' />
+                                                                  <form id='myform' method='POST' action=''>
+                                                                    <input type ='hidden' class="item_name" value=<?php echo $menu['fooditem_name']; ?> field='item_name2_<?php echo $key3; ?>' name="item_name2_<?php echo $key3; ?>"/>
+                                                                    <input type ='hidden' class="price_quantity2_<?php echo $key3; ?>" value=<?php echo $menu['fooditem_price']; ?> field='price_quantity2_<?php echo $key3; ?>' name="price_quantity2_<?php echo $key3; ?>"/>
+                                                                    <input type='button' value='-' class='qtyminus' field='quantity2_<?php echo $key3; ?>' />
+                                                                    <input type='text' name='quantity2_<?php echo $key3; ?>' value='0' class='qty' />
+                                                                    <input type='button' value='+' class='qtyplus' field='quantity2_<?php echo $key3; ?>' />
                                                                   </form>
                                                                   </td>
                                                                   </tr>
@@ -288,16 +298,18 @@ include('header.php');
                                                                 <th>Price</th>
                                                                 <?php
                                                                  if (!is_null(getMenu('snacks&drinks'))) {
-                                                                  foreach (getMenu('snacks&drinks') as $menu ):
+                                                                  foreach (getMenu('snacks&drinks') as $key4 => $menu ):
                                                               ?>
                                                                   <tr>
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_name']; ?> </td>
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
                                                                   <td>
-                                                                  <form id='myform' method='POST' action='#'>
-                                                                    <input type='button' value='-' class='qtyminus' field='quantity' />
-                                                                    <input type='text' name='quantity' value='0' class='qty' />
-                                                                    <input type='button' value='+' class='qtyplus' field='quantity' />
+                                                                  <form id='myform' method='POST' action=''>
+                                                                    <input type ='hidden' value=<?php echo $menu['fooditem_name']; ?> id='item_name'/>
+                                                                    <input type ='hidden' value=<?php echo $menu['fooditem_price']; ?> id='item_price'/>
+                                                                    <input type='button' value='-' class='qtyminus' field='quantity3_<?php echo $key4; ?>' />
+                                                                    <input type='text' name='quantity_<?php echo $key4; ?>' value='0' class='qty' />
+                                                                    <input type='button' value='+' class='qtyplus' field='quantity3_<?php echo $key4; ?>' />
                                                                   </form>
                                                                   </td>
                                                                   </tr>
@@ -368,7 +380,7 @@ include('header.php');
       <!--main content end-->
   </section>
   <!-- container section end -->
-   
+    <script src="js/custom-quantitybutton.js"></script>
     
   </body>
 </html>
@@ -409,3 +421,7 @@ if(isset($_POST['submit']))
     $stmt->execute();
   }
 }
+?>
+<!--<script>
+$cart=$('.qty').val()*
+</script>-->

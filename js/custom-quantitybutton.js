@@ -1,3 +1,4 @@
+var totalamount;
 $('.qtyplus').click(function(e){
     // Stop acting like a button
     e.preventDefault();
@@ -13,7 +14,17 @@ $('.qtyplus').click(function(e){
         // Otherwise put a 0 there
         $('input[name='+fieldName+']').val(0);
     }
+
+    item_price = $(".price_"+fieldName).attr('field');
+    // Get its current value
+    price = $('input[name='+item_price+']').val();
+    if (!totalamount)
+        totalamount = 0;
+    totalamount = parseInt(totalamount) + parseInt(price);
+    document.getElementById("cartTotal").innerHTML = totalamount;
 });
+
+
 // This button will decrement the value till 0
 $(".qtyminus").click(function(e) {
     // Stop acting like a button
@@ -30,4 +41,12 @@ $(".qtyminus").click(function(e) {
         // Otherwise put a 0 there
         $('input[name='+fieldName+']').val(0);
     }
-});
+
+    item_price = $(".price_"+fieldName).attr('field');
+    // Get its current value
+    price = $('input[name='+item_price+']').val();
+    if (!totalamount)
+        totalamount = 0;
+    totalamount = parseInt(totalamount) - parseInt(price);
+    document.getElementById("cartTotal").innerHTML = totalamount;
+}); 
