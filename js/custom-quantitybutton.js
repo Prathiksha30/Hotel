@@ -13,6 +13,12 @@ $('.qtyplus').click(function(e){
         // Otherwise put a 0 there
         $('input[name='+fieldName+']').val(0);
     }
+    var item_name = document.getElementById("item_name").getAttribute("value");
+    var item_price = document.getElementById("item_price").getAttribute("value");
+    var totalamount= $totalamount + ($item_price * $currentVal);
+    document.getElementById("cartTotal").innerHTML = $totalamount;
+
+
 });
 // This button will decrement the value till 0
 $(".qtyminus").click(function(e) {
@@ -30,4 +36,9 @@ $(".qtyminus").click(function(e) {
         // Otherwise put a 0 there
         $('input[name='+fieldName+']').val(0);
     }
-});
+    var item_name = document.getElementById("item_name").getAttribute("value");
+    var item_price = document.getElementById("item_price").getAttribute("value");
+    var totalamount= $totalamount + ($item_price * $currentVal);
+    document.getElementById("cartTotal").innerHTML = $totalamount;
+
+}); 
