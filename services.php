@@ -180,11 +180,11 @@ include('header.php');
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
                                                                   <td>
                                                                   <form id='myform' method='POST' action=''>
-                                                                    <!-- <input type ='hidden' value=<?php echo $menu['fooditem_name']; ?> id='item_name'/>
-                                                                    <input type ='hidden' value=<?php echo $menu['fooditem_price']; ?> id='item_price'/> -->
+                                                                    <input type ='hidden' class="item_name" value=<?php echo $menu['fooditem_name']; ?> field='item_name_<?php echo $key1; ?>' name="item_name_<?php echo $key1; ?>"/>
+                                                                    <input type ='hidden' class="price_quantity_<?php echo $key1; ?>" value=<?php echo $menu['fooditem_price']; ?> field='price_quantity_<?php echo $key1; ?>' name="price_quantity_<?php echo $key1; ?>"/>
                                                                     <input type='button' value='-' class='qtyminus' field='quantity_<?php echo $key1; ?>' />
-                                                                    <input type='text' name='quantity_<?php echo $key1; ?>' value='0' class=' qty'/>
-                                                                    <input type='button' value='+' class='qtyplus' field='quantity_<?php echo $key1; ?>'/>
+                                                                    <input type='text' name='quantity_<?php echo $key1; ?>' value='0' class='qty' />
+                                                                    <input type='button' value='+' class='qtyplus' field='quantity_<?php echo $key1; ?>' />
                                                                   </form>
                                                                   </td>
                                                                     <!-- <div class="btn-group no-pad item-count">
@@ -225,8 +225,8 @@ include('header.php');
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
                                                                   <td>
                                                                   <form id='myform' method='POST' action=''>
-                                                                     <input type ='hidden' value=<?php echo $menu['fooditem_name']; ?> id='item_name'/>
-                                                                    <input type ='hidden' value=<?php echo $menu['fooditem_price']; ?> id='item_price'/>
+                                                                    <input type ='hidden' class="item_name" value=<?php echo $menu['fooditem_name']; ?> field='item_name1_<?php echo $key2; ?>' name="item_name1_<?php echo $key2; ?>"/>
+                                                                    <input type ='hidden' class="price_quantity1_<?php echo $key2; ?>" value=<?php echo $menu['fooditem_price']; ?> field='price_quantity1_<?php echo $key2; ?>' name="price_quantity1_<?php echo $key2; ?>"/>
                                                                     <input type='button' value='-' class='qtyminus' field='quantity1_<?php echo $key2; ?>' />
                                                                     <input type='text' name='quantity1_<?php echo $key2; ?>' value='0' class='qty' />
                                                                     <input type='button' value='+' class='qtyplus' field='quantity1_<?php echo $key2; ?>' />
@@ -265,8 +265,8 @@ include('header.php');
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
                                                                   <td>
                                                                   <form id='myform' method='POST' action=''>
-                                                                    <input type ='hidden' value=<?php echo $menu['fooditem_name']; ?> id='item_name'/>
-                                                                    <input type ='hidden' value=<?php echo $menu['fooditem_price']; ?> id='item_price'/>
+                                                                    <input type ='hidden' class="item_name" value=<?php echo $menu['fooditem_name']; ?> field='item_name2_<?php echo $key3; ?>' name="item_name2_<?php echo $key3; ?>"/>
+                                                                    <input type ='hidden' class="price_quantity2_<?php echo $key3; ?>" value=<?php echo $menu['fooditem_price']; ?> field='price_quantity2_<?php echo $key3; ?>' name="price_quantity2_<?php echo $key3; ?>"/>
                                                                     <input type='button' value='-' class='qtyminus' field='quantity2_<?php echo $key3; ?>' />
                                                                     <input type='text' name='quantity2_<?php echo $key3; ?>' value='0' class='qty' />
                                                                     <input type='button' value='+' class='qtyplus' field='quantity2_<?php echo $key3; ?>' />
