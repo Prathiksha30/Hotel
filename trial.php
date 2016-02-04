@@ -146,72 +146,8 @@ float:right;
 }
 </style>
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function()
-{
- var counter=1;
- /*Show input box*/
- $('#comment_but').click(function()
- {
-  $('#comm_row').slideDown();
- });
- 
- /*Delete the comment*/
- $('.comment_del_but').live("click",function() 
- {
-  var ID = $(this).attr("id");
-  if(confirm("Are you sure to delete this Comment?"))
-  {
-   $("#new_comment_table"+ID).slideUp();
-   /*
-    Write AJAX logic for deletion here
-   */
-  }
- });
- 
- /* Post your comment */
- $('#post_but').click(function()
- {
-  var comm = $('#comm_input').val();
-  if(comm.length != 0)
-  {
-   /*Disables the input box*/
-      $('#comm_input').attr({'disabled':'true'});
-   /*Disables the post button*/
-      $('#post_but').attr({'disabled':'true'});
 
-   /*Send ajax request*/
-   $.ajax({
-     'url':'post.php','data':'comment='+comm,
-     'type':'POST',
-     'success':function(data)
-     {
-      if(data.length)
-      {
-       /*Create new table for new post*/
-       var htm = '<table class="new_comment_table" id="new_comment_table'+counter+'" align="center">';
-        htm += '<tr class="new_comment_row" id="'+counter+'">';
-     htm += '<td class="new_comment_img" id="new_comment_img"><img src="web.PNG" height="50" width="50"></td>';
-     htm += '<td class="new_comment_text" id="new_comment_text"><b>Arvind : </b>'+ data;
-     htm += '<br /><div class="comment_del_but" id="'+counter+'" align="right""><a href="#">Delete</a></div>';
-     htm += '</td>';
-     htm += '</tr>';
-     htm += '</table>';
 
-       /*Append new table in predefined area*/
-       $('#new_comment_here').append(htm);
-          $('#comm_input').removeAttr('disabled');
-          $('#post_but').removeAttr('disabled');
-       counter++;
-    }
-   }
-   });
-  }
-
- });
-});
-</script>
 </head>
 
 <body>
