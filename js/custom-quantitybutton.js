@@ -1,4 +1,5 @@
 var totalamount;
+var totalitems=[];
 $('.qtyplus').click(function(e){
     // Stop acting like a button
     e.preventDefault();
@@ -22,6 +23,17 @@ $('.qtyplus').click(function(e){
         totalamount = 0;
     totalamount = parseInt(totalamount) + parseInt(price);
     document.getElementById("cartTotal").innerHTML = totalamount;
+
+    item_name = $(".name_"+fieldName).attr('field');
+    name = $('input[name='+item_name+']').val();
+    if (!totalitems)
+        totalitems=[];
+    totalitems=totalitems+" "+name;
+    // var indexOfTotalItems=totalitems.length - 1;
+    // alert(indexOfTotalItems);
+    // totalitems = totalitems.splice(parseInt(indexOfTotalItems),0,name);
+    document.getElementById("cartBill").innerHTML = "<div class='bg-info'>"+totalitems+"</div><br/>";
+
 });
 
 
@@ -44,9 +56,13 @@ $(".qtyminus").click(function(e) {
 
     item_price = $(".price_"+fieldName).attr('field');
     // Get its current value
-    price = $('input[name='+item_price+']').val();
-    if (!totalamount)
-        totalamount = 0;
-    totalamount = parseInt(totalamount) - parseInt(price);
-    document.getElementById("cartTotal").innerHTML = totalamount;
+    if (currentVal != 0)
+    {
+        price = $('input[name='+item_price+']').val();
+        if (!totalamount)
+            totalamount = 0;
+        totalamount = parseInt(totalamount) - parseInt(price);
+        document.getElementById("cartTotal").innerHTML = totalamount;
+    }
+    
 }); 

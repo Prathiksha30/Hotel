@@ -18,9 +18,16 @@
 				<div class="panel-heading">
                   <div class="pull-left">Live Feed</div>
                   <div class="widget-icons pull-right">
-                 
+                 	
                   </div> 
+    <?php
+    incrementNumberOfVisits();
+    ?>
                   <!-- FOR THE MODAL -->
+    <?php
+    if (getVisitNumber() == '1')
+    {
+    ?>
     <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal1" class="modal fade">
                                   <div class="modal-dialog">
                                       <div class="modal-content">
@@ -60,7 +67,11 @@
                                           </div>
                                       </div>
                                   </div>
-                              </div>
+    </div>	
+    <?php
+    }
+    ?>
+    
                   <div class="clearfix"></div>
                 </div> <br>
                 <div class="panel-body">
@@ -183,6 +194,20 @@
 ?>
 <!-- Fetching Feed data. WORKS! -->
 <?php
+	function incrementNumberOfVisits()
+	{
+		global $conn;
+	    $rows = array();
+	    if($stmt = $conn->prepare("UPDATE `user_guest` SET numberOfVisits=numberOfVisits+1 WHERE user_id=?"))
+	    {
+	      $stmt->bind_param("s", $_SESSION['user_id']);
+	      $stmt->execute();
+	    }
+	    else
+	    {
+	      printf("Error message: %s\n", $conn->error);
+	    }
+	}
 	
 	function getFeedDetails()
 	{
@@ -259,6 +284,24 @@ if(isset($_POST['submit']))
       	echo "Error with insertion";
       }
   // header("Location: http://localhost:8080/snappy/profile.php#");
+}
+function getVisitNumber()
+{
+	global $conn;
+    if ($stmt = $conn->prepare("SELECT `numberOfVisits` FROM `user_guest` WHERE `user_id`=?")) 
+      {
+        $stmt->bind_param("s",$_SESSION['user_id']);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($numberOfVisits);
+        $stmt->fetch();
+        $stmt->close();
+        return $numberOfVisits;
+      }
+      else
+      {
+      	echo "Error with select";
+      }
 }
 ?>
 <!-- CODE TO UPLOAD THE FILE -->
