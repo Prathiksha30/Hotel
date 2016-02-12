@@ -31,21 +31,22 @@
                               <th><center>Name</center></th>
                               <th><center>Request</center></th>
                               <th><center>Time of Request</center></th>
-                              <?php 
-                               if (!is_null(getPendingServices('pending'))) {
-                              foreach (getPendingServices('pending') as $pendingServices):
-                              ?>
-                          <tr>
-                                <td>
-                                <?php 
-                                   echo $pendingServices['service_id'];
+                               <?php /*if (!is_null(getPendingServices('pending'))) {*/
+                             /* foreach (getPendingServices('pending') as $pendingServices):*/ ?>
+                              <tr>
+                              <td>  </td>
+                              <td> Hi ther </td>
+                              <td> Hi the </td>
+                              <td> Hi th </td>
+                              </tr>
+                          <?php /*endforeach; */ ?>
+                       		  </tbody>
+                       		  
+                          </table>
+                          <?php 
+                                   echo "".getPendingServices('pending');
 
                                   ?>
-                                  </td>
-                              </tr>
-                          <?php endforeach; }?>
-                       		  </tbody>
-                          </table>
                       </section>
                 </div>
 </div>
@@ -82,26 +83,12 @@ function getPendingServices($status)
 			$rows[] = array('service_id' => $service_id, 'dept_id' => $dept_id, 'user_id' => $user_id, 'room_no' => $room_no, 'status' => $status, 'message' => $message, 'request_time' => $request_time );
 		}
 		$stmt->close();
-		/*print_r($rows);*/
-		return $rows;
+		print_r($rows);
+		/*return $rows;*/
 	}
 	else {
         printf("Error message: %s\n", $conn->error);
     }
-	// if($stmt = $conn->prepare("SELECT service_id FROM user_services WHERE status= ?"))
-	// {
-	// 	$stmt->bind_param("s", $status);
-	// 	$stmt->execute();
-	//     $stmt->store_result();
-	//     $stmt->bind_result($service_id);
-	//     $stmt->fetch();
-	//     $stmt->close();
-	//     return $service_id;
-	// }
-	// else {
- //        printf("Error message: %s\n", $conn->error);
- //    }
-
 }
 function getCompletedServices()
 {
@@ -120,5 +107,23 @@ function getCompletedServices()
         printf("Error message: %s\n", $conn->error);
     }
 }
+function getRoomNumber()
+	{
+		global $conn;
+		if($stmt = $conn->prepare("SELECT room_no FROM user_services WHERE status = 'pending'"))
+		{
+			//$stmt->bind_result('i',$user_id);
+			$stmt->execute();
+		    $stmt->store_result();
+		    $stmt->bind_result($room_no);
+		    $stmt->fetch();
+		    $stmt->close();
+		    return $room_no;
+		}
+		else{
+			echo "Error with Room Number selection!";
+		}
 
+	}
+	
 ?>
