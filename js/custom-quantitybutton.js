@@ -29,13 +29,19 @@ $('.qtyplus').click(function(e){
     name = $('input[name='+item_name+']').val();
     if (!totalitems)
         totalitems=[];
-    totalitems=totalitems+" "+name;
+    totalitems.push(name);
     // result=find_duplicates(totalitems);
+    //  for (var i = 0; i < totalitems.lenght-1 ,i++)
+    // {
+    //     document.getElementById("cartBill").innerHTML = "<td>"+totalitems[i]+"</td>";
+    // }
     // for (var i=0; i<result.lenght-1,i++)
     // {
     //     document.getElementById("cartBill").innerHTML = "<td>"+result[i]+"</td>";
     // }
-     document.getElementById("cartBill").innerHTML = "<td>"+totalitems+"</td><td>"+price+"</td>";
+    var i=0;
+    for (i; i<totalitems.legth; i++)
+      document.getElementById("cartBill").innerHTML = "<td>"+totalitems[i]+"</td><td>"+price+"</td>";
 
 });
 // function find_duplicates(arr) {
@@ -84,5 +90,19 @@ $(".qtyminus").click(function(e) {
         totalamount = parseInt(totalamount) - parseInt(price);
         document.getElementById("cartTotal").innerHTML = totalamount;
     }
+    // item_name = $(".name_"+fieldName).attr('field');
+    // name = $('input[name='+item_name+']').val();
+    // if (!totalitems)
+    //     totalitems=[];
+    // for(var i=0; i<totalitems.length;i++)
+    // {
+    //     if(name==totalitems[i])
+    //     {
+    //         for(var j=i;j<totalitems.length-1;j++)
+    //         {
+    //             totalitems[j]=totalitems[j+1];
+    //         }
+    //     }
+    // }
     
 }); 
