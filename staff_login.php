@@ -47,7 +47,7 @@
                     <input type="password" name="password" class="form-control" placeholder="Password" maxlength="20" minlength="6" >
                 </div>
                 <div>
-                    <button class="btn btn-primary btn-lg btn-block" type="submit" name ="login" value="send">Login</button>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" name ="Login" value="Login">Login</button>
                 </div>
                 <div>
                     <a class="btn btn-info btn-lg btn-block" data-toggle="modal" href="#myModal">Signup</a>           
@@ -142,40 +142,110 @@
 </html>
 
 <?php
-    $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");
-    $temp = explode(".", $_FILES["file"]["name"]); //gets file name
-    $extension = end($temp);
-
-     if ((($_FILES["file"]["type"] == "image/gif")
-     || ($_FILES["file"]["type"] == "image/jpeg")
-     || ($_FILES["file"]["type"] == "image/jpg")
-     || ($_FILES["file"]["type"] == "image/pjpeg")
-     || ($_FILES["file"]["type"] == "image/x-png")
-     || ($_FILES["file"]["type"] == "image/png"))
-     && ($_FILES["file"]["size"] < 1000000)
-     && in_array($extension, $allowedExts)) 
+global $conn;
+    if (isset($_POST['Login'])) 
+    {
+        $email_id=$_POST['email'];
+        $password = $_POST['password'];
+        if($stmt = $conn->prepare("SELECT email_id,name,dept_id,s_id FROM user_staff WHERE email_id= ? AND password= ?"))
+     {
+        $stmt->bind_param('ss', $email_id,$password);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($email_id, $name, $dept_id, $s_id);
+        $stmt->fetch();
+        if($stmt->num_rows > 0)
         {
-            if ($_FILES["file"]["error"] > 0) 
-                {
-                     echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
-                } 
-            else 
-                {
-                if (file_exists("profilePhoto/" . $_FILES["file"]["name"])) 
-                    {
-                        echo $_FILES["file"]["name"] . " already exists. ";
-                    } 
-                else 
-                    {
-                        move_uploaded_file($_FILES["file"]["tmp_name"],
-                       "profilePhoto/".$staffImg);
-                    }
-                }
-       } 
+            
+            $_SESSION['staffEmail_id']=$email_id;
+            $_SESSION['StaffName']=$name;
+            $_SESSION['Staff_id']=$s_id;
+            //var_dump($name);
+            $_SESSION['dept_id']=$dept_id;
+            
+            header("location:login_success.php");
+        }
+        else
+        {
+            echo "Wrong Email ID and Room Number";
+            //header("location:login.php");
+        }
+        $stmt->close();
+     }
+    }
+        
+?>
+<?php
+    // $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");
+    // $temp = explode(".", $_FILES["file"]["name"]); //gets file name
+    // $extension = end($temp);
+
+    //  if ((($_FILES["file"]["type"] == "image/gif")
+    //  || ($_FILES["file"]["type"] == "image/jpeg")
+    //  || ($_FILES["file"]["type"] == "image/jpg")
+    //  || ($_FILES["file"]["type"] == "image/pjpeg")
+    //  || ($_FILES["file"]["type"] == "image/x-png")
+    //  || ($_FILES["file"]["type"] == "image/png"))
+    //  && ($_FILES["file"]["size"] < 1000000)
+    //  && in_array($extension, $allowedExts)) 
+    //     {
+    //         if ($_FILES["file"]["error"] > 0) 
+    //             {
+    //                  echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
+    //             } 
+    //         else 
+    //             {
+    //             if (file_exists("profilePhoto/" . $_FILES["file"]["name"])) 
+    //                 {
+    //                     echo $_FILES["file"]["name"] . " already exists. ";
+    //                 } 
+    //             else 
+    //                 {
+    //                     move_uploaded_file($_FILES["file"]["tmp_name"],
+    //                    "profilePhoto/".$staffImg);
+    //                 }
+    //             }
+    //    } 
 ?>
 <?php      
 	global $conn;
-    // if (isset($_POST['sumbit']))
+    	if (isset($_POST['Login'])) 
+	{
+	    // $email_id=$_POST['email'];
+	    // $password = $_POST['password'];
+        ?>
+        <script>
+        alert ('hello');
+        </script>
+        <?php
+  //       if($stmt = $conn->prepare("SELECT email_id, name, dept_id FROM user_staff WHERE email_id= ? AND password= ?"))
+	 // {
+	 // 	$stmt->bind_param('ss', $email_id,$password);
+		// $stmt->execute();
+		// $stmt->store_result();
+		// $stmt->bind_result($email_id,$name,$dept_id);
+		// $stmt->fetch();
+		// if($stmt->num_rows > 0)
+		// {
+			
+		// 	$_SESSION['staffEmail_id']=$email_id;
+		// 	$_SESSION['staffName']=$name;
+  //           $_SESSION['staffDept']=$dept_id;			
+		// 	header("location:login_success.php");
+		// }
+		// else
+		// {
+		// 	echo "Wrong Email ID and Room Number";
+		// 	//header("location:login.php");
+		// }
+		// $stmt->close();
+	//  }
+	}
+		
+?>
+
+<?php
+// if (isset($_POST['sumbit']))
     // {
     //     $staffName=$_POST['name'];
     //     $staffEmaiID=$_POST['emailid'];
@@ -213,39 +283,5 @@
         //     $stmt->bind_param("ssissi", $staffName, $staffEmaiID, $staffPassword, $staffImg, $staffMobno, $staffAge, $staffGender);
         //     $stmt->execute();
         // }
-    }
-	if (isset($_POST['login'])) 
-	{
-	    $email_id=$_POST['email'];
-	    $password = $_POST['password'];
-        // $crypted_password = crypt($password);
-	 	//echo "hi";
-
-	 if($stmt = $conn->prepare("SELECT email_id, password FROM user_staff WHERE email_id= ? AND password= ?"))
-	 {
-	 	$stmt->bind_param('ss', $email_id,$password);
-		$stmt->execute();
-		$stmt->store_result();
-		$stmt->bind_result($user_id, $name);
-		$stmt->fetch();
-		if($stmt->num_rows > 0)
-		{
-			
-			$_SESSION['email_id']=$email_id;
-			$_SESSION['name']=$name;
-            $_SESSION['user_id']=$user_id;
-			//var_dump($name);
-            $_SESSION['roomno']=$room;
-			
-			header("location:login_success.php");
-		}
-		else
-		{
-			echo "Wrong Email ID and Room Number";
-			//header("location:login.php");
-		}
-		$stmt->close();
-	 }
-	}
-		
+ //   }
 ?>
