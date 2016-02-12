@@ -1,5 +1,6 @@
 var totalamount;
 var totalitems=[];
+var result=[];
 $('.qtyplus').click(function(e){
     // Stop acting like a button
     e.preventDefault();
@@ -29,12 +30,31 @@ $('.qtyplus').click(function(e){
     if (!totalitems)
         totalitems=[];
     totalitems=totalitems+" "+name;
-    // var indexOfTotalItems=totalitems.length - 1;
-    // alert(indexOfTotalItems);
-    // totalitems = totalitems.splice(parseInt(indexOfTotalItems),0,name);
-     document.getElementById("cartBill").innerHTML = "<div><td>"+totalitems+" </td><td>  "+(price*(currentVal+1))+"</td><br><div>";
+    // result=find_duplicates(totalitems);
+    // for (var i=0; i<result.lenght-1,i++)
+    // {
+    //     document.getElementById("cartBill").innerHTML = "<td>"+result[i]+"</td>";
+    // }
+     document.getElementById("cartBill").innerHTML = "<td>"+totalitems+"</td><td>"+price+"</td>";
 
 });
+// function find_duplicates(arr) {
+//   var len=arr.length,
+//       out=[],
+//       counts={};
+
+//   for (var i=0;i<len;i++) {
+//     var item = arr[i];
+//     counts[item] = counts[item] >= 1 ? counts[item] + 1 : 1;
+//   }
+
+//   for (var item in counts) {
+//     if(counts[item] > 1)
+//       out.push(item);
+//   }
+
+//   return out;
+// }
 
 
 // This button will decrement the value till 0

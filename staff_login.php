@@ -47,7 +47,7 @@
                     <input type="password" name="password" class="form-control" placeholder="Password" maxlength="20" minlength="6" >
                 </div>
                 <div>
-                    <button class="btn btn-primary btn-lg btn-block" type="submit" name ="Login" value="Login">Login</button>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit"> Login </button>
                 </div>
                 <div>
                     <a class="btn btn-info btn-lg btn-block" data-toggle="modal" href="#myModal">Signup</a>           
@@ -98,7 +98,7 @@
                                             </div>
                                         </div>
                                         
-                                        <input type="submit" name="submit" value="submit" class="btn btn-success">
+                                        <input type="submit" name="submit1" value="submit" class="btn btn-success">
                                     </form>
                                 </div>
                             </div>
@@ -143,7 +143,7 @@
 
 <?php
 global $conn;
-    if (isset($_POST['Login'])) 
+    if (isset($_POST['submit'])) 
     {
         $email_id=$_POST['email'];
         $password = $_POST['password'];
