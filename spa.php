@@ -64,7 +64,7 @@
                           </header>
                            <div class="panel-body">
                               <div class="form">
-                                  <form class="form-validate form-horizontal" id="feedback_form" method="get" action="">
+                                  <form class="form-validate form-horizontal" id="feedback_form" method="POST" action="">
                                       <div class="form-group ">
                                           <label for="cname" class="control-label col-lg-2">Full Name <span class="required">*</span></label>
                                           <div class="col-lg-10">
@@ -72,32 +72,38 @@
                                           </div>
                                       </div>
                                       <div class="form-group ">
-                                          <label for="cemail" class="control-label col-lg-2">E-Mail <span class="required">*</span></label>
+                                          <label for="cemail" class="control-label col-lg-2">Room Number<span class="required">*</span></label>
                                           <div class="col-lg-10">
-                                              <input class="form-control " id="cemail" type="email" name="email" required />
+                                              <input class="form-control " id="rno" type="number" name="roomno" required />
                                           </div>
                                       </div>
                                       <div class="form-group ">
-                                          <label for="curl" class="control-label col-lg-2">Website</label>
+                                          <label for="curl" class="control-label col-lg-2">Select your treatment</label>
                                           <div class="col-lg-10">
-                                              <input class="form-control " id="curl" type="url" name="url" />
-                                          </div>
+                                          <select class="form-control m-bot15" name="treatment">
+                                              <option value="Facial">Facial</option>
+                                              <option value="Massage">Massage</option>
+                                              <option value="Sauna">Sauna</option>
+                                              <option value="Head Massage">Head Massage</option> 
+                                              <option value="Other">Other</option>
+                                          </select>
+                                              <!-- <input class="form-control " id="curl" type="url" name="url" /> -->
+                                          </div
                                       </div>
-                                      <div class="form-group ">
-                                          <label for="cname" class="control-label col-lg-2">Subject <span class="required">*</span></label>
-                                          <div class="col-lg-10">
-                                              <input class="form-control" id="subject" name="subject" minlength="5" type="text" required />
+                                                                         
+                                      <div class="form-group">
+                                              <label class="control-label col-sm-2">Pick your date: </label>
+                                              <div class="col-sm-6">
+                                                  <div class="input-append date " id="dpYears" data-date=""
+                                                       data-date-format="dd-mm-yyyy " data-date-viewmode="years">
+                                                      <input class="form-control" size="16" type="date" name="datepick" value="<?php echo date('Y-m-d'); ?>" > <!-- PHP shows today's date -->
+                                                      <span class="add-on" ><i class="glyphicon glyphicon-calendar"></i></span>
+                                                  </div>
+                                              </div>
                                           </div>
-                                      </div>                                      
-                                      <div class="form-group ">
-                                          <label for="ccomment" class="control-label col-lg-2">Feedback</label>
-                                          <div class="col-lg-10">
-                                              <textarea class="form-control " id="ccomment" name="comment" required></textarea>
-                                          </div>
-                                      </div>
                                       <div class="form-group">
                                           <div class="col-lg-offset-2 col-lg-10">
-                                              <button class="btn btn-primary" type="submit">Save</button>
+                                              <button class="btn btn-primary" type="submit" name="request">Request</button>
                                               <button class="btn btn-default" type="button">Cancel</button>
                                           </div>
                                       </div>
@@ -107,3 +113,36 @@
                           </div>
     </div>
 </section>
+
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+
+        weekStart: 1,
+        todayBtn:  1,
+        /*setDate: new Date(),*/
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1,
+        startDate: new Date() //To disable past dates
+    });
+    </script>
+<?php 
+global $conn;
+if(isset($_POST['request']))
+{
+  $roomno=$_POST['roomno'];
+  $msg=$_POST['treatment'];
+  $datepick=$_POST['datepick'];
+  if($stmt = $conn->prepare("INSERT INTO user_services(dept_id, user_id, room_no, status, message, request_time) VALUES('3', '2', ?, 'Pending', ?, ?) "))
+  {
+    $stmt->bind_param('iss', $roomno, $msg, $datepick);
+    $stmt->execute();
+    $stmt->close();
+  }
+  else{
+    echo "Error with in insertion";
+  }
+}
+?>

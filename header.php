@@ -62,6 +62,9 @@ function getUserInfo($user_id)
       <script src="js/respond.min.js"></script>
       <script src="js/lte-ie7.js"></script>
     <![endif]-->
+<!-- FOR DATETIMEPICKER -->
+    
+    <link href="bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
   </head>
    <body>
   <!-- container section start -->
@@ -215,4 +218,8 @@ function getUserInfo($user_id)
     <script src="js/scripts.js"></script>
     <!-- custome qunatity change button -->
     <script src="js/custom-quantitybutton.js"></script>
-    
+    <script type="text/javascript" src="./jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>
+
+
+<script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>

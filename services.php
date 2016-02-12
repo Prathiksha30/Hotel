@@ -363,7 +363,43 @@ include('header.php');
                                      <!-- swiggy code ends here -->
                                   </div>
                                   <div id="Recreation_LeisureServices" class="tab-pane">
-                                      page 3
+                                       <img src="img/rec.jpg" height="300" width="1126">
+                                      <br> <br>
+                                      <div class="row">
+                                      <div class="col-lg-4">
+                                       <div class="panel panel-default">
+                              <div class="panel-heading">
+                                  <h4 class="panel-title">
+                                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                          Recreation and Leisure 
+                                      </a>
+                                  </h4>
+                              </div>
+                              <div id="collapseOne" class="panel-collapse collapse in">
+                                  <div class="panel-body">
+                                      The Hotel offers a variety of options for indoor and outdoor swimming, plus a sports complex featuring, basketball, volleyball, and tennis courts.
+There are engaging activities that guests of all ages will enjoy - miles of hiking trails, Segway tours, falconry, and much more!
+                                  </div>
+                              </div>
+                          </div>
+                                     </div> 
+
+                                    <div class="col-lg-2">
+                      <section class="panel">
+                          <div class="panel-body">Pool Facilities</div>
+                      </section>
+                  </div>
+                  <div class="col-lg-2">
+                      <section class="panel">
+                          <div class="panel-body">Fitness Centre </div>
+                      </section>
+                  </div>
+                  <div class="col-lg-2">
+                      <section class="panel">
+                          <div class="panel-body"> <a href="spa.php"> Spa Facilities </a> </div>
+                      </section>
+                  </div>
+                                     </div>
                                   </div>                                  
                                   <div id="TransportaionFacility" class="tab-pane">
                                       page 4
