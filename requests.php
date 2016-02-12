@@ -32,17 +32,18 @@
                               <th><center>Request</center></th>
                               <th><center>Time of Request</center></th>
                               <?php 
-                              foreach (getPendingServices() as $pendingServices):
+                               if (!is_null(getPendingServices('pending'))) {
+                              foreach (getPendingServices('pending') as $pendingServices):
                               ?>
                           <tr>
                                 <td>
                                 <?php 
-                                   echo $pendingServices['room_no'];
+                                   echo $pendingServices['service_id'];
 
                                   ?>
                                   </td>
                               </tr>
-                          <?php endforeach; ?>
+                          <?php endforeach; }?>
                        		  </tbody>
                           </table>
                       </section>
@@ -69,11 +70,12 @@ function getUserDetails($user_id)
         printf("Error message: %s\n", $conn->error);
     }
 }
-function getPendingServices()
+function getPendingServices($status)
 {
 	global $conn;
-	if($stmt = $conn->prepare("SELECT * FROM user_services WHERE status= 'pending' "))
+	if($stmt = $conn->prepare("SELECT * FROM user_services WHERE status= ?"))
 	{
+		$stmt->bind_param("s", $status);
 		$stmt->execute();
 		$stmt->bind_result($service_id, $dept_id, $user_id, $room_no, $status, $message, $request_time);
 		while ($stmt->fetch) {
@@ -86,6 +88,20 @@ function getPendingServices()
 	else {
         printf("Error message: %s\n", $conn->error);
     }
+	// if($stmt = $conn->prepare("SELECT service_id FROM user_services WHERE status= ?"))
+	// {
+	// 	$stmt->bind_param("s", $status);
+	// 	$stmt->execute();
+	//     $stmt->store_result();
+	//     $stmt->bind_result($service_id);
+	//     $stmt->fetch();
+	//     $stmt->close();
+	//     return $service_id;
+	// }
+	// else {
+ //        printf("Error message: %s\n", $conn->error);
+ //    }
+
 }
 function getCompletedServices()
 {
