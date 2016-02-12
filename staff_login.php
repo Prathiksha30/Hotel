@@ -147,7 +147,7 @@ global $conn;
     {
         $email_id=$_POST['email'];
         $password = $_POST['password'];
-        if($stmt = $conn->prepare("SELECT email_id,name,dept_id,s_id FROM user_staff WHERE email_id= ? AND password= ?"))
+        if($stmt = $conn->prepare("SELECT email_id, name, dept_id, s_id FROM user_staff WHERE email_id= ? AND password= ?"))
      {
         $stmt->bind_param('ss', $email_id,$password);
         $stmt->execute();

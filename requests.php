@@ -32,21 +32,20 @@
                               <th><center>Request</center></th>
                               <th><center>Time of Request</center></th>
                                <?php /*if (!is_null(getPendingServices('pending'))) {*/
-                             /* foreach (getPendingServices('pending') as $pendingServices):*/ ?>
+                              foreach (getPendingServices('pending') as $pendingServices): ?>
                               <tr>
-                              <td>  </td>
-                              <td> Hi ther </td>
-                              <td> Hi the </td>
-                              <td> Hi th </td>
+                              <td>   <?php 
+                                   echo $pendingServices['room_no'];
+
+                                  ?> </td>
+                              <td> Test </td>
+                              
                               </tr>
-                          <?php /*endforeach; */ ?>
+                          <?php endforeach;  ?>
                        		  </tbody>
                        		  
                           </table>
-                          <?php 
-                                   echo "".getPendingServices('pending');
-
-                                  ?>
+                        
                       </section>
                 </div>
 </div>
@@ -71,6 +70,7 @@ function getUserDetails($user_id)
         printf("Error message: %s\n", $conn->error);
     }
 }
+/* THIS IS NOT WORKING !*/
 function getPendingServices($status)
 {
 	global $conn;
@@ -83,8 +83,8 @@ function getPendingServices($status)
 			$rows[] = array('service_id' => $service_id, 'dept_id' => $dept_id, 'user_id' => $user_id, 'room_no' => $room_no, 'status' => $status, 'message' => $message, 'request_time' => $request_time );
 		}
 		$stmt->close();
-		print_r($rows);
-		/*return $rows;*/
+		/*print_r($rows);*/
+		return $rows;
 	}
 	else {
         printf("Error message: %s\n", $conn->error);
