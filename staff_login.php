@@ -175,38 +175,38 @@
 ?>
 <?php      
 	global $conn;
-    if (isset($_POST['sumbit']))
-    {
-        $staffName=$_POST['name'];
-        $staffEmaiID=$_POST['emailid'];
-        $staffPassword=crypt($_POST['password']);
-        $staffImg=$_FILES["file"]["name"];
-        $staffMobno=$_POST['mobile'];
-        $staffAge=$_POST['age'];
-        $staffGender=$_POST['sex'];
-        $staffDepartment=strtolower($_POST['dept_name']);
-        // echo $staffName;
-        // echo $staffEmaiID;
-        // echo $staffPassword;
-        // echo $staffImg;
-        // echo $staffMobno;
-        // echo $staffAge;
-        // echo $staffGender;
-        // echo $staffDepartment;
-        if($stmt = $conn->prepare("SELECT `d_id` FROM `department` WHERE d_name=$staffDepartment"))
-        {
-            $stmt->execute();
-            $stmt->store_result();
-            $stmt->bind_result($staffDepartmentID);
-            $stmt->fetch();
-            $stmt->close();
-            // return $staffDepartmentID;
-            echo $staffDepartmentID;
-        }
-        else
-        {
-            echo "Error with getting department id!";
-        }
+    // if (isset($_POST['sumbit']))
+    // {
+    //     $staffName=$_POST['name'];
+    //     $staffEmaiID=$_POST['emailid'];
+    //     $staffPassword=crypt($_POST['password']);
+    //     $staffImg=$_FILES["file"]["name"];
+    //     $staffMobno=$_POST['mobile'];
+    //     $staffAge=$_POST['age'];
+    //     $staffGender=$_POST['sex'];
+    //     $staffDepartment=strtolower($_POST['dept_name']);
+    //     // echo $staffName;
+    //     // echo $staffEmaiID;
+    //     // echo $staffPassword;
+    //     // echo $staffImg;
+    //     // echo $staffMobno;
+    //     // echo $staffAge;
+    //     // echo $staffGender;
+    //     // echo $staffDepartment;
+    //     if($stmt = $conn->prepare("SELECT `d_id` FROM `department` WHERE d_name=$staffDepartment"))
+    //     {
+    //         $stmt->execute();
+    //         $stmt->store_result();
+    //         $stmt->bind_result($staffDepartmentID);
+    //         $stmt->fetch();
+    //         $stmt->close();
+    //         // return $staffDepartmentID;
+    //         echo $staffDepartmentID;
+    //     }
+    //     else
+    //     {
+    //         echo "Error with getting department id!";
+    //     }
 
         // if($stmt = $conn->prepare("UPDATE `user_staff` SET name, email_id, password, profile_pic, ph_no, age, gender"))
         // {
@@ -214,38 +214,38 @@
         //     $stmt->execute();
         // }
     }
-	// if (isset($_POST['login'])) 
-	// {
-	//     $email_id=$_POST['email'];
-	//     $password = $_POST['password'];
- //        // $crypted_password = crypt($password);
-	//  	//echo "hi";
+	if (isset($_POST['login'])) 
+	{
+	    $email_id=$_POST['email'];
+	    $password = $_POST['password'];
+        // $crypted_password = crypt($password);
+	 	//echo "hi";
 
-	//  if($stmt = $conn->prepare("SELECT email_id, password FROM user_staff WHERE email_id= ? AND password= ?"))
-	//  {
-	//  	$stmt->bind_param('ss', $email_id);
-	// 	$stmt->execute();
-	// 	$stmt->store_result();
-	// 	$stmt->bind_result($user_id, $name);
-	// 	$stmt->fetch();
-	// 	if($stmt->num_rows > 0)
-	// 	{
+	 if($stmt = $conn->prepare("SELECT email_id, password FROM user_staff WHERE email_id= ? AND password= ?"))
+	 {
+	 	$stmt->bind_param('ss', $email_id,$password);
+		$stmt->execute();
+		$stmt->store_result();
+		$stmt->bind_result($user_id, $name);
+		$stmt->fetch();
+		if($stmt->num_rows > 0)
+		{
 			
-	// 		$_SESSION['email_id']=$email_id;
-	// 		$_SESSION['name']=$name;
- //            $_SESSION['user_id']=$user_id;
-	// 		//var_dump($name);
- //            $_SESSION['roomno']=$room;
+			$_SESSION['email_id']=$email_id;
+			$_SESSION['name']=$name;
+            $_SESSION['user_id']=$user_id;
+			//var_dump($name);
+            $_SESSION['roomno']=$room;
 			
-	// 		header("location:login_success.php");
-	// 	}
-	// 	else
-	// 	{
-	// 		echo "Wrong Email ID and Room Number";
-	// 		//header("location:login.php");
-	// 	}
-	// 	$stmt->close();
-	//  }
-	// }
+			header("location:login_success.php");
+		}
+		else
+		{
+			echo "Wrong Email ID and Room Number";
+			//header("location:login.php");
+		}
+		$stmt->close();
+	 }
+	}
 		
 ?>
