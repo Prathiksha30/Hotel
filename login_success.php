@@ -1,6 +1,6 @@
 <?php 
 	session_start();
-	if(!isset($_SESSION['email_id']) || !isset($_SESSION['staffEmail_id']))
+	if(!isset($_SESSION['email_id']))
 	{
 		header("Location:login.php"); 
 	}

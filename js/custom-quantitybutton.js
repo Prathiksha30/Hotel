@@ -1,5 +1,6 @@
 var totalamount;
 var totalitems=[];
+var result=[];
 $('.qtyplus').click(function(e){
     // Stop acting like a button
     e.preventDefault();
@@ -28,13 +29,38 @@ $('.qtyplus').click(function(e){
     name = $('input[name='+item_name+']').val();
     if (!totalitems)
         totalitems=[];
-    totalitems=totalitems+" "+name;
-    // var indexOfTotalItems=totalitems.length - 1;
-    // alert(indexOfTotalItems);
-    // totalitems = totalitems.splice(parseInt(indexOfTotalItems),0,name);
-     document.getElementById("cartBill").innerHTML = "<div><td>"+totalitems+" </td><td>  "+(price*(currentVal+1))+"</td><br><div>";
+    totalitems.push(name);
+    // result=find_duplicates(totalitems);
+    //  for (var i = 0; i < totalitems.lenght-1 ,i++)
+    // {
+    //     document.getElementById("cartBill").innerHTML = "<td>"+totalitems[i]+"</td>";
+    // }
+    // for (var i=0; i<result.lenght-1,i++)
+    // {
+    //     document.getElementById("cartBill").innerHTML = "<td>"+result[i]+"</td>";
+    // }
+    var i=0;
+    for (i; i<totalitems.legth; i++)
+      document.getElementById("cartBill").innerHTML = "<td>"+totalitems[i]+"</td><td>"+price+"</td>";
 
 });
+// function find_duplicates(arr) {
+//   var len=arr.length,
+//       out=[],
+//       counts={};
+
+//   for (var i=0;i<len;i++) {
+//     var item = arr[i];
+//     counts[item] = counts[item] >= 1 ? counts[item] + 1 : 1;
+//   }
+
+//   for (var item in counts) {
+//     if(counts[item] > 1)
+//       out.push(item);
+//   }
+
+//   return out;
+// }
 
 
 // This button will decrement the value till 0
@@ -64,5 +90,19 @@ $(".qtyminus").click(function(e) {
         totalamount = parseInt(totalamount) - parseInt(price);
         document.getElementById("cartTotal").innerHTML = totalamount;
     }
+    // item_name = $(".name_"+fieldName).attr('field');
+    // name = $('input[name='+item_name+']').val();
+    // if (!totalitems)
+    //     totalitems=[];
+    // for(var i=0; i<totalitems.length;i++)
+    // {
+    //     if(name==totalitems[i])
+    //     {
+    //         for(var j=i;j<totalitems.length-1;j++)
+    //         {
+    //             totalitems[j]=totalitems[j+1];
+    //         }
+    //     }
+    // }
     
 }); 

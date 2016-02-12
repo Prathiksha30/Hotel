@@ -180,7 +180,7 @@ include('header.php');
                                                                 <th>Item</th>
                                                                 <th>Price</th>
                                                                 <?php
-                                                                  if (!is_null(getMenu('breakfast'))) {
+                                                                if (!is_null(getMenu('breakfast'))) {
                                                                     foreach (getMenu('breakfast') as $key => $menu ):
                                                                 ?>
                                                                   <tr>
