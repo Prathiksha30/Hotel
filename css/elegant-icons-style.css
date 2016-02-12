@@ -1118,6 +1118,42 @@ you can use the generic selector below, but it's slower:
 .icon_clipboard:before {
 	content: "\e0e6";
 }
+.glyphicon-remove-sign:before {
+  content: "\e083";
+}
+.glyphicon-remove-circle:before {
+  content: "\e088";
+}
+.glyphicon-floppy-remove:before {
+  content: "\e174";
+}
+.glyphicon-remove:before {
+  content: "\e014";
+}
+.glyphicon-remove-sign:before {
+  content: "\e083";
+}
+.glyphicon-remove-circle:before {
+  content: "\e088";
+}
+.glyphicon-floppy-remove:before {
+  content: "\e174";
+}
+.glyphicon-remove:before {
+  content: "\e014";
+}
+.glyphicon-remove-sign:before {
+  content: "\e083";
+}
+.glyphicon-remove-circle:before {
+  content: "\e088";
+}
+.glyphicon-floppy-remove:before {
+  content: "\e174";
+}
+.glyphicon-remove:before {
+  content: "\e014";
+}
 
 
 	.glyph {
