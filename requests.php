@@ -36,10 +36,20 @@
                               <tr>
                               <td>   <?php 
                                    echo $pendingServices['room_no'];
-
-                                  ?> </td>
-                              <td> Test </td>
-                              
+                                   ?> </td>
+                              <td>  <?php 
+                              $name=getUserDetails($pendingServices['user_id']);
+                                   echo $name;
+                                   ?></td>
+                               <td>   <?php 
+                                   echo $pendingServices['message'];
+                                   ?> </td>
+                                    <td>   <?php 
+                                   echo $pendingServices['request_time'];
+                                   ?> </td>
+                                   <form method="POST">
+                                   <td>  <button class="btn btn-success" type="submit" value="Completed" name="submit">Completed </td> </form>
+                                           
                               </tr>
                           <?php endforeach;  ?>
                        		  </tbody>
@@ -48,6 +58,55 @@
                         
                       </section>
                 </div>
+               
+                	 <a data-toggle="modal" href="#myModal" title="Click to view the number of services completed!">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="info-box dark-bg">
+                        <i class="fa fa-thumbs-o-up"></i>
+                        
+                    <div class="count"> </div>
+
+                        <div class="title">Completed</div>
+                    </div><!--/.info-box-->
+                </div><!--/.col-->
+                </a>
+                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                              <h4 class="modaltitleP">Details</h4>
+                          </div>
+                          <div class="modalbodyP">
+                            <table>
+                                    <th style="padding:5px;"> Room Number </th>
+                                    <th style="padding:5px;"> Service </th>
+                              		<th style="padding:5px;"> Date & Time </th>
+                              <?php  foreach (getCompletedServices() as $completedServices):
+                              ?>
+                              
+                                    <tr>
+                                    <td style="padding:5px;">
+                                    -- <?php echo "".$completedServices['room_no'];?>--
+                                    </td>                                    
+                                    <td style="padding:5px;">
+                                    --<?php echo "".$completedServices['message'];?>--
+                                    </td>
+                                    <td style="padding:5px;">
+                                   --<?php echo "".$completedServices['request_time'];?>--
+                                    </td>                                                                 
+                                    </tr>                                 
+                                <?php  endforeach;
+                              ?>
+                            </table>
+                          </div>
+                          <div class="modal-footer">
+                              <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                              <!-- <button class="btn btn-success" type="button">Save changes</button> -->
+                          </div>
+                      </div>
+                  </div>
+              </div>
 </div>
 </section>
 </html>
