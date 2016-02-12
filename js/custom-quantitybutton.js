@@ -32,7 +32,7 @@ $('.qtyplus').click(function(e){
     // var indexOfTotalItems=totalitems.length - 1;
     // alert(indexOfTotalItems);
     // totalitems = totalitems.splice(parseInt(indexOfTotalItems),0,name);
-    document.getElementById("cartBill").innerHTML = "<div class='bg-info'>"+totalitems+"</div><br/>";
+     document.getElementById("cartBill").innerHTML = "<div><td>"+totalitems+" </td><td>  "+(price*(currentVal+1))+"</td><br><div>";
 
 });
 

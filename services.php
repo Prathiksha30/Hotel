@@ -155,12 +155,16 @@ include('header.php');
                                                   <a class="btn btn-info popovers" data-toggle="modal" href="#myModal3">
                                                       Snacks and Drinks
                                                   </a>
-                                                  <div>
+                                                  <div class="login-wrap">
                                                     <div class="col-lg-2 control-label">Total Bill Amount: 
                                                     <label id="cartTotal">0</label>
                                                     </div>
                                                     <div class="col-lg-2 control-label">Total Bill Items: 
-                                                    <label id="cartBill"></label>
+                                                    <table id="cartBill" >
+                                                      <th> Item </th>
+                                                      <th> Price </th>
+                                                      <tr > </tr>
+                                                    </table>
                                                     </div>
                                                   </div>
                                                   <!-- Modal -->
@@ -184,8 +188,8 @@ include('header.php');
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
                                                                   <td>
                                                                   <form id='myform' method='POST' action=''>
-                                                                    <input type ='hidden' class="name_quantity_<?php echo $key; ?>" value=<?php echo $menu['fooditem_name']; ?> field='name_quantity_<?php echo $key; ?>' name="name_quantity_<?php echo $key; ?>"/>
-                                                                    <input type ='hidden' class="price_quantity_<?php echo $key; ?>" value=<?php echo $menu['fooditem_price']; ?> field='price_quantity_<?php echo $key; ?>' name="price_quantity_<?php echo $key; ?>"/>
+                                                                    <input type ='hidden' class="name_quantity_<?php echo $key; ?>" value='<?php echo $menu['fooditem_name']; ?>' field='name_quantity_<?php echo $key; ?>' name="name_quantity_<?php echo $key; ?>"/>
+                                                                    <input type ='hidden' class="price_quantity_<?php echo $key; ?>" value='<?php echo $menu['fooditem_price']; ?>' field='price_quantity_<?php echo $key; ?>' name="price_quantity_<?php echo $key; ?>"/>
                                                                     <input type='button' value='-' class='qtyminus' field='quantity_<?php echo $key; ?>' />
                                                                     <input type='text' name='quantity_<?php echo $key; ?>' value='0' class='qty' />
                                                                     <input type='button' value='+' class='qtyplus' field='quantity_<?php echo $key; ?>' />
@@ -224,8 +228,8 @@ include('header.php');
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
                                                                   <td>
                                                                   <form id='myform' method='POST' action=''>
-                                                                    <input type ='hidden' class="name_quantity1_<?php echo $key; ?>" value=<?php echo $menu['fooditem_name']; ?> field='name_quantity1_<?php echo $key; ?>' name="name_quantity1_<?php echo $key; ?>"/>
-                                                                    <input type ='hidden' class="price_quantity1_<?php echo $key; ?>" value=<?php echo $menu['fooditem_price']; ?> field='price_quantity1_<?php echo $key; ?>' name="price_quantity1_<?php echo $key; ?>"/>
+                                                                    <input type ='hidden' class="name_quantity1_<?php echo $key; ?>" value='<?php echo $menu['fooditem_name']; ?>' field='name_quantity1_<?php echo $key; ?>' name="name_quantity1_<?php echo $key; ?>"/>
+                                                                    <input type ='hidden' class="price_quantity1_<?php echo $key; ?>" value='<?php echo $menu['fooditem_price']; ?>' field='price_quantity1_<?php echo $key; ?>' name="price_quantity1_<?php echo $key; ?>"/>
                                                                     <input type='button' value='-' class='qtyminus' field='quantity1_<?php echo $key; ?>' />
                                                                     <input type='text' name='quantity1_<?php echo $key; ?>' value='0' class='qty' />
                                                                     <input type='button' value='+' class='qtyplus' field='quantity1_<?php echo $key; ?>' />
@@ -264,8 +268,8 @@ include('header.php');
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
                                                                   <td>
                                                                   <form id='myform' method='POST' action=''>
-                                                                    <input type ='hidden' class="name_quantity2_<?php echo $key; ?>" value=<?php echo $menu['fooditem_name']; ?> field='name_quantity2_<?php echo $key; ?>' name="name_quantity2_<?php echo $key; ?>"/>
-                                                                    <input type ='hidden' class="price_quantity2_<?php echo $key; ?>" value=<?php echo $menu['fooditem_price']; ?> field='price_quantity2_<?php echo $key; ?>' name="price_quantity2_<?php echo $key; ?>"/>
+                                                                    <input type ='hidden' class="name_quantity2_<?php echo $key; ?>" value='<?php echo $menu['fooditem_name']; ?>' field='name_quantity2_<?php echo $key; ?>' name="name_quantity2_<?php echo $key; ?>"/>
+                                                                    <input type ='hidden' class="price_quantity2_<?php echo $key; ?>" value='<?php echo $menu['fooditem_price']; ?>' field='price_quantity2_<?php echo $key; ?>' name="price_quantity2_<?php echo $key; ?>"/>
                                                                     <input type='button' value='-' class='qtyminus' field='quantity2_<?php echo $key; ?>' />
                                                                     <input type='text' name='quantity2_<?php echo $key; ?>' value='0' class='qty' />
                                                                     <input type='button' value='+' class='qtyplus' field='quantity2_<?php echo $key; ?>' />
@@ -304,8 +308,8 @@ include('header.php');
                                                                   <td style="padding:5px;"> <?php echo $menu['fooditem_price']; ?></td>
                                                                   <td>
                                                                   <form id='myform' method='POST' action=''>
-                                                                    <input type ='hidden' class="name_quantity3_<?php echo $key; ?>" value=<?php echo $menu['fooditem_name']; ?> field='name_quantity3_<?php echo $key; ?>' name="name_quantity3_<?php echo $key; ?>"/>
-                                                                    <input type ='hidden' class="price_quantity3_<?php echo $key; ?>" value=<?php echo $menu['fooditem_price']; ?> field='price_quantity3_<?php echo $key; ?>' name="price_quantity3_<?php echo $key; ?>"/>
+                                                                    <input type ='hidden' class="name_quantity3_<?php echo $key; ?>" value='<?php echo $menu['fooditem_name']; ?>' field='name_quantity3_<?php echo $key; ?>' name="name_quantity3_<?php echo $key; ?>"/>
+                                                                    <input type ='hidden' class="price_quantity3_<?php echo $key; ?>" value='<?php echo $menu['fooditem_price']; ?>' field='price_quantity3_<?php echo $key; ?>' name="price_quantity3_<?php echo $key; ?>"/>
                                                                     <input type='button' value='-' class='qtyminus' field='quantity3_<?php echo $key; ?>' />
                                                                     <input type='text' name='quantity_<?php echo $key; ?>' value='0' class='qty' />
                                                                     <input type='button' value='+' class='qtyplus' field='quantity3_<?php echo $key; ?>' />
