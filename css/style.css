@@ -113,8 +113,8 @@ table tr th { color: #688a7e;}
     border: 1px solid #B0B6BE;
     background: rgba(213,215,222,0.9);
 }
-.login-form a{
-    color: #688a7e !important;
+.login-form a {
+    color: #fff !important;
 }
 .login-form h2.login-form-heading {
     margin: 0;
@@ -128,6 +128,9 @@ table tr th { color: #688a7e;}
     text-transform: uppercase;
     font-weight: 300;
     font-family: 'Lato', sans-serif;
+}
+.login-wrap th{
+    padding: 20px;
 }
 
 .login-form .checkbox {
