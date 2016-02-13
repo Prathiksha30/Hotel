@@ -159,7 +159,7 @@ include('header.php');
                                                     <div class="col-lg-2 control-label">Total Bill Amount: 
                                                     <label id="cartTotal">0</label>
                                                     </div>
-                                                    <div class="col-lg-2 control-label">Total Bill Items: 
+                                                    <div class="col-lg-2 control-label" id="cartBill">Total Bill Items: 
                                                     <table id="cartBill" >
                                                       <th> Item </th>
                                                       <th> Price </th>

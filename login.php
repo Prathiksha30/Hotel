@@ -77,14 +77,15 @@
 		$stmt->fetch();
 		if($stmt->num_rows > 0)
 		{
+            echo "hey";
+			echo $stmt->num_rows;
+		// 	$_SESSION['email_id']=$email_id;
+		// 	$_SESSION['name']=$name;
+  //           $_SESSION['user_id']=$user_id;
+		// 	//var_dump($name);
+  //           $_SESSION['roomno']=$room;
 			
-			$_SESSION['email_id']=$email_id;
-			$_SESSION['name']=$name;
-            $_SESSION['user_id']=$user_id;
-			//var_dump($name);
-            $_SESSION['roomno']=$room;
-			
-			header("location:login_success.php");
+		// 	header("location:login_success.php");
 		}
 		else
 		{

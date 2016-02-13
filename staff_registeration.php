@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-<?php 
-	include ('hoteldb.php'); 
-	session_start();
+<?php
+session_start();
+include('hoteldb.php');
 ?>
 <html lang="en">
 <head>
@@ -32,36 +31,17 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="login-img3-body">
 
-    <div class="container">
-        <form class="login-form" action="" method="POST">        
-            <div class="login-wrap">
-                <p class="login-img"><i class="icon_lock_alt"></i></p>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="icon_profile"></i></span>
-                    <input type="text" name="email" class="form-control" placeholder="Email ID" autofocus >
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="icon_key_alt"></i></span>
-                    <input type="password" name="password" class="form-control" placeholder="Password" maxlength="20" minlength="6" >
-                </div>
-                <div>
-                    <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit"> Login </button>
-                </div>
-                <div>
-                    <a class="btn btn-info btn-lg btn-block" data-toggle="modal" href="#myModal">Signup</a>           
-                </div>
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+  <body class="login-img3-body">
+  <div class="container">
+						<div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
                                     <h4 class="modal-title">Registeration Form</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form role="form" method="POST" action="" enctype="multipart/form-data">
+                                    <form role="form" id="modalform" method="POST" action="" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label >Name</label>
                                             <input type="text" name="name" placeholder="" class="form-control" required>
@@ -74,10 +54,10 @@
                                             <label>Password: </label>
                                             <input type="password" name="password" class="form-control" maxlength="20" minlength="6" required>
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label >Upload a profile photo: </label>
                                             <input type="file" name="file" id="file" required>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                             <label >Mobile Number</label>
                                             <input type="text" name="mobile" id="" class="form-control" maxlength="10" minlength="10" required>
@@ -103,12 +83,10 @@
                                 </div>
                             </div>
                     </div>
-                </div>
-                <!-- modal -->
-            </div>
-        </form>
-    </div>
-    <script src="js/jquery.js"></script>
+        </div>
+ </body>
+</html>
+<script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!-- nice scroll -->
     <script src="js/jquery.scrollTo.min.js"></script>
@@ -137,45 +115,9 @@
     <script>
       //knob
       $(".knob").knob();
-    </script>                                            
-</body>
-</html>
-
+    </script>  
 <?php
-global $conn;
-    if (isset($_POST['submit'])) 
-    {
-     //    $email_id=$_POST['email'];
-     //    $password = $_POST['password'];
-     //    if($stmt = $conn->prepare("SELECT email_id, name, dept_id, s_id FROM user_staff WHERE email_id= ? AND password= ?"))
-     // {
-     //    $stmt->bind_param('ss', $email_id,$password);
-     //    $stmt->execute();
-     //    $stmt->store_result();
-     //    $stmt->bind_result($email_id, $name, $dept_id, $s_id);
-     //    $stmt->fetch();
-     //    if($stmt->num_rows > 0)
-     //    {
-            
-     //        $_SESSION['staffEmail_id']=$email_id;
-     //        $_SESSION['StaffName']=$name;
-     //        $_SESSION['Staff_id']=$s_id;
-     //        //var_dump($name);
-     //        $_SESSION['dept_id']=$dept_id;
-            
-            header("location:staff_login_success.php");
-     //    }
-     //    else
-     //    {
-     //        echo "Wrong Email ID and Room Number";
-     //        //header("location:login.php");
-     //    }
-     //    $stmt->close();
-     // }
-    }
-        
-?>
-<?php
+global $conn;     
     // $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");
     // $temp = explode(".", $_FILES["file"]["name"]); //gets file name
     // $extension = end($temp);
@@ -202,86 +144,48 @@ global $conn;
     //             else 
     //                 {
     //                     move_uploaded_file($_FILES["file"]["tmp_name"],
-    //                    "profilePhoto/".$staffImg);
+    //                    "StaffPhoto/".$staffImg);
     //                 }
     //             }
     //    } 
-?>
-<?php      
-	global $conn;
-    	if (isset($_POST['Login'])) 
-	{
-	    // $email_id=$_POST['email'];
-	    // $password = $_POST['password'];
-        ?>
-        <script>
-        alert ('hello');
-        </script>
-        <?php
-  //       if($stmt = $conn->prepare("SELECT email_id, name, dept_id FROM user_staff WHERE email_id= ? AND password= ?"))
-	 // {
-	 // 	$stmt->bind_param('ss', $email_id,$password);
-		// $stmt->execute();
-		// $stmt->store_result();
-		// $stmt->bind_result($email_id,$name,$dept_id);
-		// $stmt->fetch();
-		// if($stmt->num_rows > 0)
-		// {
-			
-		// 	$_SESSION['staffEmail_id']=$email_id;
-		// 	$_SESSION['staffName']=$name;
-  //           $_SESSION['staffDept']=$dept_id;			
-		// 	header("location:login_success.php");
-		// }
-		// else
-		// {
-		// 	echo "Wrong Email ID and Room Number";
-		// 	//header("location:login.php");
-		// }
-		// $stmt->close();
-	//  }
-	}
-		
+if (isset($_POST['sumbit']))
+    {
+        $staffName=$_POST['name'];
+        $staffEmaiID=$_POST['emailid'];
+        $staffPassword=crypt($_POST['password']);
+        // $staffImg=$_FILES["file"]["name"];
+        $staffMobno=$_POST['mobile'];
+        $staffAge=$_POST['age'];
+        $staffGender=$_POST['sex'];
+        $staffDepartment=strtolower($_POST['dept_name']);
+        $staffDepartmentID=getDepartmentID( $staffDepartment);
+        echo $staffName;
+ 		if($stmt = $conn->prepare("UPDATE `user_staff` SET name, email_id, password, ph_no, age, gender,dept_id"))
+        {
+            $stmt->bind_param("ssissi", $staffName, $staffEmaiID, $staffPassword, $staffMobno, $staffAge, $staffGender,$staffDepartmentID);
+            $stmt->execute();
+        }
+    }
 ?>
 
 <?php
-// if (isset($_POST['sumbit']))
-    // {
-    //     $staffName=$_POST['name'];
-    //     $staffEmaiID=$_POST['emailid'];
-    //     $staffPassword=crypt($_POST['password']);
-    //     $staffImg=$_FILES["file"]["name"];
-    //     $staffMobno=$_POST['mobile'];
-    //     $staffAge=$_POST['age'];
-    //     $staffGender=$_POST['sex'];
-    //     $staffDepartment=strtolower($_POST['dept_name']);
-    //     // echo $staffName;
-    //     // echo $staffEmaiID;
-    //     // echo $staffPassword;
-    //     // echo $staffImg;
-    //     // echo $staffMobno;
-    //     // echo $staffAge;
-    //     // echo $staffGender;
-    //     // echo $staffDepartment;
-    //     if($stmt = $conn->prepare("SELECT `d_id` FROM `department` WHERE d_name=$staffDepartment"))
-    //     {
-    //         $stmt->execute();
-    //         $stmt->store_result();
-    //         $stmt->bind_result($staffDepartmentID);
-    //         $stmt->fetch();
-    //         $stmt->close();
-    //         // return $staffDepartmentID;
-    //         echo $staffDepartmentID;
-    //     }
-    //     else
-    //     {
-    //         echo "Error with getting department id!";
-    //     }
-
-        // if($stmt = $conn->prepare("UPDATE `user_staff` SET name, email_id, password, profile_pic, ph_no, age, gender"))
-        // {
-        //     $stmt->bind_param("ssissi", $staffName, $staffEmaiID, $staffPassword, $staffImg, $staffMobno, $staffAge, $staffGender);
-        //     $stmt->execute();
-        // }
- //   }
+function getDepartmentID($staffDepartment)
+        {  
+        	global $conn;
+        	if($stmt = $conn->prepare("SELECT `d_id` FROM `department` WHERE d_name=$staffDepartment"))
+	        {
+	            $stmt->execute();
+	            $stmt->store_result();
+	            $stmt->bind_result($staffDepartmentID);
+	            $stmt->fetch();
+	            $stmt->close();
+	            // return $staffDepartmentID;
+	            echo $staffDepartmentID;
+	        }
+	        else
+	        {
+	            echo "Error with getting department id!";
+	      
+	        }
+        }
 ?>
