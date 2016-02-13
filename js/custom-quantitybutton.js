@@ -1,6 +1,7 @@
 var totalamount;
 var totalitems=[];
 var result=[];
+
 $('.qtyplus').click(function(e){
     // Stop acting like a button
     e.preventDefault();
@@ -138,5 +139,19 @@ $(".qtyminus").click(function(e) {
     //         }
     //     }
     // }
-    
-}); 
+});
+
+$('#checkOut').click(function(){
+    $.ajax({
+      type: 'GET',
+      url: 'cart_checkout.php',
+      data: {
+        'totalAmount': totalamount,
+        'totalItems': totalitems
+      },
+      success: function(){
+        alert('Cart saved');
+        window.location.reload();
+      }
+  });
+});

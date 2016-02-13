@@ -160,11 +160,12 @@ include('header.php');
                                                     <label id="cartTotal">0</label>
                                                     </div>
                                                     <div class="col-lg-2 control-label" id="cartBill">Total Bill Items: 
-                                                    <table id="cartBill" >
+                                                    <button type="button" class"btn btn-success" id="checkOut" value="CheckOut">Check Out </button>
+                                                    <!-- <table id="cartBill" >
                                                       <th> Item </th>
                                                       <th> Price </th>
                                                       <tr > </tr>
-                                                    </table>
+                                                    </table> -->
                                                     </div>
                                                   </div>
                                                   <!-- Modal -->
@@ -419,8 +420,7 @@ There are engaging activities that guests of all ages will enjoy - miles of hiki
       <!--main content end-->
   </section>
   <!-- container section end -->
-    <script src="js/custom-quantitybutton.js"></script>
-    
+  <script src="js/custom-quantitybutton.js"></script>
   </body>
 </html>
 <?php
@@ -442,25 +442,42 @@ function getMenu($category)
         printf("Error message: %s\n", $conn->error);
     }
 }
-if(isset($_POST['submit']))
- {
-?>
-  <script type='text/javascript'>alert("your request has been send to the room service department");
-  window.location.href = "index.php"
-  </script>";
-  <?php 
-  global $conn;
-  $req = $_POST['req'];
-  $comment = $_POST['comment'];
-  $message=$req."-".$comment;  
-  echo $message;
-  if ($stmt = $conn->prepare("INSERT INTO `user_services`(`dept_id`, `user_id`, `room_no`, `status`, `message`) VALUES ('1','1','101','pending',?)")) 
-  {
-    $stmt->bind_param("s",$message);
-    $stmt->execute();
+  if(isset($_POST['submit']))
+   {
+  ?>
+    <script type='text/javascript'>alert("your request has been send to the room service department");
+    window.location.href = "index.php"
+    </script>";
+    <?php 
+    global $conn;
+    $req = $_POST['req'];
+    $comment = $_POST['comment'];
+    $message=$req."-".$comment;  
+    echo $message;
+    if ($stmt = $conn->prepare("INSERT INTO `user_services`(`dept_id`, `user_id`, `room_no`, `status`, `message`) VALUES ('1','1','101','pending',?)")) 
+    {
+      $stmt->bind_param("s",$message);
+      $stmt->execute();
+    }
   }
-}
 ?>
+<!--<script>
+  $("#checkOut").click(function(){
+    $.ajax({
+      type: 'GET',
+      url: 'cart_checkout.php'
+      data: {
+        "totalAmount": totalamount,
+        "totalItems": totalitems
+      }
+      success: function(returnMe){
+        alert(returnMe);
+        /*alert('Your stuff has been saved');
+        window.location.reload();*/
+      }
+    });
+  });
+</script>-->
 <!--<script>
 $cart=$('.qty').val()*
 </script>-->
