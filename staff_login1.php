@@ -33,6 +33,48 @@
     <![endif]-->
 </head>
 
+<?php
+    global $conn;
+    if (isset($_POST['submit'])) 
+    {
+        $email_id=$_POST['email'];
+        $password = $_POST['password'];
+
+     if($stmt = $conn->prepare("SELECT s_id, name,email_id FROM user_staff WHERE email_id= ? AND password=? AND admin_confirm=1"))
+     {
+        $stmt->bind_param('ss', $email_id,$password);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($s_id, $name, $email_id);
+        $count=0;
+        while($stmt->fetch())
+        {
+            $count=$count+1;
+            $rows[]=array('s_id'=>$s_id,'name'=>$name,'email_id'=>$email_id);
+        }
+        //print_r($rows);
+        // $row_count=$stmt->rowCount();
+        //echo $count;
+        $stmt->close();
+     }
+     if($count==1)
+        {          
+            $_SESSION['StaffEmail_id']=$email_id;
+            $_SESSION['StaffName']=$name;
+            $_SESSION['S_id']=$s_id;
+            header("Location: index.php");
+        }
+        else
+        {
+            ?>
+            <script>
+            alert("Wrong Email ID and Room Number") ;
+            </script>
+            <?php
+        }
+    }
+?>
+
   <body class="login-img3-body">
 
     <div class="container">
@@ -49,13 +91,17 @@
                 <input type="password" name="password" class="form-control" placeholder="Password">
             </div>
             <div>
-            <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit"> Login </button>
+             <input type="submit" name="submit" value="Login" class="btn btn-primary btn-lg btn-block">
+            <!-- <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit"> Login </button> -->
             <!-- <button class="btn btn-info btn-lg btn-block" type="submit">Signup</button> -->
             </div>
             <div>
                 <a class="btn btn-info btn-lg btn-block" data-toggle="modal" href="#myModal">Signup</a>           
             </div>
-            <!-- Modal -->
+        </div>
+      </form>
+
+      <!-- Modal -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                             <div class="modal-content">
@@ -108,8 +154,6 @@
                     </div>
                 </div>
                 <!-- modal -->
-        </div>
-      </form>
 
     </div>
 
@@ -146,48 +190,6 @@
   </body>
 </html>
 
-<?php
-    global $conn;
-    if (isset($_POST['submit'])) 
-    {
-        $email_id=$_POST['email'];
-        $password = $_POST['password'];
-        //echo "hi";
-
-     if($stmt = $conn->prepare("SELECT s_id, name,email_id FROM user_staff WHERE email_id= ? AND password=? AND admin_confirm=1"))
-     {
-        $stmt->bind_param('ss', $email_id,$password);
-        $stmt->execute();
-        $stmt->store_result();
-        $stmt->bind_result($s_id, $name, $email_id);
-        $count=0;
-        while($stmt->fetch())
-        {
-            $count=$count+1;
-            $rows[]=array('s_id'=>$s_id,'name'=>$name,'email_id'=>$email_id);
-        }
-        //print_r($rows);
-        // $row_count=$stmt->rowCount();
-        //echo $count;
-       if($count==1)
-        {          
-            $_SESSION['StaffEmail_id']=$email_id;
-            $_SESSION['StaffName']=$name;
-            $_SESSION['S_id']=$s_id;
-            header("location:index.php");
-        }
-        else
-        {
-
-            echo "Wrong Email ID and Room Number";
-            header("staff_login1.php");
-            //header("location:login.php");
-        }
-        $stmt->close();
-     }
-    }
-        
-?>
 <?php
     $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");
     $temp = explode(".", $_FILES["file"]["name"]); //gets file name

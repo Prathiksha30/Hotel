@@ -38,18 +38,15 @@
                                    echo $pendingServices['room_no'];
                                    ?> </td>
                               <td>  <?php 
-                              $name=getUserDetails($pendingServices['user_id']);
-                                   echo $name;
+                              
+                                   echo getUserDetails($pendingServices['user_id']);
                                    ?></td>
                                <td>   <?php 
                                    echo $pendingServices['message'];
                                    ?> </td>
                                     <td>   <?php 
                                    echo $pendingServices['request_time'];
-                                   ?> </td>
-                                   <form method="POST">
-                                   <td>  <button class="btn btn-success" type="submit" value="Completed" name="submit">Completed </td> </form>
-                                           
+                                   ?> </td>             
                               </tr>
                           <?php endforeach;  ?>
                        		  </tbody>
@@ -94,7 +91,9 @@
                                     </td>
                                     <td style="padding:5px;">
                                    --<?php echo "".$completedServices['request_time'];?>--
-                                    </td>                                                                 
+                                    </td>      
+                               
+                                          </a>
                                     </tr>                                 
                                 <?php  endforeach;
                               ?>
@@ -115,15 +114,14 @@
 function getUserDetails($user_id)
 {
 	global $conn;
-	if($stmt = $conn->prepare("SELECT name, room_no from user_guest WHERE user_id= $user_id"))
+	if($stmt = $conn->prepare("SELECT name from user_guest WHERE user_id= $user_id"))
 	{
 		$stmt->execute();
-		$stmt->bind_result($name, $room_no);
-		while ($stmt->fetch()) {
-			$rows[] = array('name' => $name , 'room_no' => $room_no );
-		}
+		$stmt->store_result();
+		$stmt->bind_result($name);
+		$stmt->fetch();
 		$stmt->close();
-		return $rows; 
+		return $name;
 	}
 	else {
         printf("Error message: %s\n", $conn->error);
@@ -138,7 +136,7 @@ function getPendingServices($status)
 		$stmt->bind_param("s", $status);
 		$stmt->execute();
 		$stmt->bind_result($service_id, $dept_id, $user_id, $room_no, $status, $message, $request_time);
-		while ($stmt->fetch) {
+		while ($stmt->fetch()) {
 			$rows[] = array('service_id' => $service_id, 'dept_id' => $dept_id, 'user_id' => $user_id, 'room_no' => $room_no, 'status' => $status, 'message' => $message, 'request_time' => $request_time );
 		}
 		$stmt->close();
@@ -156,7 +154,7 @@ function getCompletedServices()
 	{
 		$stmt->execute();
 		$stmt->bind_result($service_id, $dept_id, $user_id, $room_no, $status, $message, $request_time);
-		while ($stmt->fetch) {
+		while ($stmt->fetch()) {
 			$rows[] = array('service_id' => $service_id, 'dept_id' => $dept_id, 'user_id' => $user_id, 'room_no' => $room_no, 'status' => $status, 'message' => $message, 'request_time' => $request_time );
 		}
 		$stmt->close();
