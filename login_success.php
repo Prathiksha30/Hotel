@@ -1,14 +1,15 @@
 <?php 
 	session_start();
+	
 	if(!isset($_SESSION['email_id']))
-	{
-		header("Location:login.php"); 
-	}
-	else
 	{
 		?>
 		<script> alert('wrong username or password')</script>
 		<?php
+		header("Location:login.php"); 
+	}
+	else
+	{
 		header("Location:index.php"); 
 	}
 ?>

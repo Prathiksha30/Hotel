@@ -30,6 +30,36 @@ $('.qtyplus').click(function(e){
     if (!totalitems)
         totalitems=[];
     totalitems.push(name);
+    //bill start logic 1
+    // get handle on div
+    var container = document.getElementById('cartBill');
+    // create table element
+    var table = document.createElement('table');
+    var tbody = document.createElement('tbody');
+    // loop array
+    for (i = 0; i < totalitems.length; i++) {
+        // get inner array
+        var vals = totalitems[i];
+        // create tr element
+        var row = document.createElement('tr');
+        // loop inner array
+        for (var b = 0; b < vals.length; b++) {
+            // create td element
+            var cell = document.createElement('td');
+            // set text
+            cell.textContent = vals[b];
+            // append td to tr
+            row.appendChild(cell);
+        }
+        //append tr to tbody
+        tbody.appendChild(row);
+    }
+    // append tbody to table
+    table.appendChild(tbody);
+    // append table to container
+    container.appendChild(table);
+    //bill end logic 1
+    
     // result=find_duplicates(totalitems);
     //  for (var i = 0; i < totalitems.lenght-1 ,i++)
     // {
@@ -39,9 +69,7 @@ $('.qtyplus').click(function(e){
     // {
     //     document.getElementById("cartBill").innerHTML = "<td>"+result[i]+"</td>";
     // }
-    var i=0;
-    for (i; i<totalitems.legth; i++)
-      document.getElementById("cartBill").innerHTML = "<td>"+totalitems[i]+"</td><td>"+price+"</td>";
+      // document.getElementById("cartBill").innerHTML = "<td>"+totalitems[i]+"</td><td>"+price+"</td>";
 
 });
 // function find_duplicates(arr) {
@@ -90,10 +118,16 @@ $(".qtyminus").click(function(e) {
         totalamount = parseInt(totalamount) - parseInt(price);
         document.getElementById("cartTotal").innerHTML = totalamount;
     }
-    // item_name = $(".name_"+fieldName).attr('field');
-    // name = $('input[name='+item_name+']').val();
-    // if (!totalitems)
-    //     totalitems=[];
+    item_name = $(".name_"+fieldName).attr('field');
+    name = $('input[name='+item_name+']').val();
+    if (!totalitems)
+        totalitems=[];
+    var index = totalitems.indexOf(name);
+    if (index > -1) 
+    {
+        totalitems.splice(index, 1);
+    }
+    alert(totalitems);
     // for(var i=0; i<totalitems.length;i++)
     // {
     //     if(name==totalitems[i])
