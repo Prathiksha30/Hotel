@@ -18,13 +18,14 @@
                               <div class="panel-heading">
                                   <h4 class="panel-title">
                                       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                          Collapsible Group Item #1
+                                          The Hotel's Spa
                                       </a>
                                   </h4>
                               </div>
                               <div id="collapseOne" class="panel-collapse collapse in">
                                   <div class="panel-body">
-                                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                      The hotel's facilities include 13 treatment rooms
+Prepare for your Ritual, soothe your body and quiet the mind. We offer multiple facilities. Then, take a moment before your appointment to relax in our Spa Lounge and enjoy the warm breeze and sound of the ocean as you savour our special blended pre-treatment herbal tea prepared for you by our team.
                                   </div>
                               </div>
                           </div>
@@ -32,27 +33,25 @@
                               <div class="panel-heading">
                                   <h4 class="panel-title">
                                       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                          Collapsible Group Item #2
+                                          More Info
                                       </a>
                                   </h4>
                               </div>
                               <div id="collapseTwo" class="panel-collapse collapse">
                                   <div class="panel-body">
-                                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                  </div>
+                               </div>
                               </div>
                           </div>
                           <div class="panel panel-default">
                               <div class="panel-heading">
                                   <h4 class="panel-title">
                                       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                          Collapsible Group Item #3
+                                          More Info
                                       </a>
                                   </h4>
                               </div>
                               <div id="collapseThree" class="panel-collapse collapse">
                                   <div class="panel-body">
-                                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
                                   </div>
                               </div>
                           </div>
@@ -135,9 +134,9 @@ if(isset($_POST['request']))
   $roomno=$_POST['roomno'];
   $msg=$_POST['treatment'];
   $datepick=$_POST['datepick'];
-  if($stmt = $conn->prepare("INSERT INTO user_services(dept_id, user_id, room_no, status, message, request_time) VALUES('3', '2', ?, 'Pending', ?, ?) "))
+  if($stmt = $conn->prepare("INSERT INTO user_services(dept_id, user_id, room_no, status, message, request_time) VALUES('3', ?, ?, 'pending', ?, ?) "))
   {
-    $stmt->bind_param('iss', $roomno, $msg, $datepick);
+    $stmt->bind_param('iiss', $_SESSION['user_id'], $roomno, $msg, $datepick);
     $stmt->execute();
     $stmt->close();
   }
