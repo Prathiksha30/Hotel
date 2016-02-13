@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php 
-	include ('hoteldb.php'); 
-	session_start();
+    include 'hoteldb.php'; 
+    session_start();
 ?>
 <html lang="en">
 <head>
@@ -32,27 +32,76 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="login-img3-body">
+
+<?php
+    global $conn;
+    if (isset($_POST['submit'])) 
+    {
+        $email_id=$_POST['email'];
+        $password = $_POST['password'];
+
+     if($stmt = $conn->prepare("SELECT s_id, name,email_id FROM user_staff WHERE email_id= ? AND password=? AND admin_confirm=1"))
+     {
+        $stmt->bind_param('ss', $email_id,$password);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($s_id, $name, $email_id);
+        $count=0;
+        while($stmt->fetch())
+        {
+            $count=$count+1;
+            $rows[]=array('s_id'=>$s_id,'name'=>$name,'email_id'=>$email_id);
+        }
+        //print_r($rows);
+        // $row_count=$stmt->rowCount();
+        //echo $count;
+        $stmt->close();
+     }
+     if($count==1)
+        {          
+            $_SESSION['StaffEmail_id']=$email_id;
+            $_SESSION['StaffName']=$name;
+            $_SESSION['S_id']=$s_id;
+            header("Location: index.php");
+        }
+        else
+        {
+            ?>
+            <script>
+            alert("Wrong Email ID and Room Number") ;
+            </script>
+            <?php
+        }
+    }
+?>
+
+  <body class="login-img3-body">
 
     <div class="container">
-        <form class="login-form" action="" method="POST">        
-            <div class="login-wrap">
-                <p class="login-img"><i class="icon_lock_alt"></i></p>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="icon_profile"></i></span>
-                    <input type="text" name="email" class="form-control" placeholder="Email ID" autofocus >
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="icon_key_alt"></i></span>
-                    <input type="password" name="password" class="form-control" placeholder="Password" maxlength="20" minlength="6" >
-                </div>
-                <div>
-                    <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit"> Login </button>
-                </div>
-                <div>
-                    <a class="btn btn-info btn-lg btn-block" data-toggle="modal" href="#myModal">Signup</a>           
-                </div>
-                <!-- Modal -->
+
+      <form class="login-form" action="" method="POST">        
+        <div class="login-wrap">
+            <p class="login-img"><i class="icon_lock_alt"></i></p>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="icon_profile"></i></span>
+              <input type="text" name="email" class="form-control" placeholder="Email ID" autofocus>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+                <input type="password" name="password" class="form-control" placeholder="Password">
+            </div>
+            <div>
+             <input type="submit" name="submit" value="Login" class="btn btn-primary btn-lg btn-block">
+            <!-- <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit"> Login </button> -->
+            <!-- <button class="btn btn-info btn-lg btn-block" type="submit">Signup</button> -->
+            </div>
+            <div>
+                <a class="btn btn-info btn-lg btn-block" data-toggle="modal" href="#myModal">Signup</a>           
+            </div>
+        </div>
+      </form>
+
+      <!-- Modal -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                             <div class="modal-content">
@@ -105,10 +154,10 @@
                     </div>
                 </div>
                 <!-- modal -->
-            </div>
-        </form>
+
     </div>
-    <script src="js/jquery.js"></script>
+
+<script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!-- nice scroll -->
     <script src="js/jquery.scrollTo.min.js"></script>
@@ -137,151 +186,120 @@
     <script>
       //knob
       $(".knob").knob();
-    </script>                                            
-</body>
+    </script>  
+  </body>
 </html>
 
-<?php
-global $conn;
-    if (isset($_POST['submit'])) 
-    {
-     //    $email_id=$_POST['email'];
-     //    $password = $_POST['password'];
-     //    if($stmt = $conn->prepare("SELECT email_id, name, dept_id, s_id FROM user_staff WHERE email_id= ? AND password= ?"))
-     // {
-     //    $stmt->bind_param('ss', $email_id,$password);
-     //    $stmt->execute();
-     //    $stmt->store_result();
-     //    $stmt->bind_result($email_id, $name, $dept_id, $s_id);
-     //    $stmt->fetch();
-     //    if($stmt->num_rows > 0)
-     //    {
-            
-     //        $_SESSION['staffEmail_id']=$email_id;
-     //        $_SESSION['StaffName']=$name;
-     //        $_SESSION['Staff_id']=$s_id;
-     //        //var_dump($name);
-     //        $_SESSION['dept_id']=$dept_id;
-            
-            header("location:staff_login_success.php");
-     //    }
-     //    else
-     //    {
-     //        echo "Wrong Email ID and Room Number";
-     //        //header("location:login.php");
-     //    }
-     //    $stmt->close();
-     // }
-    }
+
+<?php 
+    global $conn;
+    if(isset($_POST['submit1']))
+    { 
+        $staffName=$_POST['name'];
+        $staffEmailID=$_POST['emailid'];
+        $staffPassword=$_POST['password'];
+        $staffImg=$_FILES["file"]["name"];
+        $staffMobno=$_POST['mobile'];
+        $staffAge=$_POST['age'];
+        $staffGender=$_POST['sex'];
+        $staffDepartment=strtolower($_POST['dept_name']);
+        $staffDepartmentID=getDepartmentID($staffDepartment);
         
+        global $conn;
+        if($stmt = $conn->prepare("SELECT email_id FROM user_staff WHERE email_id=?"))
+        {
+            
+            $stmt->bind_param('s', $staffEmailID);
+            $stmt->execute();
+            $stmt->bind_result($StaffEmail);
+            $count1=0;
+            while($stmt->fetch())
+            {
+                $count1=$count1+1;
+                $rows[]=array('staffEmailID'=>$StaffEmail);
+            }
+            $stmt->close();
+            
+            if($count1>0)
+            {
+                 ?>
+                <script>
+                alert("This email ID has already been registered with us");
+                </script>
+                <?php
+                
+            }
+            else
+            {
+                global $conn;
+               if($stmt = $conn->prepare("INSERT INTO user_staff(name, email_id, password, ph_no, age, gender,dept_id) VALUES(?,?,?,?,?,?,?)"))
+                    {
+                        $stmt->bind_param("ssssisi", $staffName, $staffEmailID, $staffPassword, $staffMobno, $staffAge, $staffGender,$staffDepartmentID);
+                        $stmt->execute();
+                        $stmt->close();
+                        ?>
+                        <script>
+                        alert("Wait for admin to confirm. Login after sometime");
+                        </script>
+                        <?php
+                    }
+                else
+                    {
+                        echo "Error with updation";
+                    }
+            }
+        }
+    }
+
+    $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");
+    $temp = explode(".", $_FILES["file"]["name"]); //gets file name
+    $extension = end($temp);
+
+     if ((($_FILES["file"]["type"] == "image/gif")
+     || ($_FILES["file"]["type"] == "image/jpeg")
+     || ($_FILES["file"]["type"] == "image/jpg")
+     || ($_FILES["file"]["type"] == "image/pjpeg")
+     || ($_FILES["file"]["type"] == "image/x-png")
+     || ($_FILES["file"]["type"] == "image/png"))
+     && ($_FILES["file"]["size"] < 1000000)
+     && in_array($extension, $allowedExts)) 
+        {
+            if ($_FILES["file"]["error"] > 0) 
+                {
+                     echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
+                } 
+            else 
+                {
+                if (file_exists("StaffPhoto/" . $_FILES["file"]["name"])) 
+                    {
+                        echo $_FILES["file"]["name"] . " already exists. ";
+                    } 
+                else 
+                    {
+                        move_uploaded_file($_FILES["file"]["tmp_name"],
+                       "StaffPhoto/".$staffImg);
+                    }
+                }
+       } 
 ?>
 <?php
-    // $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");
-    // $temp = explode(".", $_FILES["file"]["name"]); //gets file name
-    // $extension = end($temp);
-
-    //  if ((($_FILES["file"]["type"] == "image/gif")
-    //  || ($_FILES["file"]["type"] == "image/jpeg")
-    //  || ($_FILES["file"]["type"] == "image/jpg")
-    //  || ($_FILES["file"]["type"] == "image/pjpeg")
-    //  || ($_FILES["file"]["type"] == "image/x-png")
-    //  || ($_FILES["file"]["type"] == "image/png"))
-    //  && ($_FILES["file"]["size"] < 1000000)
-    //  && in_array($extension, $allowedExts)) 
-    //     {
-    //         if ($_FILES["file"]["error"] > 0) 
-    //             {
-    //                  echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
-    //             } 
-    //         else 
-    //             {
-    //             if (file_exists("profilePhoto/" . $_FILES["file"]["name"])) 
-    //                 {
-    //                     echo $_FILES["file"]["name"] . " already exists. ";
-    //                 } 
-    //             else 
-    //                 {
-    //                     move_uploaded_file($_FILES["file"]["tmp_name"],
-    //                    "profilePhoto/".$staffImg);
-    //                 }
-    //             }
-    //    } 
-?>
-<?php      
-	global $conn;
-    	if (isset($_POST['Login'])) 
-	{
-	    // $email_id=$_POST['email'];
-	    // $password = $_POST['password'];
-        ?>
-        <script>
-        alert ('hello');
-        </script>
-        <?php
-  //       if($stmt = $conn->prepare("SELECT email_id, name, dept_id FROM user_staff WHERE email_id= ? AND password= ?"))
-	 // {
-	 // 	$stmt->bind_param('ss', $email_id,$password);
-		// $stmt->execute();
-		// $stmt->store_result();
-		// $stmt->bind_result($email_id,$name,$dept_id);
-		// $stmt->fetch();
-		// if($stmt->num_rows > 0)
-		// {
-			
-		// 	$_SESSION['staffEmail_id']=$email_id;
-		// 	$_SESSION['staffName']=$name;
-  //           $_SESSION['staffDept']=$dept_id;			
-		// 	header("location:login_success.php");
-		// }
-		// else
-		// {
-		// 	echo "Wrong Email ID and Room Number";
-		// 	//header("location:login.php");
-		// }
-		// $stmt->close();
-	//  }
-	}
-		
-?>
-
-<?php
-// if (isset($_POST['sumbit']))
-    // {
-    //     $staffName=$_POST['name'];
-    //     $staffEmaiID=$_POST['emailid'];
-    //     $staffPassword=crypt($_POST['password']);
-    //     $staffImg=$_FILES["file"]["name"];
-    //     $staffMobno=$_POST['mobile'];
-    //     $staffAge=$_POST['age'];
-    //     $staffGender=$_POST['sex'];
-    //     $staffDepartment=strtolower($_POST['dept_name']);
-    //     // echo $staffName;
-    //     // echo $staffEmaiID;
-    //     // echo $staffPassword;
-    //     // echo $staffImg;
-    //     // echo $staffMobno;
-    //     // echo $staffAge;
-    //     // echo $staffGender;
-    //     // echo $staffDepartment;
-    //     if($stmt = $conn->prepare("SELECT `d_id` FROM `department` WHERE d_name=$staffDepartment"))
-    //     {
-    //         $stmt->execute();
-    //         $stmt->store_result();
-    //         $stmt->bind_result($staffDepartmentID);
-    //         $stmt->fetch();
-    //         $stmt->close();
-    //         // return $staffDepartmentID;
-    //         echo $staffDepartmentID;
-    //     }
-    //     else
-    //     {
-    //         echo "Error with getting department id!";
-    //     }
-
-        // if($stmt = $conn->prepare("UPDATE `user_staff` SET name, email_id, password, profile_pic, ph_no, age, gender"))
-        // {
-        //     $stmt->bind_param("ssissi", $staffName, $staffEmaiID, $staffPassword, $staffImg, $staffMobno, $staffAge, $staffGender);
-        //     $stmt->execute();
-        // }
- //   }
+function getDepartmentID($staffDepartment)
+        {  
+            global $conn;
+            if($stmt = $conn->prepare("SELECT `d_id` FROM `department` WHERE d_name=?"))
+            {
+                $stmt->bind_param("s", $staffDepartment);
+                $stmt->execute();
+                $stmt->store_result();
+                $stmt->bind_result($staffDepartmentID);
+                $stmt->fetch();
+                $stmt->close();
+                return $staffDepartmentID;
+            }
+            else
+            {
+                echo "Error with getting department id!";
+          
+            }
+        }
 ?>
