@@ -190,7 +190,68 @@
   </body>
 </html>
 
-<?php
+
+<?php 
+    global $conn;
+    if(isset($_POST['submit1']))
+    { 
+        $staffName=$_POST['name'];
+        $staffEmailID=$_POST['emailid'];
+        $staffPassword=$_POST['password'];
+        $staffImg=$_FILES["file"]["name"];
+        $staffMobno=$_POST['mobile'];
+        $staffAge=$_POST['age'];
+        $staffGender=$_POST['sex'];
+        $staffDepartment=strtolower($_POST['dept_name']);
+        $staffDepartmentID=getDepartmentID($staffDepartment);
+        
+        global $conn;
+        if($stmt = $conn->prepare("SELECT email_id FROM user_staff WHERE email_id=?"))
+        {
+            
+            $stmt->bind_param('s', $staffEmailID);
+            $stmt->execute();
+            $stmt->bind_result($StaffEmail);
+            $count1=0;
+            while($stmt->fetch())
+            {
+                $count1=$count1+1;
+                $rows[]=array('staffEmailID'=>$StaffEmail);
+            }
+            $stmt->close();
+            
+            if($count1>0)
+            {
+                 ?>
+                <script>
+                alert("This email ID has already been registered with us");
+                </script>
+                <?php
+                
+            }
+            else
+            {
+                global $conn;
+               if($stmt = $conn->prepare("INSERT INTO user_staff(name, email_id, password, ph_no, age, gender,dept_id) VALUES(?,?,?,?,?,?,?)"))
+                    {
+                        $stmt->bind_param("ssssisi", $staffName, $staffEmailID, $staffPassword, $staffMobno, $staffAge, $staffGender,$staffDepartmentID);
+                        $stmt->execute();
+                        $stmt->close();
+                        
+                        ?>
+                        <script>
+                        alert("Wait for admin to confirm. Login after sometime");
+                        </script>
+                        <?php
+                    }
+                else
+                    {
+                        echo "Error with updation";
+                    }
+            }
+        }
+    }
+
     $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");
     $temp = explode(".", $_FILES["file"]["name"]); //gets file name
     $extension = end($temp);
@@ -210,65 +271,17 @@
                 } 
             else 
                 {
-                if (file_exists("profilePhoto/" . $_FILES["file"]["name"])) 
+                if (file_exists("StaffPhoto/" . $_FILES["file"]["name"])) 
                     {
                         echo $_FILES["file"]["name"] . " already exists. ";
                     } 
                 else 
                     {
                         move_uploaded_file($_FILES["file"]["tmp_name"],
-                       "profilePhoto/".$staffImg);
+                       "StaffPhoto/".$staffImg);
                     }
                 }
        } 
-?>
-<?php
-    if(isset($_POST['submit1']))
-    { 
-     $staffName=$_POST['name'];
-        $staffEmaiID=$_POST['emailid'];
-        $staffPassword=$_POST['password'];
-        $staffImg=$_FILES["file"]["name"];
-        $staffMobno=$_POST['mobile'];
-        $staffAge=$_POST['age'];
-        $staffGender=$_POST['sex'];
-        $staffDepartment=strtolower($_POST['dept_name']);
-        $staffDepartmentID=getDepartmentID($staffDepartment);
-        ?>
-        <script>
-        alert("Wait for admin to confirm. Login after sometime");
-        </script>
-        <?php
-        if($stmt = $conn->prepare("INSERT INTO user_staff(name, email_id, password, ph_no, age, gender,dept_id) VALUES(?,?,?,?,?,?,?)"))
-        {
-            $stmt->bind_param("ssssisi", $staffName, $staffEmaiID, $staffPassword, $staffMobno, $staffAge, $staffGender,$staffDepartmentID);
-            $stmt->execute();
-            $stmt->close();
-           /* $staffId = "s".$conn->insert_id;
-             if($stmt2 = $conn->prepare("INSERT INTO user_staff(staff_id) VALUES(?)")) //USE UPDATE INSTEAD
-             {
-                $stmt2->bind_param("s", $staffId);
-                $stmt2->execute();
-                $stmt2->close();
-             }*/
-        }
-        else
-        {
-            echo "Error with updation";
-        }
-         // SELECT s_id FROM `user_staff`ORDER BY s_id DESC LIMIT 1 
-        // $mysqli->insert_id()
-        /* ENTERS STAFF_ID USING LAST AUTO INCREMENTED VALUE */
-        /*if($stmt1 = $conn->prepare("SELECT s_id FROM `user_staff`ORDER BY s_id DESC LIMIT 1"))
-        {
-            $stmt->execute();
-            $stmt->store_result();
-            $stmt->bind_result($s_id);
-            $stmt->fetch();
-            $stmt->close();*/
-            
-        /*}*/
-    }
 ?>
 <?php
 function getDepartmentID($staffDepartment)

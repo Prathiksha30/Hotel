@@ -4,13 +4,31 @@ include('hoteldb.php');
 function getUserInfo($user_id)
 {
     global $conn;
-    if ($stmt = $conn->prepare("SELECT name,user_image FROM `user_guest` WHERE user_id = ?"))
+    if ($stmt = $conn->prepare("SELECT name, user_image FROM `user_guest` WHERE user_id = ?"))
         {
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         $stmt->bind_result($name,$user_image);
         while ($stmt->fetch()) {
           $rows[] = array('name' => $name,'user_image' => $user_image);
+        }
+        $stmt->close();
+        return $rows;
+    }
+    else {
+        printf("Error message: %s\n", $conn->error);
+    }
+}
+function getStaffDetails($s_id)
+{
+  global $conn;
+  if ($stmt = $conn->prepare("SELECT name, profile_pic FROM `user_staff` WHERE s_id = ?"))
+    {
+        $stmt->bind_param("i", $s_id);
+        $stmt->execute();
+        $stmt->bind_result($sname, $profile_pic);
+        while ($stmt->fetch()) {
+          $rows[] = array('name' => $sname,'profile_pic' => $profile_pic);
         }
         $stmt->close();
         return $rows;
@@ -106,8 +124,15 @@ function getUserInfo($user_id)
                             </span>
                             <span class="username">
                             <?php
+                            if(isset($_SESSION['S_id']))
+                            {
+                              $staffName = getStaffDetails($_SESSION['S_id']);
+                              echo $staffName[0]['name'];
+                            }
+                            else{
                                 $name = getUserInfo($_SESSION['user_id']);
                                 echo $name[0]['name'];
+                              }
                               ?>
                             </span>
                             <b class="caret"></b>
@@ -120,8 +145,18 @@ function getUserInfo($user_id)
                             <li>
                                 <a href="index.php"><i class="icon-dashboard-l"></i>Feeds</a>
                             </li>
-                            <li>
+                               <?php
+                            if(isset($_SESSION['S_id']))
+                            { ?> 
+                              <li>
+                              <a href="requests.php"><i class="icon-task-l"></i> Service Requests</a> 
+                            <?php 
+                            }
+                            else {
+                            ?>
                                 <a href="services.php"><i class="icon-task-l"></i> Services</a>
+                                 <?php 
+                            } ?>
                             </li>
                             <!-- <li>
                                 <a href="#"><i class="icon_chat_alt"></i> Chats</a>
@@ -160,9 +195,18 @@ function getUserInfo($user_id)
                           <i class="icon_document_alt"></i>                          
                       </a>
                       
-                  </li>       
+                  </li>
+                  <?php if(isset($_SESSION['S_id']))
+                            { ?>       
                   <li>
-                      <a href="services.php" class="">Services
+                      <a href="requests.php" class="">Service Requests
+                      <?php 
+                        }
+                        else {
+                      ?>
+                      <a href="services.php" class="">Services 
+                      <?php 
+                        } ?>
                           <i class="icon_desktop"></i>                         
                       </a>                     
                   </li>

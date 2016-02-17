@@ -101,7 +101,19 @@
                           
                         </div>
                         <div class="chat-content">
-                          <div class="chat-meta"><?php echo "".getUserName($feedDetails['u_id']);?> <span class="pull-right"> <?php echo "".$feedDetails['created_at'];?></span></div>
+                          <div class="chat-meta">
+                          <?php 
+                            $feed_uid = $feedDetails['u_id'];
+                            if($feed_uid[0] == "s")
+                            {
+                              $staff_dept = getStaffDept($feed_uid);
+                              $dept_name = getDeptName($staff_dept);
+                              echo "".$dept_name;
+                            }
+                            else
+                            echo "".getUserName($feedDetails['u_id']); ?>
+                          
+                         <span class="pull-right"> <?php echo "".$feedDetails['created_at'];?></span></div>
                           <?php echo $feedDetails['feed_text']; ?>
                           <div class="clearfix"></div>
                         </div>
@@ -175,17 +187,24 @@
 			$stmt->bind_param('s', $feedtext);
 			$stmt->execute();
 			$stmt->close();
-		
-		if($stmt2 = $conn->prepare("INSERT INTO feed_user(u_id) VALUES(?)"))
-		{
-			$stmt2->bind_param('i', $_SESSION['user_id']);
-			$stmt2->execute();
-			$stmt2->close();
-		}
-		else{
-			echo "Error with insertion!";
-		}
-		}
+  		if($stmt2 = $conn->prepare("INSERT INTO feed_user(u_id) VALUES(?)"))
+  		{
+        if(isset($_SESSION['S_id']))
+        {
+          $staffid = "s".$_SESSION['S_id'];
+          $stmt2->bind_param('s', $staffid);
+        }
+        else
+        {
+  			   $stmt2->bind_param('i', $_SESSION['user_id']);
+        }
+  			$stmt2->execute();
+  			$stmt2->close();
+  		}
+  		else{
+  			echo "Error with insertion!";
+  		}
+  	}
 		else{
 			echo "Error with insertion 1";
 		}
@@ -262,6 +281,41 @@
 			echo "Error with image selection!";
 		}
 	}	
+  /*STAFF DETAILS*/
+  function getStaffDept($s_id)
+{
+  global $conn;
+  if ($stmt = $conn->prepare("SELECT dept_id FROM `user_staff` WHERE staff_id = ?"))
+    {
+        $stmt->bind_param('i', $s_id);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($dept_id);
+        $stmt->fetch();
+        $stmt->close();
+        return $dept_id;
+    }
+    else {
+        printf("Error message: %s\n", $conn->error);
+    }
+}
+function getDeptName($dept_id)
+{
+  global $conn;
+  if ($stmt = $conn->prepare("SELECT d_name FROM `department` WHERE d_id = ?"))
+    {
+        $stmt->bind_param('i', $dept_id);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($d_name);
+        $stmt->fetch();
+        $stmt->close();
+        return $d_name;
+    }
+    else {
+        printf("Error message: %s\n", $conn->error);
+    }
+}
 ?>
 <!-- For Modal Form -->
 <?php
