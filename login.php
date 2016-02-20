@@ -85,7 +85,7 @@
 		// 	//var_dump($name);
   //           $_SESSION['roomno']=$room;
 			
-		// 	header("location:login_success.php");
+			//header("location:login_success.php");
 		}
 		else
 		{

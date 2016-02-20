@@ -111,52 +111,13 @@
                               echo "".$dept_name;
                             }
                             else
-                            echo "".getUserName($feedDetails['u_id']); ?>
+                            echo "".getUserName($feed_uid); ?>
                           
                          <span class="pull-right"> <?php echo "".$feedDetails['created_at'];?></span></div>
                           <?php echo $feedDetails['feed_text']; ?>
                           <div class="clearfix"></div>
                         </div>
-                      </li> 
-                      <!-- Chat by other. Use the class "by-other". -->
-                     <!--  <li class="by-other">
-                        <div class="avatar pull-right">
-                          <img src="img/user22.png" alt=""/>
-                        </div>
-
-                        <div class="chat-content">
-                         
-                          <div class="chat-meta">3 hours ago <span class="pull-right">Jenifer Smith</span></div>
-                          Vivamus diam elit diam, consectetur fconsectetur dapibus adipiscing elit.
-                          <div class="clearfix"></div>
-                        </div>
-                      </li>    -->
-<!-- 
-                      <li class="by-me">
-                        <div class="avatar pull-left">
-                          <img src="img/user.jpg" alt=""/>
-                        </div>
-
-                        <div class="chat-content">
-                          <div class="chat-meta">John Smith <span class="pull-right">4 hours ago</span></div>
-                          Vivamus diam elit diam, consectetur fermentum sed dapibus eget, Vivamus consectetur dapibus adipiscing elit.
-                          <div class="clearfix"></div>
-                        </div>
-                      </li>   -->
-
-                      <!-- <li class="by-other"> -->
-                        <!-- Use the class "pull-right" in avatar -->
-                       <!--  <div class="avatar pull-right">
-                          <img src="img/user22.png" alt=""/>
-                        </div>
-
-                        <div class="chat-content">
-                         
-                          <div class="chat-meta">3 hours ago <span class="pull-right">Jenifer Smith</span></div>
-                          Vivamus diam elit diam, consectetur fermentum sed dapibus eget, Vivamus consectetur dapibus adipiscing elit.
-                          <div class="clearfix"></div>
-                        </div>
-                      </li>        -->                                                                           
+                      </li>                                                         
                     </ul>
                   </div>
                   <!-- Widget footer -->
