@@ -111,7 +111,7 @@
                               echo "".$dept_name;
                             }
                             else
-                            echo "".getUserName($feed_uid); ?>
+                            echo "".getUserName($feedDetails['u_id']); ?>
                           
                          <span class="pull-right"> <?php echo "".$feedDetails['created_at'];?></span></div>
                           <?php echo $feedDetails['feed_text']; ?>

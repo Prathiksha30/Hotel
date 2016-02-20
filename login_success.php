@@ -1,10 +1,10 @@
 <?php 
 	session_start();
 	
-	if(!isset($_SESSION['email_id']))
+	if(!isset($_SESSION['user_id']))
 	{
 		?>
-		<script> alert('wrong username or password')</script>
+		<script> alert('Wrong Email ID!')</script>
 		<?php
 		header("Location:login.php"); 
 	}

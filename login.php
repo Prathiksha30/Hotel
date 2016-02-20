@@ -77,21 +77,23 @@
 		$stmt->fetch();
 		if($stmt->num_rows > 0)
 		{
-            echo "hey";
-			echo $stmt->num_rows;
-		// 	$_SESSION['email_id']=$email_id;
-		// 	$_SESSION['name']=$name;
-  //           $_SESSION['user_id']=$user_id;
+        /*echo "hey";
+			echo $stmt->num_rows;*/
+			$_SESSION['email_id']=$email_id;
+			$_SESSION['name']=$name;
+            $_SESSION['user_id']=$user_id;
 		// 	//var_dump($name);
-  //           $_SESSION['roomno']=$room;
+            $_SESSION['roomno']=$room;
 			
-			//header("location:login_success.php");
+			header("location:login_success.php");
 		}
 		else
-		{
-			echo "Wrong Email ID and Room Number";
-			//header("location:login.php");
-		}
+		{ ?>
+			<script>
+            alert("Ain't working.") ;
+            </script>
+		<?php 
+        } 
 		$stmt->close();
 	 }
 	}
