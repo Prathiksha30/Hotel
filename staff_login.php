@@ -242,6 +242,7 @@
                         alert("Wait for admin to confirm. Login after sometime");
                         </script>
                         <?php
+                        
                     }
                 else
                     {
