@@ -196,19 +196,21 @@ function getStaffDetails($s_id)
                       </a>
                       
                   </li>
-                  <?php if(isset($_SESSION['S_id']))
-                            { ?>       
                   <li>
-                      <a href="requests.php" class="">Service Requests
-                      <?php 
+                  <?php if(isset($_SESSION['S_id']))
+                        { ?>       
+                          <a href="requests.php" class="">Service Requests
+                          <i class="icon_desktop"></i></a> 
+                       <?php 
                         }
-                        else {
-                      ?>
-                      <a href="services.php" class="">Services 
-                      <?php 
+                        else 
+                        {
+                        ?>
+                          <a href="services.php" class="">Services 
+                          <i class="icon_desktop"></i></a>
+                        <?php 
                         } ?>
-                          <i class="icon_desktop"></i>                         
-                      </a>                     
+                                             
                   </li>
                   <li>
                       <a class="#" href="widgets.html">Events
