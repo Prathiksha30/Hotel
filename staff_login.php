@@ -190,7 +190,7 @@
   </body>
 </html>
 
-
+<!-- FOR THE SIGN UP MODAL -->
 <?php 
     global $conn;
     if(isset($_POST['submit1']))
@@ -237,12 +237,14 @@
                         $stmt->bind_param("ssssisi", $staffName, $staffEmailID, $staffPassword, $staffMobno, $staffAge, $staffGender,$staffDepartmentID);
                         $stmt->execute();
                         $stmt->close();
+                        
+                        $staffidupdate = getStaffID();
+                        setStaffID($staffidupdate);
                         ?>
                         <script>
                         alert("Wait for admin to confirm. Login after sometime");
                         </script>
                         <?php
-                        
                     }
                 else
                     {
@@ -303,4 +305,42 @@ function getDepartmentID($staffDepartment)
           
             }
         }
+?>
+<?php
+function getStaffID()
+{
+    global $conn;
+     if($stmt = $conn->prepare("SELECT s_id FROM `user_staff`ORDER BY s_id DESC LIMIT 1"))
+        {
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($sid);
+            $stmt->fetch();
+            $stmt->close();
+            return $sid;
+        }
+        else {
+            ?>  <script>
+                        alert("Something is wrong with getStaffID");
+                        </script>
+
+    <?php    }
+        
+}
+function setStaffID($sid)
+{
+    global $conn;
+    $staffId = "s".$sid;
+    if($stmt = $conn->prepare("UPDATE `user_staff` SET staff_id = ? WHERE s_id = $sid"))
+    {
+        $stmt->bind_param('s', $staffId);
+        $stmt->execute();
+        $stmt->close(); 
+    }
+    else {
+        ?>  <script> alert("Something is wrong with getStaffID"); </script>
+
+    <?php
+     }
+}
 ?>
