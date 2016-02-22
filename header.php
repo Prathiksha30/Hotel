@@ -166,6 +166,7 @@ function getStaffDetails($s_id)
                             } //end of if for Staff
                             else {
                             ?>
+                            <li>
                                 <a href="services.php"><i class="icon-task-l"></i> Services</a>
                                  <?php 
                             } ?>
