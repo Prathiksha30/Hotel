@@ -113,7 +113,7 @@
                             }
                             else
                             echo "".getUserName($feedDetails['u_id']); 
-                          if(isset($_SESSION['S_id']) == 6)
+                          if($_SESSION['S_id'] == 6)
                           { ?>
                         <form method="POST" action="">
                         <input type="hidden" name="feed_id" value="<?php echo $feedDetails['feed_id']; ?>"> <!-- Gets the value of that row -->
