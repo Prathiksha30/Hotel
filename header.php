@@ -148,11 +148,22 @@ function getStaffDetails($s_id)
                             </li>
                                <?php
                             if(isset($_SESSION['S_id']))
-                            { ?> 
+                            { 
+                              /*$staff = $_SESSION['staff_id']*/;
+                              if( $_SESSION['S_id'] == 6) //admin has id 6
+                              { ?>
+                                <li>
+                              <a href="admin_newusers.php"><i class="icon-task-l"></i> My Dashboard</a> 
+                            <?php  }
+                               else { ?>
+                                <a href="requests.php"><i class="icon-task-l"></i> Service Requests</a> 
+                              <?php  }  
+                              
+                              ?>
                               <li>
-                              <a href="requests.php"><i class="icon-task-l"></i> Service Requests</a> 
+                              
                             <?php 
-                            }
+                            } //end of if for Staff
                             else {
                             ?>
                                 <a href="services.php"><i class="icon-task-l"></i> Services</a>
@@ -199,10 +210,18 @@ function getStaffDetails($s_id)
                   </li>
                   <li>
                   <?php if(isset($_SESSION['S_id']))
-                        { ?>       
+                        { 
+                          if( $_SESSION['S_id'] == 6)
+                            { ?>
+                           <a href="admin_newusers.php" class="">My Dashboard
+                          <i class="icon_desktop"></i></a> 
+                       <?php   
+                            }
+                           else { ?>
                           <a href="requests.php" class="">Service Requests
                           <i class="icon_desktop"></i></a> 
-                       <?php 
+                         <?php  
+                          }
                         }
                         else 
                         {

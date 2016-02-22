@@ -248,9 +248,11 @@
                         <?php
                     }
                 else
-                    {
-                        echo "Error with updation";
-                    }
+                    { ?>
+                        <script>
+                        alert("ERRRRROR");
+                        </script>
+                   <?php }
             }
         }
     }
