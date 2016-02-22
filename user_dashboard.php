@@ -27,27 +27,35 @@ function getCheckinDate()
   <section id="main-content">
       <section class="wrapper">
         <div class="row">
-        	<div class="col-lg-6 col-md-12">	
+        	<center>
+        	<div class="col-lg-11 col-md-12">	
 			<div class="panel panel-success">
 				<div class="panel-heading">
 
 					<h2><i class="fa fa-flag-o red"></i><strong>Days you have stayed with us</strong></h2>
 				</div>
 				<div class="panel-body">
-					<div class="countup">
-					  It's been
-					  <p id="days">00</p>
-					  <p class="timeRefDays">days</p>
-					  <p id="hours">00</p>
-					  <p class="timeRefHours">hours</p>
-					  <p id="minutes">00</p>
-					  <p class="timeRefMinutes">minutes</p>
-					  <p id="seconds">00</p>
-					  <p class="timeRefSeconds">second</p>
+				<center>
+					<div style="color: #ffffff;display: inline-block;font-weight: 100;text-align: center;font-size: 30px;">
+					  
+					  <div style="padding: 10px;border-radius: 3px;background: #00BF96;display: inline-block;">
+					 Days: <span style=" padding: 15px; border-radius: 3px; background: #00816A; display: inline-block;" id="days">00</spap></br>
+					 </div>
+					 <div style="padding: 10px;border-radius: 3px;background: #00BF96;display: inline-block;">
+					  Hours: <span style=" padding: 15px; border-radius: 3px; background: #00816A; display: inline-block;" id="hours">00</span></br>
+					  </div>
+					  <div style="padding: 10px;border-radius: 3px;background: #00BF96;display: inline-block;">
+					  Minutes: <span style=" padding: 15px; border-radius: 3px; background: #00816A; display: inline-block;" id="minutes">00</span></br>
+					  </div>
+					  <div style="padding: 10px;border-radius: 3px;background: #00BF96;display: inline-block;">
+					  Seconds: <span style=" padding: 15px; border-radius: 3px; background: #00816A; display: inline-block;" id="seconds">00</span></br>
+					 </div>
 					</div>
+				</center>
 				</div>
 			</div>
-		</div>
+			</div>
+			</center>
         </div>
         <div class="row">
         <div class="col-lg-6 col-md-12">	
