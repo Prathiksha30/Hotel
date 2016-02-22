@@ -90,6 +90,7 @@
                   <br><br><br><br>
                    <?php /*$feedDeets[]=getFeedDetails();*/
                       foreach (getFeedDetails() as $feedDetails):
+                        if($feedDetails['flag'] == 1) {
                       	?>
                   <div class="padd sscroll">
                     <ul class="chats">
@@ -111,9 +112,17 @@
                               echo "".$dept_name;
                             }
                             else
-                            echo "".getUserName($feedDetails['u_id']); ?>
-                          <span class="pull-right"><a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a> </span>
-                         <span class="pull-right"> &nbsp<?php echo "".$feedDetails['created_at'];?></span></div>
+                            echo "".getUserName($feedDetails['u_id']); 
+                          if(isset($_SESSION['S_id']) == 6)
+                          { ?>
+                        <form method="POST" action="">
+                        <input type="hidden" name="feed_id" value="<?php echo $feedDetails['feed_id']; ?>"> <!-- Gets the value of that row -->
+                            <span class="pull-right"><button type="submit" class="btn-close1" name="delete" value="<?php $feedDetails['feed_id']?>"><i class="fa fa-times"></i></button> </span>
+                         </form>
+                         <?php }
+                            ?>
+          <div class="clearfix"></div>
+                         <span class="pull-right"> <?php echo "".$feedDetails['created_at'];?></span></div>
                           <?php echo $feedDetails['feed_text']; ?>
 
                           <div class="clearfix"></div>
@@ -126,7 +135,8 @@
 
 
               </div> 
-           <?php  endforeach; 
+           <?php } //end of if for flag
+           endforeach; 
                       ?>
             </div> 
 
@@ -135,7 +145,26 @@
 </section>
 </section>
 </html>
+<!-- TO DELETE FEEDS FROM PAGE, ADMIN -->
+<?php
+if(isset($_POST['delete']))
+  {
+    global $conn;
+    $feedid= $_POST["feed_id"];
 
+    if($stmt=$conn->prepare("UPDATE `feeds` SET flag = 0 WHERE feed_id = $feedid"))
+    {
+      $stmt->execute();
+      $stmt->close();
+      echo "<meta http-equiv='refresh' content='0'>";
+    }
+    else 
+      {?>
+       <script>alert("There was an error, please try after sometime.")</script>
+  <?php
+      }
+  }
+?>
 <!-- Inserting feeds into the databse. IT WORKS :D -->
 <?php 
 	global $conn;
@@ -193,13 +222,13 @@
 	function getFeedDetails()
 	{
 		global $conn;
-		if($stmt = $conn->prepare("SELECT feed_id, feed_text, created_at, u_id FROM `feeds` f LEFT JOIN `feed_user` fu ON f.feed_id = fu.f_id ORDER BY created_at DESC")) 
+		if($stmt = $conn->prepare("SELECT feed_id, flag, feed_text, created_at, u_id FROM `feeds` f LEFT JOIN `feed_user` fu ON f.feed_id = fu.f_id ORDER BY created_at DESC")) 
 		{
 			$stmt->execute();
-			$stmt->bind_result($feed_id, $feed_text, $created_at, $u_id);
+			$stmt->bind_result($feed_id, $flag, $feed_text, $created_at, $u_id);
 			while ($stmt->fetch()) 
 			{
-				$rows[] = array('feed_id' => $feed_id , 'feed_text' => $feed_text, 'created_at' => $created_at, 'u_id' => $u_id );
+				$rows[] = array('feed_id' => $feed_id ,'flag' => $flag, 'feed_text' => $feed_text, 'created_at' => $created_at, 'u_id' => $u_id );
 			}
 			$stmt->close();
 			return $rows;
