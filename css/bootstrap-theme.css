@@ -5905,3 +5905,32 @@ td.visible-print {
     display: none !important;
   }
 }
+
+
+/*CUSTOM CSS */
+/*Button for deleting feeds */
+.btn-close1 {
+  color: #1258A5;
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open .dropdown-toggle.btn-danger {
+  color: #ff2d55;
+  background: transparent;
+  border-color: #ff2d55;
+}
+.btn-danger:active,
+.btn-danger.active,
+.open .dropdown-toggle.btn-danger {
+  background-image: none;
+}
+.btn-xxs {
+    padding: 1px 4px;
+    font-size: 10px;
+    line-height: 1.5;
+    border-radius: 0px;
+}
