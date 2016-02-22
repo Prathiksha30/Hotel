@@ -146,20 +146,24 @@ function getStaffDetails($s_id)
                             <li>
                                 <a href="index.php"><i class="icon-dashboard-l"></i>Feeds</a>
                             </li>
+                            <li>
                                <?php
+
                             if(isset($_SESSION['S_id']))
                             { 
                               /*$staff = $_SESSION['staff_id']*/;
                               if( $_SESSION['S_id'] == 6) //admin has id 6
                               { ?>
-                                <li>
+                                
                               <a href="admin_newusers.php"><i class="icon-task-l"></i> My Dashboard</a> 
                             <?php  }
+
                                else { ?>
                                 <a href="requests.php"><i class="icon-task-l"></i> Service Requests</a> 
                               <?php  }  
-                              
                               ?>
+                              </li>
+
                               <li>
                               
                             <?php 
@@ -208,18 +212,23 @@ function getStaffDetails($s_id)
                   </li>  
                   <?php 
                   }?>           
-                  <li class="active">
+                  <li >
                   
                       <a class="" href="index.php">Feed
                           <i class="icon_house_alt"></i>
                       </a>
                   </li>
-                  <li>
+                  <?php if(isset($_SESSION['user_id']))
+                  {?>
+                    <li>
                       <a href="404.html" class="">Chat
                           <i class="icon_document_alt"></i>                          
                       </a>
                       
                   </li>
+                  <?php
+                  }?>
+                  
                   <li>
                   <?php if(isset($_SESSION['S_id']))
                         { 
@@ -249,12 +258,29 @@ function getStaffDetails($s_id)
                           <i class="icon_genius"></i>                          
                       </a>
                   </li>
-                  <li>                     
-                      <a class="profile.php" href="profile.php">My Profile
-                          <i class="icon_piechart"></i>                                                  
-                      </a>
-                                         
-                  </li>
+                  <li> 
+                   <?php 
+                   if(isset($_SESSION['user_id']))
+                    {?>
+                                              
+                              <a class="" href="profile.php">My Profile
+                                  <i class="icon_profile"></i>                                                  
+                              </a>
+                                                 
+                          
+                          <?php
+                    }
+                    else
+                    {?>
+                      <a class="" href="staff_profile.php">My Profile
+                                  <i class="icon_profile"></i>                                                  
+                       </a>
+                    <?php
+                    }?>
+                    </li>
+
+
+
                 
                              
                  

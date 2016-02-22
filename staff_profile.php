@@ -3,16 +3,16 @@ session_start();
 include('hoteldb.php');
 include('header.php');
 
-function getUserNameandRoom($user_id)
+function getStaffNameandDept($s_id)
 {
     global $conn;
-    if ($stmt = $conn->prepare("SELECT username, room_no, user_image FROM `user_guest` WHERE user_id = ?"))
+    if ($stmt = $conn->prepare("SELECT name, dept_id, profile_pic FROM `user_staff` WHERE s_id = ?"))
         {
-        $stmt->bind_param("i", $user_id);
+        $stmt->bind_param("i", $s_id);
         $stmt->execute();
-        $stmt->bind_result($username, $room_no, $user_image);
+        $stmt->bind_result($name, $dept_id,$profile_pic);
         while ($stmt->fetch()) {
-          $rows[] = array('username' => $username, 'room_no' => $room_no, 'user_image' => $user_image);
+          $rows[] = array('name' => $name, 'dept_id' => $dept_id,'profile_pic' => $profile_pic);
         }
         $stmt->close();
         return $rows;
@@ -21,16 +21,35 @@ function getUserNameandRoom($user_id)
         printf("Error message: %s\n", $conn->error);
     }
 }
-function getUserdetails($user_id)
+function getDeptName($dept_id)
+{
+  global $conn;
+  if($stmt = $conn->prepare("SELECT `d_name` FROM `department` WHERE d_id = ?"))
+  {
+    $stmt->bind_param("i", $dept_id);
+    $stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($d_name);
+    $stmt->fetch();
+    $stmt->close();
+    return $d_name;
+  }
+  else
+  {
+      echo "Error with getting department name!";
+
+  }
+}
+function getStaffdeets($s_id)
 {
     global $conn;
-    if ($stmt = $conn->prepare("SELECT name, email_id, ph_no, age, gender, checkin FROM `user_guest` WHERE user_id = ?")) 
+    if ($stmt = $conn->prepare("SELECT name, email_id, ph_no, age, gender, doj FROM `user_staff` WHERE s_id = ?")) 
         {
-        $stmt->bind_param("i", $user_id);
+        $stmt->bind_param("i", $s_id);
         $stmt->execute();
-        $stmt->bind_result($name, $emailid, $ph_no, $age, $gender, $checkin);
+        $stmt->bind_result($name, $email_id, $ph_no, $age, $gender, $doj);
         while ($stmt->fetch()) {
-          $rows[] = array('name' => $name, 'email_id' => $emailid, 'ph_no' => $ph_no, 'age' => $age, 'gender' => $gender, 'checkin' => $checkin);
+          $rows[] = array('name' => $name, 'email_id' => $email_id, 'ph_no' => $ph_no, 'age' => $age, 'gender' => $gender, 'doj' => $doj);
         }
         $stmt->close();
         return $rows;
@@ -74,16 +93,16 @@ function getUserdetails($user_id)
                             <div class="col-lg-2 col-sm-2">
                               <h4>
                               <?php
-                                $name = getUserNameandRoom($_SESSION['user_id']);
-                                echo $name[0]['username'];
+                                $name = getStaffNameandDept($_SESSION['S_id']);
+                                echo $name[0]['name'];
                                 ?>
                                 <br>
                                 <?php
-                                echo " Room Number: ".$name[0]['room_no'];
+                                echo " Department: ".getDeptName($name[0]['dept_id']);
                               ?>
                               </h4>               
                               <div class="follow-ava">
-                                  <img src="<?php echo 'profilePhoto/'.$name[0]['user_image']; ?>" alt="<?php echo "sorry"?>">
+                                  <img src="<?php echo 'StaffPhoto/'.$name[0]['profile_pic']; ?>" alt="<?php echo "sorry"?>">
                               </div>
                             </div>
                             <div class="col-lg-4 col-sm-4 follow-info">
@@ -137,7 +156,7 @@ function getUserdetails($user_id)
                                       </section><div class="panel-body bio-graph-info">
                                           <h1>Personal Information</h1>
                                           <div class="row">
-                                          <?php $userdetail = getUserdetails($_SESSION['user_id']);?>
+                                          <?php $userdetail = getStaffdeets($_SESSION['S_id']);?>
                                               <div class="bio-row">
                                                   <p><span>Name: </span>:<?php echo $userdetail[0]['name'];?> </p>
                                               </div>
@@ -153,6 +172,10 @@ function getUserdetails($user_id)
                                               <div class="bio-row">
                                                   <p><span>Gender: </span>: <?php echo $userdetail[0]['gender'];?></p>
                                               </div>
+                                              <div class="bio-row">
+                                                  <p><span>Date Of Joining: </span>: <?php echo $userdetail[0]['doj'];?></p>
+                                              </div>
+
                                           </div>
                                       </div>
                                       <section>
@@ -189,7 +212,8 @@ function getUserdetails($user_id)
                                                       <div class="col-lg-6">
                                                           <input type="text" name="mobileno" class="form-control" maxlength="10" minlength="10">
                                                       </div>
-                                                  </div>
+                                                    </div>
+                                                  
                                                       
                                                   <div class="form-group">
                                                       <label class="col-lg-2 control-label">Age: </label>
