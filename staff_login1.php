@@ -62,6 +62,7 @@
             $_SESSION['StaffEmail_id']=$email_id;
             $_SESSION['StaffName']=$name;
             $_SESSION['S_id']=$s_id;
+            $_SESSION['staff_id']=$staff_id; //with s value
             header("Location: index.php");
         }
         else

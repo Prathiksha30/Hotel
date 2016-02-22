@@ -112,9 +112,10 @@
                             }
                             else
                             echo "".getUserName($feedDetails['u_id']); ?>
-                          
-                         <span class="pull-right"> <?php echo "".$feedDetails['created_at'];?></span></div>
+                          <span class="pull-right"><a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a> </span>
+                         <span class="pull-right"> &nbsp<?php echo "".$feedDetails['created_at'];?></span></div>
                           <?php echo $feedDetails['feed_text']; ?>
+
                           <div class="clearfix"></div>
                         </div>
                       </li>                                                         
