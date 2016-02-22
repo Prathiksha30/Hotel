@@ -136,12 +136,12 @@ function getStaffdeets($s_id)
                                           Profile
                                       </a>
                                   </li>
-                                  <li class="">
+                                  <!-- <li class="">
                                       <a data-toggle="tab" href="#edit-profile">
                                           <i class="icon-envelope"></i>
                                           Edit Profile
                                       </a>
-                                  </li>
+                                  </li> -->
                               </ul>
                           </header>
                           <div class="panel-body">
@@ -184,7 +184,7 @@ function getStaffdeets($s_id)
                                       </section>
                                   </div>
                                   <!-- edit-profile -->
-                                  <div id="edit-profile" class="tab-pane">
+                                  <!-- <div id="edit-profile" class="tab-pane">
                                     <section class="panel">                                          
                                           <div class="panel-body bio-graph-info">
                                               <h1> Profile Info</h1>
@@ -238,7 +238,7 @@ function getStaffdeets($s_id)
                                               </form>
                                           </div>
                                       </section>
-                                  </div>
+                                  </div> -->
                               </div>
                           </div>
                       </section>
@@ -264,68 +264,64 @@ function getStaffdeets($s_id)
 
   </body>
 </html>
-<?php
+// <?php
 
-if(isset($_POST['Submit']))
- {
-  
-
-  $name = $_POST['guestname'];
-  $ph_no = $_POST['mobileno'];
- 
-  $email_id = $_POST['emailid'];
-  $age= $_POST['age'];
-  $Img=$_FILES["file"]["name"];
-  $gender = $_POST['sex'];
-
- ?>
- <script>
- alert(<?php $name ?>);
- </script>
-  <?php   
-  global $conn;
-    if ($stmt = $conn->prepare("UPDATE `user_staff` SET `name`=?, `email_id`=?,`ph_no`=?, `age`=?, `user_image`=?, `gender`=? WHERE `user_id`=?")) 
-      {
-        $stmt->bind_param("sssissi", $name, $email_id, $ph_no, $age, $Img, $gender, $_SESSION['S_id']);
-        $stmt->execute();
-      }
-      else{
-        echo "Error with insertion";
-      }
-}
-?>
-<!-- CODE TO UPLOAD THE FILE -->
- <?php
+// if(isset($_POST['Submit']))
+//  {
+//   $name = $_POST['guestname'];
+//   $ph_no = $_POST['mobileno'];
+//   // $username = $_POST['username'];
+//   $email_id = $_POST['emailid'];
+//   $age= $_POST['age'];
+//   $Img=$_FILES["file"]["name"];
+//   $gender = $_POST['sex'];
+//   echo "hey";
+//  ?>
+//   <?php   
+//   global $conn;
+//     if ($stmt = $conn->prepare("UPDATE `user_staff` SET `name`=?, `email_id`=?,`ph_no`=?, `age`=?, `user_image`=?, `gender`=? WHERE `user_id`=?")) 
+//       {
+//         echo "Hello";
+//         $stmt->bind_param("sssissi", $name,$email_id, $ph_no, $age, $Img, $gender, $_SESSION['S_id']);
+//         $stmt->execute();
+//       }
+//       else{
+//         echo "Error with insertion";
+//       }
+// }
+// ?>
+// <!-- CODE TO UPLOAD THE FILE -->
+//  <?php
 
 
-    $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");
-    $temp = explode(".", $_FILES["file"]["name"]); //gets file name
-    $extension = end($temp);
+//     $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");
+//     $temp = explode(".", $_FILES["file"]["name"]); //gets file name
+//     $extension = end($temp);
 
-     if ((($_FILES["file"]["type"] == "image/gif")
-     || ($_FILES["file"]["type"] == "image/jpeg")
-     || ($_FILES["file"]["type"] == "image/jpg")
-     || ($_FILES["file"]["type"] == "image/pjpeg")
-     || ($_FILES["file"]["type"] == "image/x-png")
-     || ($_FILES["file"]["type"] == "image/png"))
-     && ($_FILES["file"]["size"] < 1000000)
-     && in_array($extension, $allowedExts)) 
-        {
-            if ($_FILES["file"]["error"] > 0) 
-                {
-                     echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
-                } 
-            else 
-                {
-                if (file_exists("StaffPhoto/" . $_FILES["file"]["name"])) 
-                    {
-                        echo $_FILES["file"]["name"] . " already exists. ";
-                    } 
-                else 
-                    {
-                        move_uploaded_file($_FILES["file"]["tmp_name"],
-                       "StaffPhoto/".$Img);
-                    }
-                }
-       }       
-?>
+//      if ((($_FILES["file"]["type"] == "image/gif")
+//      || ($_FILES["file"]["type"] == "image/jpeg")
+//      || ($_FILES["file"]["type"] == "image/jpg")
+//      || ($_FILES["file"]["type"] == "image/pjpeg")
+//      || ($_FILES["file"]["type"] == "image/x-png")
+//      || ($_FILES["file"]["type"] == "image/png"))
+//      && ($_FILES["file"]["size"] < 1000000)
+//      && in_array($extension, $allowedExts)) 
+//         {
+//             if ($_FILES["file"]["error"] > 0) 
+//                 {
+//                      echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
+//                 } 
+//             else 
+//                 {
+//                 if (file_exists("profilePhoto/" . $_FILES["file"]["name"])) 
+//                     {
+//                         echo $_FILES["file"]["name"] . " already exists. ";
+//                     } 
+//                 else 
+//                     {
+//                         move_uploaded_file($_FILES["file"]["tmp_name"],
+//                        "profilePhoto/".$Img);
+//                     }
+//                 }
+//        }       
+// ?>
