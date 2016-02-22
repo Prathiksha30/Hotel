@@ -146,20 +146,24 @@ function getStaffDetails($s_id)
                             <li>
                                 <a href="index.php"><i class="icon-dashboard-l"></i>Feeds</a>
                             </li>
+                            <li>
                                <?php
+
                             if(isset($_SESSION['S_id']))
                             { 
                               /*$staff = $_SESSION['staff_id']*/;
                               if( $_SESSION['S_id'] == 6) //admin has id 6
                               { ?>
-                                <li>
+                                
                               <a href="admin_newusers.php"><i class="icon-task-l"></i> My Dashboard</a> 
                             <?php  }
+
                                else { ?>
                                 <a href="requests.php"><i class="icon-task-l"></i> Service Requests</a> 
                               <?php  }  
-                              
                               ?>
+                              </li>
+
                               <li>
                               
                             <?php 
