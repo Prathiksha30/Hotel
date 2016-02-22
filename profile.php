@@ -189,7 +189,7 @@ function getUserdetails($user_id)
                                                       <div class="col-lg-6">
                                                           <input type="text" name="mobileno" class="form-control" maxlength="10" minlength="10">
                                                       </div>
-                                                  
+                                                  </div>
                                                       
                                                   <div class="form-group">
                                                       <label class="col-lg-2 control-label">Age: </label>
