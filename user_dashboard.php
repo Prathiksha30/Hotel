@@ -27,6 +27,7 @@ function getCheckinDate()
   <section id="main-content">
       <section class="wrapper">
         <div class="row">
+        	<center>
         	<div class="col-lg-11 col-md-12">	
 			<div class="panel panel-success">
 				<div class="panel-heading">
@@ -34,6 +35,7 @@ function getCheckinDate()
 					<h2><i class="fa fa-flag-o red"></i><strong>Days you have stayed with us</strong></h2>
 				</div>
 				<div class="panel-body">
+				<center>
 					<div style="color: #ffffff;display: inline-block;font-weight: 100;text-align: center;font-size: 30px;">
 					  
 					  <div style="padding: 10px;border-radius: 3px;background: #00BF96;display: inline-block;">
@@ -49,9 +51,11 @@ function getCheckinDate()
 					  Seconds: <span style=" padding: 15px; border-radius: 3px; background: #00816A; display: inline-block;" id="seconds">00</span></br>
 					 </div>
 					</div>
+				</center>
 				</div>
 			</div>
-		</div>
+			</div>
+			</center>
         </div>
         <div class="row">
         <div class="col-lg-6 col-md-12">	
