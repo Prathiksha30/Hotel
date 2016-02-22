@@ -196,7 +196,7 @@ function getStaffDetails($s_id)
                   </li>  
                   <?php 
                   }?>           
-                  <li class="active">
+                  <li >
                   
                       <a class="" href="index.php">Feed
                           <i class="icon_house_alt"></i>
@@ -231,7 +231,7 @@ function getStaffDetails($s_id)
                   </li>
                   <li>                     
                       <a class="profile.php" href="profile.php">My Profile
-                          <i class="icon_piechart"></i>                                                  
+                          <i class="icon_profile"></i>                                                  
                       </a>
                                          
                   </li>

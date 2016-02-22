@@ -10,7 +10,7 @@
 	}
 	else
 	{
-		header("Location:index.php"); 
+		header("Location:user_dashboard.php"); 
 	}
 ?>
 <!-- <a href="#myModal" data-toggle="modal" class="btn btn-primary"> -->
