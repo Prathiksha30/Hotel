@@ -40,17 +40,17 @@
         $email_id=$_POST['email'];
         $password = $_POST['password'];
 
-     if($stmt = $conn->prepare("SELECT s_id, name,email_id FROM user_staff WHERE email_id= ? AND password=? AND admin_confirm=1"))
+     if($stmt = $conn->prepare("SELECT s_id, name,email_id,dept_id FROM user_staff WHERE email_id= ? AND password=? AND admin_confirm=1"))
      {
         $stmt->bind_param('ss', $email_id,$password);
         $stmt->execute();
         $stmt->store_result();
-        $stmt->bind_result($s_id, $name, $email_id);
+        $stmt->bind_result($s_id, $name, $email_id,$dept_id);
         $count=0;
         while($stmt->fetch())
         {
             $count=$count+1;
-            $rows[]=array('s_id'=>$s_id,'name'=>$name,'email_id'=>$email_id);
+            $rows[]=array('s_id'=>$s_id,'name'=>$name,'email_id'=>$email_id,'dept_id'=>$dept_id);
         }
         //print_r($rows);
         // $row_count=$stmt->rowCount();
@@ -62,6 +62,7 @@
             $_SESSION['StaffEmail_id']=$email_id;
             $_SESSION['StaffName']=$name;
             $_SESSION['S_id']=$s_id;
+            $_SESSION['Dept_id']=$dept_id;
             header("Location: index.php");
         }
         else

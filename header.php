@@ -50,7 +50,8 @@ function getStaffDetails($s_id)
     <link rel="shortcut icon" href="img/favicon.png">
 
     <title>Creative - Bootstrap Admin Template</title>
-
+<!-- clock timer-->
+<link rel="stylesheet" href="css/flipclock.css">
     <!-- Bootstrap CSS -->    
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- bootstrap theme -->

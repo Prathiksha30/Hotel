@@ -33,6 +33,13 @@ include('header.php');
                                   </li>
                               </ul>
                           </header>
+                          
+                          <script>
+                            $date=now();
+                            $date1=date('d-m-Y', $date); 
+                            alert $date1;
+                          </script>
+                          
                           <div class="panel-body">
                               <div class="tab-content">
                                   <div id="RoomService" class="tab-pane active">

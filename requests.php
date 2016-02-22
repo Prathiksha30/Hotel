@@ -1,6 +1,6 @@
 <?php 
 	include('header.php'); 
-	//session_start();
+	session_start();
 	include('hoteldb.php');
 ?>
 
@@ -15,7 +15,7 @@
 </div>
 <div class="row">
 <!-- <div class="col-lg-1"></div> -->
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                       <!--Project Activity start-->
                       <section class="panel">
                           <div class="panel-body progress-panel">
@@ -36,17 +36,29 @@
                               <tr>
                               <td>   <?php 
                                    echo $pendingServices['room_no'];
-                                   ?> </td>
+                                   ?> 
+                              </td>
                               <td>  <?php 
                               
                                    echo getUserDetails($pendingServices['user_id']);
-                                   ?></td>
-                               <td>   <?php 
+                                   ?>
+                              </td>
+                              <td>   <?php 
                                    echo $pendingServices['message'];
-                                   ?> </td>
-                                    <td>   <?php 
+                                   ?> 
+                              </td>
+                              <td>   <?php 
                                    echo $pendingServices['request_time'];
-                                   ?> </td>             
+                                   ?> 
+                              </td>
+                              <td>
+                              <form action="" method="POST">
+                              <div class="btn-group">
+                                <input type="hidden" name="completedServiceID" value="<?php echo $pendingServices['service_id'];?>">
+                                <input type="submit" name="competeService" value="Completed" class="btn btn-primary ">
+                              </div>
+                              </form>
+                              </td>             
                               </tr>
                           <?php endforeach;  ?>
                        		  </tbody>
@@ -54,7 +66,9 @@
                           </table>
                         
                       </section>
+
                 </div>
+  </div>
                
                 	 <a data-toggle="modal" href="#myModal" title="Click to view the number of services completed!">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
@@ -78,22 +92,24 @@
                             <table>
                                     <th style="padding:5px;"> Room Number </th>
                                     <th style="padding:5px;"> Service </th>
-                              		<th style="padding:5px;"> Date & Time </th>
+                              		<th style="padding:5px;"> Request Date & Time </th>
+                                  <th style="padding:5px;"> Delivery Date & Time </th>
                               <?php  foreach (getCompletedServices() as $completedServices):
                               ?>
                               
                                     <tr>
                                     <td style="padding:5px;">
-                                    -- <?php echo "".$completedServices['room_no'];?>--
+                                    <?php echo "".$completedServices['room_no'];?>
                                     </td>                                    
                                     <td style="padding:5px;">
-                                    --<?php echo "".$completedServices['message'];?>--
+                                    <?php echo "".$completedServices['message'];?>
                                     </td>
                                     <td style="padding:5px;">
-                                   --<?php echo "".$completedServices['request_time'];?>--
+                                   <?php echo "".$completedServices['request_time'];?>
+                                    </td>
+                                    <td style="padding:5px;">
+                                   <?php echo "".$completedServices['delivery_time'];?>
                                     </td>      
-                               
-                                          </a>
                                     </tr>                                 
                                 <?php  endforeach;
                               ?>
@@ -111,6 +127,29 @@
 </html>
 
 <?php 
+if(isset($_POST['competeService']))
+{
+  updateServiceStatusToComplete($_POST['completedServiceID']);
+  ?>
+  <script>
+  window.location.href = "requests.php"
+  </script>
+  <?php
+}
+function updateServiceStatusToComplete($service_id)
+{
+  global $conn;
+  if($stmt = $conn->prepare("UPDATE `user_services` SET status='completed',delivery_time=now() WHERE service_id=?"))
+    {
+      $stmt->bind_param("i", $service_id);
+      $stmt->execute();
+    }
+    else
+    {
+      printf("Error message: %s\n", $conn->error);
+    }
+
+}
 function getUserDetails($user_id)
 {
 	global $conn;
@@ -131,13 +170,14 @@ function getUserDetails($user_id)
 function getPendingServices($status)
 {
 	global $conn;
-	if($stmt = $conn->prepare("SELECT * FROM user_services WHERE status= ?"))
+	if($stmt = $conn->prepare("SELECT * FROM user_services WHERE status= ? and dept_id=?"))
 	{
-		$stmt->bind_param("s", $status);
+ 
+		$stmt->bind_param("si", $status,$_SESSION['Dept_id']);
 		$stmt->execute();
-		$stmt->bind_result($service_id, $dept_id, $user_id, $room_no, $status, $message, $request_time);
+		$stmt->bind_result($service_id, $dept_id, $user_id, $room_no, $status, $message, $request_time, $delivery_time);
 		while ($stmt->fetch()) {
-			$rows[] = array('service_id' => $service_id, 'dept_id' => $dept_id, 'user_id' => $user_id, 'room_no' => $room_no, 'status' => $status, 'message' => $message, 'request_time' => $request_time );
+			$rows[] = array('service_id' => $service_id, 'dept_id' => $dept_id, 'user_id' => $user_id, 'room_no' => $room_no, 'status' => $status, 'message' => $message, 'request_time' => $request_time,'delivery_time' => $delivery_time );
 		}
 		$stmt->close();
 		/*print_r($rows);*/
@@ -153,9 +193,9 @@ function getCompletedServices()
 	if($stmt = $conn->prepare("SELECT * FROM user_services WHERE status= 'completed' "))
 	{
 		$stmt->execute();
-		$stmt->bind_result($service_id, $dept_id, $user_id, $room_no, $status, $message, $request_time);
+		$stmt->bind_result($service_id, $dept_id, $user_id, $room_no, $status, $message, $request_time,$delivery_time);
 		while ($stmt->fetch()) {
-			$rows[] = array('service_id' => $service_id, 'dept_id' => $dept_id, 'user_id' => $user_id, 'room_no' => $room_no, 'status' => $status, 'message' => $message, 'request_time' => $request_time );
+			$rows[] = array('service_id' => $service_id, 'dept_id' => $dept_id, 'user_id' => $user_id, 'room_no' => $room_no, 'status' => $status, 'message' => $message, 'request_time' => $request_time, 'delivery_time'=>$delivery_time);
 		}
 		$stmt->close();
 		return $rows;
