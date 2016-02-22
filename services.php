@@ -28,17 +28,12 @@ include('header.php');
                                   <li class="">
                                       <a data-toggle="tab" href="#Recreation_LeisureServices">Recreation & Leisure Services</a>
                                   </li>
-                                  <li class="">
+                                  <!-- <li class="">
                                       <a data-toggle="tab" href="#TransportaionFacility">Transportaion Facility</a>
-                                  </li>
+                                  </li> -->
                               </ul>
                           </header>
                           
-                          <script>
-                            $date=now();
-                            $date1=date('d-m-Y', $date); 
-                            alert $date1;
-                          </script>
                           
                           <div class="panel-body">
                               <div class="tab-content">
@@ -339,40 +334,7 @@ include('header.php');
                                               </div>
                                           </section>
                                           <!--modal start-->
-                                      <!-- swiggy code starts here -->
-                                      <!-- <div class="restaurant-menu-listing">
-                                        <div class="banner-common hide cart-error-banner"></div>
-                                        <div class="container">
-                                      <div class="row">
-                                      <div class="col-md-3 col-xs-12">
-                                      <div class="sidebar-wrapper " id="sidebar-wrapper">
-                                          <div class="cusines">
-                                            <div class="search-box">
-                                              <input class="search" type="text" placeholder="Search by items" id="item-filter">
-                                            </div>
-                                              <div class="category-list">
-                                                    <ul class="sub-category resto_sub_cat">
-                                                        <li class="active">
-                                                          <a class="selection_cate" data-id="all" title="All">All</a>
-                                                        </li>
-                                                        <li class="">
-                                                          <a class="selection_cate" data-id="12794" title="Ice Creams">Ice Creams</a>
-                                                        </li>
-                                                        <li class="">
-                                                          <a class="selection_cate" data-id="12802" title="Beverages">Beverages</a>
-                                                        </li>
-                                                        <li class="">
-                                                          <a class="selection_cate" data-id="212947" title="Mousse">Mousse</a>
-                                                        </li>
-                                                    </ul>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      </div>
-                                      </div>
-                                      </div>
-                                      </div>  -->                                     
-                                     <!-- swiggy code ends here -->
+                                      
                                   </div>
                                   <div id="Recreation_LeisureServices" class="tab-pane">
                                        <img src="img/rec.jpg" height="300" width="1126">
