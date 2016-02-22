@@ -184,7 +184,18 @@ function getStaffDetails($s_id)
       <aside>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
-              <ul class="sidebar-menu">                
+              <ul class="sidebar-menu">  
+              <?php if(isset($_SESSION['user_id']))
+                        { ?>        
+                  <li>
+                     <a class="" href="user_dashboard.php">Dashboard
+                          <i class="icon_piechart"></i>                                                  
+                      </a>
+
+                           
+                  </li>  
+                  <?php 
+                  }?>           
                   <li class="active">
                   
                       <a class="" href="index.php">Feed
@@ -192,7 +203,7 @@ function getStaffDetails($s_id)
                       </a>
                   </li>
                   <li>
-                      <a href="#" class="">Chat
+                      <a href="404.html" class="">Chat
                           <i class="icon_document_alt"></i>                          
                       </a>
                       
@@ -214,7 +225,7 @@ function getStaffDetails($s_id)
                                              
                   </li>
                   <li>
-                      <a class="#" href="widgets.html">Events
+                      <a class="" href="404.html">Events
                           <i class="icon_genius"></i>                          
                       </a>
                   </li>
@@ -224,6 +235,7 @@ function getStaffDetails($s_id)
                       </a>
                                          
                   </li>
+                
                              
                  
                   
