@@ -84,6 +84,7 @@ function getStaffDetails($s_id)
 <!-- FOR DATETIMEPICKER -->
     
     <link href="bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    
   </head>
    <body>
   <!-- container section start -->

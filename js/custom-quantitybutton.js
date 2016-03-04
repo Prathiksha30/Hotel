@@ -31,6 +31,7 @@ $('.qtyplus').click(function(e){
     if (!totalitems)
         totalitems=[];
     totalitems.push(name);
+    alert(totalitems);
     //bill start logic 1
     // get handle on div
     var container = document.getElementById('cartBill');
@@ -149,9 +150,11 @@ $('#checkOut').click(function(){
         'totalAmount': totalamount,
         'totalItems': totalitems
       },
-      success: function(){
+      success: function(response){
+        alert(response);
         alert('Cart saved');
         window.location.reload();
       }
   });
+   
 });

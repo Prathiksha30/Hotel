@@ -161,12 +161,14 @@ include('header.php');
                                                     <div class="col-lg-2 control-label">Total Bill Amount: 
                                                     <label id="cartTotal">0</label>
                                                     </div>
-                                                    <div class="col-lg-2 control-label" id="cartBill">Total Bill Items: 
+                                                    <div class="col-lg-2 control-label" ><!-- Total Bill Items:  -->
                                                     <button type="button" class"btn btn-success" id="checkOut" value="CheckOut">Check Out </button>
-                                                    <!-- <table id="cartBill" >
+                                                    <!-- <table >
                                                       <th> Item </th>
                                                       <th> Price </th>
-                                                      <tr > </tr>
+                                                      <tr id="cartBill" > 
+                                                      <td >
+                                                      </td></tr>
                                                     </table> -->
                                                     </div>
                                                   </div>

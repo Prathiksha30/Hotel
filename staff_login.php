@@ -35,6 +35,7 @@
 
 <?php
     global $conn;
+     $count=0;
     if (isset($_POST['submit'])) 
     {
         $email_id=$_POST['email'];
@@ -46,7 +47,7 @@
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($s_id, $name, $email_id,$dept_id);
-        $count=0;
+       
         while($stmt->fetch())
         {
             $count=$count+1;
@@ -57,6 +58,7 @@
         //echo $count;
         $stmt->close();
      }
+     
      if($count==1)
         {          
             $_SESSION['StaffEmail_id']=$email_id;
@@ -65,11 +67,12 @@
             $_SESSION['Dept_id']=$dept_id;
             header("Location: index.php");
         }
-        else
+     
+    else
         {
             ?>
             <script>
-            alert("Wrong Email ID and Room Number") ;
+            alert("Wrong Email ID Or Password or wait for admin confirm if you have registered before.") ;
             </script>
             <?php
         }

@@ -84,7 +84,7 @@ Prepare for your Ritual, soothe your body and quiet the mind. We offer multiple 
                                               <option value="Massage">Massage</option>
                                               <option value="Sauna">Sauna</option>
                                               <option value="Head Massage">Head Massage</option> 
-                                              <option value="Other">Other</option>
+                                              <!-- <option value="Other">Other</option> -->
                                           </select>
                                               <!-- <input class="form-control " id="curl" type="url" name="url" /> -->
                                           </div
@@ -129,11 +129,26 @@ Prepare for your Ritual, soothe your body and quiet the mind. We offer multiple 
     </script>
 <?php 
 global $conn;
+if(isset($_SESSION['request']))
+{
+   $msg=$_POST['treatment'];
+   ?>
+   <script>
+   alert(<?php $msg ?>);
+   </script>
+   <?php
+   // echo $msg;
+   // exit;
+   
+
+
+}
 if(isset($_POST['request']))
 {
   $roomno=$_POST['roomno'];
   $msg=$_POST['treatment'];
   $datepick=$_POST['datepick'];
+
   if($stmt = $conn->prepare("INSERT INTO user_services(dept_id, user_id, room_no, status, message, request_time) VALUES('3', ?, ?, 'pending', ?, ?) "))
   {
     $stmt->bind_param('iiss', $_SESSION['user_id'], $roomno, $msg, $datepick);
@@ -143,5 +158,53 @@ if(isset($_POST['request']))
   else{
     echo "Error with in insertion";
   }
+  if($msg =="Facial")
+  {
+    if($stmt = $conn->prepare("UPDATE bill SET amount=amount+500 WHERE user_id=$_SESSION[user_id] AND bill_item='Spa' "))
+  {
+    // $stmt->bind_param('isi', $_SESSION['user_id'],'spa',500);
+    $stmt->execute();
+    $stmt->close();
+  }
+  else{
+    echo "Error with in insertion";
+  }
+  }
+ else if($msg=="Massage")
+ {
+     if($stmt = $conn->prepare("UPDATE bill SET amount=amount+1000 WHERE user_id=$_SESSION[user_id] AND bill_item='Spa' "))
+  {
+    // $stmt->bind_param('isi', $_SESSION['user_id'],'spa',500);
+    $stmt->execute();
+    $stmt->close();
+  }
+  else{
+    echo "Error with in insertion";
+  }
+ }
+  else if($msg=="Sauna")
+ {
+    if($stmt = $conn->prepare("UPDATE bill SET amount=amount+250 WHERE user_id=$_SESSION[user_id] AND bill_item='Spa' "))
+  {
+    // $stmt->bind_param('isi', $_SESSION['user_id'],'spa',500);
+    $stmt->execute();
+    $stmt->close();
+  }
+  else{
+    echo "Error with in insertion";
+  }
+ }
+  else if($msg=="Head Massage")
+ {
+     if($stmt = $conn->prepare("UPDATE bill SET amount=amount+200 WHERE user_id=$_SESSION[user_id] AND bill_item='Spa' "))
+  {
+    // $stmt->bind_param('isi', $_SESSION['user_id'],'spa',500);
+    $stmt->execute();
+    $stmt->close();
+  }
+  else{
+    echo "Error with in insertion";
+  }
+ }
 }
 ?>
