@@ -2,8 +2,6 @@
 include('hoteldb.php');
 include('header.php');
 ?>
-
-
 <section id="main-content">
  <section class="wrapper"> 
  
@@ -23,6 +21,7 @@ include('header.php');
                   
                     <!-- Below line produces calendar. I am using FullCalendar plugin. -->
                     <div id="calendar"></div>
+                    <div id="dialog" title="" style="display:none;">Delete Event</div>
                   
                 </div>
               </div> 
@@ -45,7 +44,10 @@ $(document).ready(function() {
 			},
 	  		selectable: true,
 	  		selectHelper: true,
-	  		
+	  		<?php $staffid = $_SESSION['S_id'];
+			if($staffid == 6)
+	  			{
+	  		 ?>
 	  		select: function(start, end, Allday) 
 	  		{
 	  		 	var title = prompt('Event Title:'/*, event.title, { buttons: { Ok: true, Cancel: false} }*/);
@@ -66,11 +68,9 @@ $(document).ready(function() {
 							'end' : end,
 	     					},
 	     					
-	    					success: function(json){
-	       					/*if(response.status == 'success')
-	       					$('#calendar').fullCalendar('updateEvent',event);*/
-	       						alert('OK');
-	     					},
+	    					/*success: function(json){
+	       						alert('Event added!');
+	     					},*/
 	     					error: function(e){
 	       						alert('Error processing your request: '+e.responseText);
 	     					}
@@ -79,13 +79,14 @@ $(document).ready(function() {
 	   					title: title,
 	   					start: start,
 	   					end: end,
-	   					Allday: Allday
+	   					/*Allday: Allday*/
 	   				},
 	   				true //makes even stay on calendar
 	    			);
 	  			}
 	   			calendar.fullCalendar('unselect');
 			},
+			<?php } // end of if for Admin ?>
 			events: {
            		url: 'http://localhost/Hotel/event_source.php',
            		dataType: 'json',
@@ -94,10 +95,48 @@ $(document).ready(function() {
                 alert('There was an error while fetching events.');
             	}
         	},
-        	eventAfterAllRender: function(view) {
-				$(".fc-event-container").append( "<span class='wclose'>X</span>" );
-			}
-	}); //calendar funciton
+			/*eventClick: function(event){
+				$('#calendar').fullCalendar('removeEvents', event.id);
+			}*/
+			<?php 
+			$staffid = $_SESSION['S_id'];
+			if($staffid == 6)
+	  			{
+			?>
+			eventClick: function(event){
+       			 id= event.id;
+       			$("#dialog").dialog({
+       				resizable: false,
+       				height: 150,
+       				width: 450,
+       				modal: true,
+       				title: "Are sure you want to delete this?",
+       				buttons: {
+       					Yes: function(){
+       						$('#calendar').fullCalendar('removeEvents', event.id);
+       						$("#dialog").dialog("close"); //event deletes even if dialog box is closed. - Error!
+       					}
+       				}
+       			});
+       			$.ajax({
+	     					url: 'http://localhost/Hotel/event_delete.php',
+	     					/*data: 'title =' + title + '& start =' + start + '& end =' + end,*/
+	     					type: "POST",
+	     					dataType: 'json',
+	     					
+	     					data:
+	     					{
+							'id' : id
+	     					},
+	     					
+	     					error: function(e){
+	       						alert('Error processing your request: '+e.responseText);
+	     					}
+	   				});
+       		} //event click end
+       		<?php } //end of if for Admin ?>
+       		
+	}); //calendar function
 }); //doc ready function
 
 </script>
