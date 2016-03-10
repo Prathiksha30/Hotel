@@ -60,9 +60,9 @@ function getStaffDetails($s_id)
     <!-- font icon -->
     <link href="css/elegant-icons-style.css" rel="stylesheet" />
     <link href="css/font-awesome.min.css" rel="stylesheet" />    
-    <!-- full calendar css-->
+   <!-- full calendar css-->
     <link href="assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
-	<link href="assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+  <link href="assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
     <!-- easy pie chart-->
     <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
     <!-- owl carousel -->
@@ -75,6 +75,7 @@ function getStaffDetails($s_id)
     <link href="css/style-responsive.css" rel="stylesheet" />
 	<link href="css/xcharts.min.css" rel=" stylesheet">	
 	<link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -279,21 +280,14 @@ function getStaffDetails($s_id)
                     }?>
                     </li>
 
-
-
-                
-                             
-                 
-                  
-                  
-                  
               </ul>
               <!-- sidebar menu end-->
           </div>
       </aside>
       <!--sidebar end-->
 
-      <script src="js/jquery.js"></script>
+      <!-- <script src="js/jquery.js"></script> -->
+    <script type="text/javascript" src="assets/fullcalendar/jquery/jquery-1.8.1.min.js" charset="UTF-8"></script>
     <script src="js/bootstrap.min.js"></script>
     <!-- nice scroll -->
     <script src="js/jquery.scrollTo.min.js"></script>
@@ -323,8 +317,10 @@ function getStaffDetails($s_id)
     <script src="js/scripts.js"></script>
     <!-- custome qunatity change button -->
     <script src="js/custom-quantitybutton.js"></script>
-    <script type="text/javascript" src="./jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>
 
 
-<script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+ <!-- jQuery full calendar -->
+    <script src="js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+  <!-- <script src="assets/fullcalendar/fullcalendar/fullcalendar.js"></script> -->
+ <script src="js/calendar-custom.js"></script>
+ <script src='js/moment.min.js'></script>

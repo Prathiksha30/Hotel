@@ -20,6 +20,7 @@ function getCheckinDate()
     }
 }
 ?>
+
 <section id="container" class="">
   <!--header start-->
 

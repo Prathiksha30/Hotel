@@ -8,6 +8,7 @@
         $('#myModal1').modal('show');
     });
 </script>
+
 <section id="main-content">
  <section class="wrapper">  
 <div class="row">
@@ -87,9 +88,11 @@
                         <!-- <button type="submit" class="btn btn-info">Send</button> -->
                       </form>
                      </div>
-                  <br><br><br><br>
+                  <br><br><br><br> 
                    <?php /*$feedDeets[]=getFeedDetails();*/
                       foreach (getFeedDetails() as $feedDetails):
+                       /* $uid = $feedDetails['u_id'];
+                        $cout= getUserCheckout($uid);*/
                         if($feedDetails['flag'] == 1) {
                       	?>
                   <div class="padd sscroll">
@@ -111,8 +114,9 @@
                               $dept_name = getDeptName($staff_dept);
                               echo "".$dept_name;
                             }
-                            else
+                            else{
                             echo "".getUserName($feedDetails['u_id']); 
+                          }
                           if($_SESSION['S_id'] == 6)
                           { ?>
                         <form method="POST" action="">
@@ -253,6 +257,23 @@ if(isset($_POST['delete']))
 		else{
 			echo "Error with User Name selection!";
 		}
+  }
+    function getUserCheckout($user_id)
+  {
+    global $conn;
+    if($stmt = $conn->prepare("SELECT checkout FROM user_guest WHERE user_id = $user_id"))
+    {
+      //$stmt->bind_result('i',$user_id);
+      $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($checkout);
+        $stmt->fetch();
+        $stmt->close();
+        return $checkout;
+    }
+    else{
+      echo "Error with User Name selection!";
+    }
 
 	}
 	function getUserImage($user_id)

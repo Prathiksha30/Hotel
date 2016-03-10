@@ -68,12 +68,12 @@
 	    $room = $_POST['roomno'];
 	 	//echo "hi";
 
-	 if($stmt = $conn->prepare("SELECT user_id, name FROM user_guest WHERE email_id= ?"))
+	 if($stmt = $conn->prepare("SELECT user_id, name, checkout FROM user_guest WHERE email_id= ?"))
 	 {
 	 	$stmt->bind_param('s', $email_id);
 		$stmt->execute();
 		$stmt->store_result();
-		$stmt->bind_result($user_id, $name);
+		$stmt->bind_result($user_id, $name, $checkout);
 		$stmt->fetch();
 		if($stmt->num_rows > 0)
 		{
@@ -84,8 +84,16 @@
             $_SESSION['user_id']=$user_id;
 		// 	//var_dump($name);
             $_SESSION['roomno']=$room;
-			
-			header("location:login_success.php");
+            $_SESSION['checkout']=$checkout;
+			if($checkout == NULL) //if user has checkout he must not be able to login.
+            {
+			     header("location:login_success.php");
+            }
+            else { ?>
+                    <script>
+            alert("Sorry you have already checked out!") ;
+            </script>
+           <?php }
 		}
 		else
 		{ ?>
