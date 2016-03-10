@@ -27,8 +27,8 @@ function getCheckinDate()
   <!--main content start-->
   <section id="main-content">
       <section class="wrapper">
-      <center>
         <div class="row">
+        	<center>
         	<div class="col-lg-11 col-md-12">	
 			<div class="panel panel-success">
 				<div class="panel-heading">
@@ -38,28 +38,27 @@ function getCheckinDate()
 				</div>
 				<div class="panel-body">
 				<center>
-					<div style="color: #ffffff;display: inline-block;font-weight: 100;text-align: center;font-size: 40px;">
+					<div style="color: #ffffff;display: inline-block;font-weight: 100;text-align: center;font-size: 30px;">
 					  
-					  <div style="padding: 15px;border-radius: 4px;background: #00BF96;display: inline-block;">
-					 Days: <span style=" padding: 20px; border-radius: 4px; background: #00816A; display: inline-block;" id="days">00</spap></br>
+					  <div style="padding: 10px;border-radius: 3px;background: #00BF96;display: inline-block;">
+					 Days: <span style=" padding: 15px; border-radius: 3px; background: #00816A; display: inline-block;" id="days">00</spap></br>
 					 </div>
-					 <div style="padding: 15px;border-radius: 4px;background: #00BF96;display: inline-block;">
-					  Hours: <span style=" padding: 20px; border-radius: 4px; background: #00816A; display: inline-block;" id="hours">00</span></br>
+					 <div style="padding: 10px;border-radius: 3px;background: #00BF96;display: inline-block;">
+					  Hours: <span style=" padding: 15px; border-radius: 3px; background: #00816A; display: inline-block;" id="hours">00</span></br>
 					  </div>
-					  <div style="padding: 15px;border-radius: 6px;background: #00BF96;display: inline-block;">
-					  Minutes: <span style=" padding: 20px; border-radius: 4px; background: #00816A; display: inline-block;" id="minutes">00</span></br>
+					  <div style="padding: 10px;border-radius: 3px;background: #00BF96;display: inline-block;">
+					  Minutes: <span style=" padding: 15px; border-radius: 3px; background: #00816A; display: inline-block;" id="minutes">00</span></br>
 					  </div>
-					  <div style="padding: 15px;border-radius: 6px;background: #00BF96;display: inline-block;">
-					  Seconds: <span style=" padding: 20px; border-radius: 4px; background: #00816A; display: inline-block;" id="seconds">00</span></br>
+					  <div style="padding: 10px;border-radius: 3px;background: #00BF96;display: inline-block;">
+					  Seconds: <span style=" padding: 15px; border-radius: 3px; background: #00816A; display: inline-block;" id="seconds">00</span></br>
 					 </div>
 					</div>
-			
+				</center>
 				</div>
 			</div>
 			</div>
 			</center>
         </div>
-       </center>
         <div class="row">
         <div class="col-lg-6 col-md-12">	
 			<div class="panel panel-primary">

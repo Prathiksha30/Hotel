@@ -46,6 +46,9 @@ function getCheckinDate()
         // $breakPoint--;
         array_push($dates, $checkin);
     }
+// echo 'Check In : '.$checkin;
+// echo 'dates';
+// print_r($dates);
 function getcount()
 {
   global $conn;
@@ -77,21 +80,29 @@ function getcount()
         // print_r($line_chart_data[1]['label']);
 }
 
-getcount();
-
-
+// getcount();
 $xaxis = array();
 $line_chart_data = getcount();
+// echo "line chart:";
+// print_r($line_chart_data);
 foreach ($dates as $key => $date)
 {
+  // echo "</br> first foreach key value:".$key."date:".$date;
   foreach ($line_chart_data as $chart_date)
   {
+    // echo "</br> second foreach line_chart_data =".$chart_date['label'];
     if (date('d-m-Y', strtotime($chart_date['label'])) == $date)
     {
+      // echo "</br>";
+      // echo '</br> comparing:'.date('d-m-Y',strtotime($chart_date['label']))."and".$date;
       array_push($xaxis, $chart_date['value']);
+      // echo "</br>".$chart_date['value']."got pushed at".$key."index";
     }
     if (!isset($xaxis[$key]))
+    {
+      // echo "0 got pushed at".$key." index";
       array_push($xaxis, 0);
+    }
   }
 }
 // echo json_encode($xaxis);
@@ -125,7 +136,5 @@ $data['datasets'][0]['data'] = $xaxis;
 
 
 echo json_encode($data);
-
-
 
 ?>
