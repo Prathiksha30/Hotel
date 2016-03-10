@@ -18,7 +18,8 @@ if ($conn->connect_error) {
 function getCheckinDate()
 {
     global $conn;
-  if ($stmt = $conn->prepare("SELECT checkin FROM user_guest WHERE user_id=1")) 
+    $userid=$_SESSION['user_id'];
+  if ($stmt = $conn->prepare("SELECT checkin FROM user_guest WHERE user_id=$userid")) 
         {
             $stmt->execute();
             $stmt->store_result();
@@ -45,11 +46,14 @@ function getCheckinDate()
         // $breakPoint--;
         array_push($dates, $checkin);
     }
-    print_r($dates);
+// echo 'Check In : '.$checkin;
+// echo 'dates';
+// print_r($dates);
 function getcount()
 {
   global $conn;
-  if ($stmt = $conn->prepare("SELECT count(*),created_at FROM `feeds` WHERE 1 group by DATE_FORMAT(created_at,'%d%') order by created_at ASC")) 
+   $userid=$_SESSION['user_id'];
+  if ($stmt = $conn->prepare("SELECT count(created_at),created_at FROM `feed_user` f_u LEFT JOIN `feeds` f ON f_u.f_id=f.feed_id WHERE f_u.u_id=$userid GROUP BY DATE_FORMAT(created_at,'%d%') ORDER BY created_at ASC")) 
         {
             $stmt->execute();
             $stmt->store_result();
@@ -64,7 +68,8 @@ function getcount()
                 // $i++;
                 }
             $stmt->close();
-            //echo json_encode($line_chart_data);
+            // echo json_encode($line_chart_data);
+            return $line_chart_data;
          
         }
         else 
@@ -72,25 +77,64 @@ function getcount()
                 printf("Error message: %s\n", $conn->error);
         }  
 
-        print_r($line_chart_data);
-}
-echo "<br>";
-echo "<br>";
-
-getcount();
-
-$i = 0;
-while(sizeof($dates) >= $i){
-   
-     echo 'Comparing : '.$dates[$i].'='.$line_chart_data[$i][1];
-      echo "<br>";
-      // if($dates[$i] == $line_chart_data[$i][1]){
-      //    echo $dates[$i]; 
-      //    echo "<br>";
-      // }
-         $i++;
+        // print_r($line_chart_data[1]['label']);
 }
 
+// getcount();
+$xaxis = array();
+$line_chart_data = getcount();
+// echo "line chart:";
+// print_r($line_chart_data);
+foreach ($dates as $key => $date)
+{
+  // echo "</br> first foreach key value:".$key."date:".$date;
+  foreach ($line_chart_data as $chart_date)
+  {
+    // echo "</br> second foreach line_chart_data =".$chart_date['label'];
+    if (date('d-m-Y', strtotime($chart_date['label'])) == $date)
+    {
+      // echo "</br>";
+      // echo '</br> comparing:'.date('d-m-Y',strtotime($chart_date['label']))."and".$date;
+      array_push($xaxis, $chart_date['value']);
+      // echo "</br>".$chart_date['value']."got pushed at".$key."index";
+    }
+    if (!isset($xaxis[$key]))
+    {
+      // echo "0 got pushed at".$key." index";
+      array_push($xaxis, 0);
+    }
+  }
+}
+// echo json_encode($xaxis);
+// $dataset=array();
+// $dataset['label'] = "feeds";
+// $dataset['fillColor'] = "rgba(220,220,220,0.2)";
+// $dataset['strokeColor'] = "rgba(220,220,220,1)";
+// $dataset['pointColor'] = "rgba(220,220,220,1)";
+// $dataset['pointStrokeColor'] = "#fff",
+// $dataset['pointHighlightFill'] = "#fff",
+// $dataset['pointHighlightStroke'] = "rgba(220,220,220,1)",
+// $dataset['data'] = $xaxis,
 
+// $dataset= array("Feeds","rgba(220,220,220,0.2)","rgba(220,220,220,1)","rgba(220,220,220,1)","#fff", "#fff","rgba(220,220,220,1)");
+// array_push($dataset, $xaxis);
+// echo json_encode($dataset);
+// echo json_encode($dates);
+$data=array();
+//array_push($data, $dates);
+//array_push($data, $dataset);
+
+$data['labels'] = $dates;
+$data['datasets'][0]['label'] = "feeds";
+$data['datasets'][0]['fillColor'] = "rgba(220,220,220,0.2)";
+$data['datasets'][0]['strokeColor'] = "rgba(220,220,220,1)";
+$data['datasets'][0]['pointColor'] = "rgba(220,220,220,1)";
+$data['datasets'][0]['pointStrokeColor'] = "#00ffff";
+$data['datasets'][0]['pointHighlightFill'] = "#00ff80";
+$data['datasets'][0]['pointHighlightStroke'] = "rgba(220,220,220,1)";
+$data['datasets'][0]['data'] = $xaxis;
+
+
+echo json_encode($data);
 
 ?>

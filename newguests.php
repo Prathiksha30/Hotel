@@ -99,10 +99,11 @@
                                             <label >Age: </label>
                                             <input type="number" name="age" class="form-control" required>
                                         </div>
-                                        <div class="form-group">
+
+                                       <!--  <div class="form-group">
                                             <label lass="col-lg-2 control-label">Checkin: </label>
                                             <input type="date" name="checkin" class="form-control" required>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                             <label class="col-lg-2 control-label">Gender</label>
                                             <div class="col-lg-6">
@@ -163,11 +164,11 @@ if(isset($_POST['submit1']))
 	$guest_img=$_FILES["file"]["name"];
 	$roomno=$_POST['roomno'];
 	$age1=$_POST['age'];
-	$checkin=$_POST['checkin'];
+	$checkin=now();
 	$geender=$_POST['sex'];
 	if($stmt=$conn->prepare("INSERT INTO user_guest(name, email_id, ph_no, age, user_image, gender, room_no, checkin) VALUES(?, ?, ?,	 ?, ?, ?, ?, ?)"))
 	{
-		$stmt->bind_param('ssssiiss', $name, $email_id, $ph_no, $guest_img, $roomno, $age1, $checkin, $geender);
+		$stmt->bind_param('sssisiss', $name, $email_id, $ph_no,$age1, $guest_img, $roomno, $checkin, $geender);
 		$stmt->execute();
 		$stmt->close();
 	}
@@ -175,7 +176,9 @@ if(isset($_POST['submit1']))
 		?>
 		<script> alert("Something went wrong. Please try again!"</script>
 	<?php }
+  
 }
+
 ?>
 <?php
   $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");

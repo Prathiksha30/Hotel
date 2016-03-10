@@ -150,6 +150,7 @@ function updateServiceStatusToComplete($service_id)
     }
 
 }
+
 function getUserDetails($user_id)
 {
 	global $conn;
