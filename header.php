@@ -157,7 +157,7 @@ function getStaffDetails($s_id)
                               if( $_SESSION['S_id'] == 6) //admin has id 6
                               { ?>
                                 
-                              <a href="admin_newusers.php"><i class="icon-task-l"></i> My Dashboard</a> 
+                              <a href="admin_dashboard.php"><i class="icon-task-l"></i> My Dashboard</a> 
                             <?php  }
 
                                else { ?>

@@ -1,13 +1,14 @@
 <?php 
 	include('header.php'); 
+  session_start();
 	include('hoteldb.php');
 ?>
 <br><br><br><br>
 <section id="main-content">
 <div class="col-lg-12">
 	<ol class="breadcrumb">
-		<li><i class="fa fa-home"></i><a href="index.php">Home</a></li>
-		<li><i class="icon_document_alt"></i>Staff</a></li>
+		<li><i class="fa fa-home"><a href="admin_dashboard.php"></i>Overview</a></li>
+		<li><i class="icon_document_alt"></i>Staff</li>
 		<li><i class="icon_profile"><a href="newguests.php"></i>Guests</a></li>
 	<!-- 	<li><i class="fa fa-files-o"></i>Spa facilities</li> -->
 	</ol>
