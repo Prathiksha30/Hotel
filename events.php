@@ -114,16 +114,15 @@ $(document).ready(function() {
        				buttons: {
        					Yes: function(){
        						$('#calendar').fullCalendar('removeEvents', event.id);
-       						$("#dialog").dialog("close"); //event deletes even if dialog box is closed. - Error!
+       						$("#dialog").dialog("close"); 
+       						// event deletes even if dialog box is closed. - Error!
        					}
        				}
        			});
        			$.ajax({
 	     					url: 'http://localhost/Hotel/event_delete.php',
-	     					/*data: 'title =' + title + '& start =' + start + '& end =' + end,*/
 	     					type: "POST",
 	     					dataType: 'json',
-	     					
 	     					data:
 	     					{
 							'id' : id
