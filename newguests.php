@@ -46,7 +46,7 @@
                                     <?php echo $userDetails['name']; ?> </td>                               
                                     <td> <?php echo $userDetails['username']; ?> </td>
                               <td> <?php echo $userDetails['email_id']; ?> </td>
-                              <td> <?php $userDetails['ph_no']; ?> </td> 
+                              <td> <?php echo $userDetails['ph_no']; ?> </td> 
                               <td> <?php echo $userDetails['room_no']; ?>  </td> 
                               <td> <?php echo $userDetails['checkin']; ?>  </td> 
                                  <td>
@@ -164,11 +164,10 @@ if(isset($_POST['submit1']))
 	$guest_img=$_FILES["file"]["name"];
 	$roomno=$_POST['roomno'];
 	$age1=$_POST['age'];
-	$checkin=now();
 	$geender=$_POST['sex'];
-	if($stmt=$conn->prepare("INSERT INTO user_guest(name, email_id, ph_no, age, user_image, gender, room_no, checkin) VALUES(?, ?, ?,	 ?, ?, ?, ?, ?)"))
+	if($stmt=$conn->prepare("INSERT INTO user_guest(name, email_id, ph_no, age, user_image, gender, room_no) VALUES(?, ?, ?, ?, ?, ?, ?"))
 	{
-		$stmt->bind_param('sssisiss', $name, $email_id, $ph_no,$age1, $guest_img, $roomno, $checkin, $geender);
+		$stmt->bind_param('sssissi', $name, $email_id, $ph_no, $age1, $guest_img, $geender, $roomno);
 		$stmt->execute();
 		$stmt->close();
 	}
