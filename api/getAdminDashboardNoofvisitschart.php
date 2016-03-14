@@ -22,7 +22,7 @@ function getGuestArray()
         $stmt->execute();
         $stmt->bind_result($user_id);
         while ($stmt->fetch()) {
-         array_push($guests,$user_id);
+         array_push($guests,"user ID =".$user_id);
         }
         $stmt->close();
         return $guests;
@@ -55,11 +55,9 @@ $guests=getGuestArray();
 $noofvisits=getNoOfVisitsCount();
 $data=array();
 $data['labels'] = $guests;
-// print_r($data) ;
-// echo json_encode($data);
 $data['datasets'][0]['label'] = "Number Of Visits";
-$data['datasets'][0]['fillColor'] = "rgba(220,220,220,0.2)";
-$data['datasets'][0]['strokeColor'] = "rgba(220,220,220,1)";
+$data['datasets'][0]['fillColor'] = "rgba(51, 255, 214,0.5)";
+$data['datasets'][0]['strokeColor'] = "rgba(0, 255, 204,1)";
 $data['datasets'][0]['pointColor'] = "rgba(220,220,220,1)";
 $data['datasets'][0]['pointStrokeColor'] = "#00ffff";
 $data['datasets'][0]['pointHighlightFill'] = "#00ff80";

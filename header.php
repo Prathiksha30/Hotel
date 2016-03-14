@@ -256,7 +256,7 @@ function getStaffDetails($s_id)
                                              
                   </li>
                   <li>
-                      <a class="" href="events.php">Events
+                      <a class="" href="404.html">Events
                           <i class="icon_genius"></i>                          
                       </a>
                   </li>

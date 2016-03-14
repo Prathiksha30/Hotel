@@ -75,7 +75,7 @@
                     <div class="info-box dark-bg">
                         <i class="fa fa-thumbs-o-up"></i>
                         
-                    <div class="count"> </div>
+                    <!-- <div class="count"> </div> -->
 
                         <div class="title">Completed</div>
                     </div><!--/.info-box-->
