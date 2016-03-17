@@ -31,7 +31,7 @@ function getCheckinDate()
         <div class="row">
         	<center>
         	<div class="col-lg-11 col-md-12">	
-			<div class="panel panel-success">
+			<div class="panel panel-success panelcustom">
 				<div class="panel-heading">
 
 					<h2><i class="fa fa-flag-o red"></i><strong>Days you have stayed with us</strong></h2>

@@ -96,14 +96,13 @@
                                             <input type="text" name="roomno" id="" class="form-control" required>
                                         </div>
                                         <div class="form-group">
+                                            <label >Room Price</label>
+                                            <input type="number" name="roomprice" id="" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
                                             <label >Age: </label>
                                             <input type="number" name="age" class="form-control" required>
                                         </div>
-
-                                       <!--  <div class="form-group">
-                                            <label lass="col-lg-2 control-label">Checkin: </label>
-                                            <input type="date" name="checkin" class="form-control" required>
-                                        </div> -->
                                         <div class="form-group">
                                             <label class="col-lg-2 control-label">Gender</label>
                                             <div class="col-lg-6">
@@ -158,20 +157,29 @@ function getUserDetails()
 if(isset($_POST['submit1'])) 
 {
 	global $conn;
-	$name=$_POST['name'];
-	$email_id=$_POST['emailid'];
-	$ph_no=$_POST['phno'];
-	$guest_img=$_FILES["file"]["name"];
-	$roomno=$_POST['roomno'];
-	$age1=$_POST['age'];
+	$name = $_POST['name'];
+	$email_id = $_POST['emailid'];
+	$ph_no = $_POST['phno'];
+	$guest_img = $_FILES["file"]["name"];
+	$roomno = $_POST['roomno'];
+	$age1 = $_POST['age'];
+  $price = $_POST['roomprice'];
 	// $checkin=now();
-	$geender=$_POST['sex'];
+	$geender = $_POST['sex'];
 	if($stmt=$conn->prepare("INSERT INTO user_guest(name, email_id, ph_no, age, user_image, gender, room_no) VALUES(?, ?, ?,	 ?, ?, ?, ?)"))
 	{
 		$stmt->bind_param('sssissi', $name, $email_id, $ph_no,$age1, $guest_img, $geender, $roomno);
 		$stmt->execute();
 		$stmt->close();
 	}
+  $uid = $conn->insert_id;
+  $bill_item = "Room Price";
+  if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?, ?, ?)"))
+  {
+    $stmt->bind_param('isi', $uid, $bill_item, $price);
+    $stmt->execute();
+    $stmt->close();
+  }
 	else{
 		?>
 		<script> alert("Something went wrong. Please try again!"</script>
