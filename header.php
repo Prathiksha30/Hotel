@@ -161,7 +161,7 @@ function getStaffDetails($s_id)
                             <?php  }
 
                                else { ?>
-                                <a href="requests.php"><i class="icon-task-l"></i> Service Requests</a> 
+                                <a href="staff_dashboard.php"><i class="icon-task-l"></i> Dashboard & Service Requests</a> 
                               <?php  }  
                               ?>
                               </li>
