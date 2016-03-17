@@ -4733,6 +4733,11 @@ a.list-group-item:focus {
 .panel-success {
   border-color: #caf4ca;
 }
+/*CUSTOM*/
+.panelcustom {
+      margin-left: 70px;
+    margin-right: auto;
+}
 .panel-success > .panel-heading {
   color: #4cd964;
   background-color: #dff8e3;
@@ -5934,3 +5939,4 @@ td.visible-print {
     line-height: 1.5;
     border-radius: 0px;
 }
+

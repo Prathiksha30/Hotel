@@ -112,10 +112,10 @@
                             {
                               $staff_dept = getStaffDept($feed_uid);
                               $dept_name = getDeptName($staff_dept);
-                              echo "".$dept_name;
+                             ?> <b> <?php echo "".$dept_name; ?> </b> <?php
                             }
-                            else{
-                            echo "".getUserName($feedDetails['u_id']); 
+                            else{ ?> <b> <?php
+                            echo "".getUserName($feedDetails['u_id']); ?> </b> <?php
                           }
                           if($_SESSION['S_id'] == 6)
                           { ?>
@@ -125,19 +125,22 @@
                          </form>
                          <?php }
                             ?>
-          <div class="clearfix"></div>
-                         <span class="pull-right"> <?php echo "".$feedDetails['created_at'];?></span></div>
+
+      <!--     <div class="clearfix"></div> -->
+                         <span class="pull-right"> <?php echo "".$feedDetails['created_at'];?></span>
+                         <br>
                           <?php echo $feedDetails['feed_text']; ?>
 
-                          <div class="clearfix"></div>
+                          <div class="clearfix"> <span class="pull-right"> <a id="CommentButton"> Comment </a></div> </span>
+                          <div id="CommentArea" class="CommentArea invisible">
+                            <textarea rows="2" cols="50" id="CommentText" name="CommentText"></textarea>
+                          </div>
                         </div>
                       </li>                                                         
                     </ul>
                   </div>
                   <!-- Widget footer -->
                 </div>
-
-
               </div> 
            <?php } //end of if for flag
            endforeach; 
@@ -406,3 +409,24 @@ function getVisitNumber()
                 }
        }       
 ?>
+
+<script type="text/javascript">
+  $('#CommentButton').click(function(){
+    $('#CommentArea').addClass('visible');
+    //$('#CommentButton').addClass('visible')
+  });
+</script>
+
+<style type="text/css">
+  .CommentArea{
+    
+    border-top: 1px solid white;
+    text-align: right;
+}
+.invisible {
+    display: none;
+}
+.visible {
+    display: block;
+} 
+</style>
