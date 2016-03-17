@@ -46,7 +46,7 @@
                                     <?php echo $userDetails['name']; ?> </td>                               
                                     <td> <?php echo $userDetails['username']; ?> </td>
                               <td> <?php echo $userDetails['email_id']; ?> </td>
-                              <td> <?php $userDetails['ph_no']; ?> </td> 
+                              <td> <?php echo $userDetails['ph_no']; ?> </td> 
                               <td> <?php echo $userDetails['room_no']; ?>  </td> 
                               <td> <?php echo $userDetails['checkin']; ?>  </td> 
                                  <td>

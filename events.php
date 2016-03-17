@@ -21,6 +21,7 @@ include('header.php');
                   
                     <!-- Below line produces calendar. I am using FullCalendar plugin. -->
                     <div id="calendar"></div>
+                    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
                     <div id="dialog" title="" style="display:none;">Delete Event</div>
                   
                 </div>
@@ -112,26 +113,28 @@ $(document).ready(function() {
        				modal: true,
        				title: "Are sure you want to delete this?",
        				buttons: {
-       					Yes: function(){
+       					"Yes": function(){
        						$('#calendar').fullCalendar('removeEvents', event.id);
        						$("#dialog").dialog("close"); 
        						// event deletes even if dialog box is closed. - Error!
+							$.ajax({
+			     					url: 'http://localhost/Hotel/event_delete.php',
+			     					type: "POST",
+			     					dataType: 'json',
+			     					data:
+			     					{
+									'id' : id
+			     					},
+			     					error: function(e){
+			       						alert('Error processing your request: '+e.responseText);
+			     					}
+	   						});
+       					},
+       					No: function(){
+       						$('#dialog').dialog('close');
        					}
        				}
        			});
-       			$.ajax({
-	     					url: 'http://localhost/Hotel/event_delete.php',
-	     					type: "POST",
-	     					dataType: 'json',
-	     					data:
-	     					{
-							'id' : id
-	     					},
-	     					
-	     					error: function(e){
-	       						alert('Error processing your request: '+e.responseText);
-	     					}
-	   				});
        		} //event click end
        		<?php } //end of if for Admin ?>
        		
