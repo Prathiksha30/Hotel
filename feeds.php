@@ -8,56 +8,52 @@
         $('#myModal1').modal('show');
     });
 </script>
-
 <section id="main-content">
-<section class="wrapper">  
-<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-default">
-			<div class="panel-heading">
-        <div class="pull-left">
-                  Live Feed 
-        </div>
-          <div class="widget-icons pull-right"></div> 
-          <?php
-          incrementNumberOfVisits();
-          ?>
-  <!-- ADD MODAL CONTENT HERE -->
-          <div class="clearfix"></div>
-      </div> 
-          <br>
-            <div class="panel-body">
+	<section class="wrapper">
+		<div class="row">
+            <div class="col-md-12 portlets">
+              <!-- Widget -->
+              <div class="panel panel-default">
+				<div class="panel-heading">
+                  <div class="pull-left">Live Feed</div>
+                  <div class="widget-icons pull-right">
+                    <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+                    <a href="#" class="wclose"><i class="fa fa-times"></i></a>
+                  </div>  
+                  <?php
+          				incrementNumberOfVisits();
+          		  ?>
+                  <div class="clearfix"></div>
+                </div>
+<!-- Modal content goes here -->
+                <div class="panel-body">
                   <!-- Widget content -->
-              <div class="col-sm-12"> 
-                  <form class="form-inline" method="POST">
-						      <div class="col-sm-11">
-						          <input class="form-control input-lg m-bot15" type="text" name="feedtext" placeholder="Say something..">
-							        <!-- <input type="text" class="form-control" placeholder="Type your message here..."> -->
-						      </div>
-						      <button class="btn btn-primary" name="send">Post </button>
-						<!-- <a class="btn btn-primary" href="" title="Bootstrap 3 themes generator">Post</a> -->
-                        <!-- <button type="submit" class="btn btn-info">Send</button> -->
-                  </form>
-              </div> <br><br><br><br> 
-
-               <?php 
-                  foreach (getFeedDetails() as $feedDetails):
-                    if($feedDetails['flag'] == 1) {
-               ?>
-
-                <div class="padd sscroll">
-
-                  <ul class="chats">
-                  <!-- Chat by us. Use the class "by-me". -->
-                  <li class="by-me">
-                  <!-- Use the class "pull-left" in avatar -->
-                  <div class="avatar pull-left">
-                    <img src="<?php echo 'profilePhoto/'.getUserImage($feedDetails['u_id'])?>" alt="" height="50" width="50">
+                  	<div class="widget-foot">
+                  	 <form class="form-inline" method="POST">
+						<div class="form-group">
+							<input type="text" class="form-text1" placeholder="Type your message here..." name="feedtext">
+						</div>
+                        <button name="send" class="btn btn-info">Post</button> <!-- type="submit" -->
+                     </form>
                   </div>
-                <div class="chat-content">
-             
-                    <div class="chat-meta">
-                      <?php 
+                  <?php 
+                  		foreach (getFeedDetails() as $feedDetails):
+                  			if($feedDetails['flag'] ==1)
+                  			{ 
+                  ?>
+                  <div class="padd sscroll">
+                    <ul class="chats">
+                      <!-- Chat by us. Use the class "by-me". -->
+                      <li class="by-me">
+                        <!-- Use the class "pull-left" in avatar -->
+                        <div class="avatar pull-left">
+                          <img src="<?php echo 'profilePhoto/'.getUserImage($feedDetails['u_id'])?>" alt="" height="50" width="50">
+                        </div>
+
+                        <div class="chat-content">
+                          <!-- In meta area, first include "name" and then "time" -->
+                          <div class="chat-meta"> 
+                          <?php 
                             $feed_uid = $feedDetails['u_id'];
                             if($feed_uid[0] == "s")
                             {
@@ -82,13 +78,14 @@
                         </form>
                       <?php }
                       ?>
-      <!--     <div class="clearfix"></div> -->
-                        <span class="pull-right"> <?php echo "".$feedDetails['created_at'];?></span>
-                         <br>
-                      <?php 
+                          <span class="pull-right"><?php echo "".$feedDetails['created_at'];?></span></div>
+                          <?php 
                             echo $feedDetails['feed_text']; 
                       ?>
-                       <div class="clearfix">
+                          <div class="clearfix"></div>
+                        </div>
+                        <!-- COMMENT -->
+                        <div class="clearfix">
                           <span class="pull-right">
                             <a class="CommentButton"> Comment </a>
                            </span>
@@ -97,29 +94,48 @@
                             <textarea name="CommentText" class="form-comment" placeholder="Type commenent here.."></textarea>
                           </div>
                         </div>
-                    </div> <!-- Chat meta -->
-
-                    </li>                                                         
+                      </li> 
                     </ul>
-                   
 
-                </div> <!-- chat content -->
-                  <!-- Widget footer -->
+                  </div>
+                  <?php 
+              }
+              endforeach;
+                  ?>
                 </div>
               </div> 
-           <?php } //end of if for flag
-           endforeach; 
-                      ?>
-            </div> <!-- Panel Panel default -->
-           
+            </div>
 
+                  <div class="col-lg-4">
+                      <!--Project Activity start-->
+                      
+                      <!--Project Activity end-->
+                  </div>
+              </div>
+		<!-- <div class="row">
+			<div class="col-md-12 portlets">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						LIVE FEED
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="col-lg-10">
+						<form class="form-inline" method="POST">
+						<input class="form-control input-lg m-bot15" type="text" name="feedtext" placeholder="Say something..">
+						
+					</form>
+					</div>
+					
+				</div>
+				
+			</div>
+			
+		</div> -->
+	</section>
+	
+</section>
 
-</body>
-</div>
-</section>
-</section>
-</html>
-<!-- TO DELETE FEEDS FROM PAGE, ADMIN -->
 <?php
 if(isset($_POST['delete']))
   {
@@ -437,6 +453,48 @@ textarea.form-comment {
   color: #d7d7d7;
 }
 .form-control::-webkit-input-placeholder {
+  color: #d7d7d7;
+}
+/*Text input*/
+.form-text1 {
+    display: block;
+    width: 850px;
+    height: 45px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #8e8e93;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #c7c7cc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.form-text1t:focus {
+  border-color: #007AFF;
+  outline: 0;  
+}
+.form-text1[disabled],
+.form-text1[readonly],
+fieldset[disabled] .form-text1 {
+  cursor: not-allowed;
+  background-color: #f7f7f7;
+}
+textarea.form-text1 {
+  height: auto;
+}
+.form-text1:-moz-placeholder {
+  color: #d7d7d7;
+}
+.form-text1::-moz-placeholder {
+  color: #d7d7d7;
+}
+.form-text1:-ms-input-placeholder {
+  color: #d7d7d7;
+}
+.form-text1::-webkit-input-placeholder {
   color: #d7d7d7;
 }
 

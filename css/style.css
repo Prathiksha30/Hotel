@@ -1653,11 +1653,13 @@ div[data-role="editor-toolbar"] {
 .widget-content .error .form-inline button{
 	margin-left:-2px;
 	padding:8px 12px;
+    width: 850px;
 }
 
 .chats{
 	padding-left:0px;
 	margin-left:0px;
+    width: 850px;
 }
 
 .recent{
@@ -1666,8 +1668,9 @@ div[data-role="editor-toolbar"] {
 }
 
 .widget-foot .form-inline button {
-	margin-left: -3px;
+	margin-left: 3px;
 	padding:7px 12px;
+    width:70px;
 }
 
 .widget-content .form-inline button {

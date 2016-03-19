@@ -98,7 +98,7 @@ function getStaffDetails($s_id)
             </div>
 
            <!--logo start-->
-     <a href="index.php" class="logo">AMIGO DE <span class="lite">HOTEL</span></a>
+     <a href="feeds.php" class="logo">AMIGO DE <span class="lite">HOTEL</span></a>
             <!--logo end-->
 
             <div class="nav search-row" id="top_menu">
@@ -146,7 +146,7 @@ function getStaffDetails($s_id)
                                 <a href="profile.php"><i class="icon_profile"></i> My Profile</a>
                             </li>
                             <li>
-                                <a href="index.php"><i class="icon-dashboard-l"></i>Feeds</a>
+                                <a href="feeds.php"><i class="icon-dashboard-l"></i>Feeds</a>
                             </li>
                             <li>
                                <?php
@@ -216,7 +216,7 @@ function getStaffDetails($s_id)
                   }?>           
                   <li >
                   
-                      <a class="" href="index.php">Feed
+                      <a class="" href="feeds.php">Feed
                           <i class="icon_house_alt"></i>
                       </a>
                   </li>
@@ -256,7 +256,7 @@ function getStaffDetails($s_id)
                                              
                   </li>
                   <li>
-                      <a class="" href="404.html">Events
+                      <a class="" href="events.php">Events
                           <i class="icon_genius"></i>                          
                       </a>
                   </li>
