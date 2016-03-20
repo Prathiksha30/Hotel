@@ -89,15 +89,23 @@
                           <span class="pull-right">
                             <a class="CommentButton"> Comment </a>
                            </span>
+                          <form id="form1" method="POST" action="">
+                          	<input type="hidden" name="feedid" value="<?php echo $feedDetails['feed_id'];?>">
+                           <span class="pull-right">
                               <div id="CommentArea" class="commentTextArea">
-                            asdasdasdsads
-                            <textarea name="CommentText" class="form-comment" placeholder="Type commenent here.."></textarea>
+                            asdasdasdsads 
+                            <textarea name="CommentText" id="CommentText" class="form-comment" placeholder="Type commenent here.." >
+                            </textarea>
+                            <span class="pull-right"> <input type="button" value="Submit" id="submitComment" class="btn btn-success"></span>
                           </div>
+                          </span>
+                          </form>
                         </div>
                       </li> 
                     </ul>
 
                   </div>
+
                   <?php 
               }
               endforeach;
@@ -105,36 +113,23 @@
                 </div>
               </div> 
             </div>
-
                   <div class="col-lg-4">
-                      <!--Project Activity start-->
-                      
-                      <!--Project Activity end-->
                   </div>
               </div>
-		<!-- <div class="row">
-			<div class="col-md-12 portlets">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						LIVE FEED
-					</div>
-				</div>
-				<div class="panel-body">
-					<div class="col-lg-10">
-						<form class="form-inline" method="POST">
-						<input class="form-control input-lg m-bot15" type="text" name="feedtext" placeholder="Say something..">
-						
-					</form>
-					</div>
-					
-				</div>
-				
-			</div>
-			
-		</div> -->
 	</section>
-	
 </section>
+ <script type="text/javascript">
+	$(document).ready(function(){
+		$('#submitComment').click(function(){
+			/*alert("HEllo there!");
+			console.log("Button works!");*/
+			var text= $("textarea").val();
+			var fid = '<?php echo "".$_POST["feedid"]; ?>';
+					alert("Successfully entered: " +text + fid);
+				
+		});
+	});
+</script>
 
 <?php
 if(isset($_POST['delete']))
@@ -404,10 +399,22 @@ $('.commentTextArea').slideUp();
 </script>
 
 <style type="text/css">
-  .CommentArea{
-    
+  .commentTextArea{
+    background-color: hsl(0, 0%, 96%);
     border-top: 1px solid white;
-    text-align: right;
+    text-align: left;
+    width: 500px;
+
+
+/*width:350px;
+    font-size: 13px;
+    line-height: 18px;
+    font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+    border: thin;
+    border-color: white;
+    border-style: solid;
+    background-color: hsl(0, 0%, 96%);
+    padding: 5px;*/
 }
 .invisible {
     display: none;
@@ -417,8 +424,8 @@ $('.commentTextArea').slideUp();
 } 
 .form-comment {
     display: block;
-    width: 30%;
-    height: 24px;
+    width: 100%;
+    height: 2px;
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.428571429;
