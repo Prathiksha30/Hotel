@@ -166,48 +166,68 @@ if(isset($_POST['submit1']))
   $price = $_POST['roomprice'];
 	// $checkin=now();
 	$geender = $_POST['sex'];
-
- 
-	if($stmt=$conn->prepare("INSERT INTO user_guest(name, email_id, ph_no, age, user_image, gender, room_no) VALUES(?, ?, ?,	 ?, ?, ?, ?)"))
-	{
-		$stmt->bind_param('sssissi', $name, $email_id, $ph_no,$age1, $guest_img, $geender, $roomno);
-		$stmt->execute();
-		$stmt->close();
-	}
-  $uid = $conn->insert_id;
-  $bill_item = "Room";
-  $bill_item1 = "Spa";
-  $price1=0;
-  $bill_item2 = "Restaurant";
-  if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?,?,?)"))
+ if($stmt = $conn->prepare("SELECT email_id FROM user_guest WHERE email_id=?"))
   {
-    $stmt->bind_param('isi', $uid, $bill_item, $price);
+    $stmt->bind_param('s', $email_id);
     $stmt->execute();
-    $stmt->close();
-  }
-	else{
-		printf("Error message: %s\n", $conn->error);
-  }
-  if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?,?,?)"))
-  {
-    $stmt->bind_param('isi', $uid, $bill_item1, $price1);
-    $stmt->execute();
-    $stmt->close();
-  }
-  else{
-   printf("Error message: %s\n", $conn->error);
+    $stmt->bind_result($email_id);
+    $count1=0;
+    while($stmt->fetch())
+    {
+      $count1=$count1+1;
+      $rows[]=array('email_id'=>$email_id);
     }
-  if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?,?,?)"))
-  {
-    $stmt->bind_param('isi', $uid, $bill_item2, $price1);
-    $stmt->execute();
     $stmt->close();
-  }
-  else{
-    printf("Error message: %s\n", $conn->error);
+    if($count1>0)
+    { ?>
+      <script>
+      alert("This email ID has already been registered with us! Please enter another one.");
+      </script>
+    <?php
+    }
+    else
+    {
+      if($stmt=$conn->prepare("INSERT INTO user_guest(name, email_id, ph_no, age, user_image, gender, room_no) VALUES(?, ?, ?,	 ?, ?, ?, ?)"))
+    	{
+    		$stmt->bind_param('sssissi', $name, $email_id, $ph_no,$age1, $guest_img, $geender, $roomno);
+    		$stmt->execute();
+    		$stmt->close();
+    	}
+      $uid = $conn->insert_id;
+      $bill_item = "Room";
+      $bill_item1 = "Spa";
+      $price1=0;
+      $bill_item2 = "Restaurant";
+      if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?,?,?)"))
+      {
+        $stmt->bind_param('isi', $uid, $bill_item, $price);
+        $stmt->execute();
+        $stmt->close();
+      }
+    	else{
+    		printf("Error message: %s\n", $conn->error);
+      }
+      if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?,?,?)"))
+      {
+        $stmt->bind_param('isi', $uid, $bill_item1, $price1);
+        $stmt->execute();
+        $stmt->close();
+      }
+      else{
+       printf("Error message: %s\n", $conn->error);
+        }
+      if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?,?,?)"))
+      {
+        $stmt->bind_param('isi', $uid, $bill_item2, $price1);
+        $stmt->execute();
+        $stmt->close();
+      }
+      else{
+        printf("Error message: %s\n", $conn->error);
+        }
     }
 }
-
+}
 ?>
 <?php
   $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");

@@ -5,12 +5,72 @@
 if(isset($_POST['cancelService']))
 {
 	$service_id = $_POST["service"];
+	$msg=$_POST["msg"];
 	global $conn;
 	if($stmt = $conn->prepare("UPDATE user_services SET status = 'Cancelled' WHERE service_id = $service_id "))
 	{
 		$stmt->execute();
 		$stmt->close();
 	}
+	if($msg == "Facial")
+	{
+		if($stmt = $conn->prepare("UPDATE bill SET amount=amount-500 WHERE user_id=$_SESSION[user_id] AND bill_item='Spa' "))
+		{
+			$stmt->execute();
+			$stmt->close();
+		}
+	}
+	else if($msg=="Massage")
+ 	{
+     	if($stmt = $conn->prepare("UPDATE bill SET amount-amount-1000 WHERE user_id=$_SESSION[user_id] AND bill_item='Spa' "))
+  	{
+	    // $stmt->bind_param('isi', $_SESSION['user_id'],'spa',500);
+	    $stmt->execute();
+	    $stmt->close();
+  	}
+  else{
+    echo "Error with in insertion";
+  }
+ }
+  else if($msg=="Sauna")
+ {
+    if($stmt = $conn->prepare("UPDATE bill SET amount=amount-250 WHERE user_id=$_SESSION[user_id] AND bill_item='Spa' "))
+  {
+    // $stmt->bind_param('isi', $_SESSION['user_id'],'spa',500);
+    $stmt->execute();
+    $stmt->close();
+  }
+  else{
+    echo "Error with in insertion";
+  }
+ }
+  else if($msg=="Head Massage")
+ {
+     if($stmt = $conn->prepare("UPDATE bill SET amount=amount-200 WHERE user_id=$_SESSION[user_id] AND bill_item='Spa' "))
+  {
+    // $stmt->bind_param('isi', $_SESSION['user_id'],'spa',500);
+    $stmt->execute();
+    $stmt->close();
+  }
+  else{
+    echo "Error with in insertion";
+  }
+ }
+ else{
+ 	/*$foodbill =explode("-", $msg);
+ 	 $amt= $foodbill[0];*/
+ 	/* $pattern = "-";
+	$amt= strstr($msg, $pattern, true);*/
+	//$tok = strtok($msg, "-");
+	
+$tok = substr($msg, strpos($msg, '-') + 1);
+ 	
+ 	if($stmt = $conn->prepare("UPDATE bill SET amount=amount-$tok WHERE user_id=$_SESSION[user_id] AND bill_item='Restaurant'"))
+ 	{
+ 		$stmt->execute();
+ 		$stmt->close();
+ 	}
+ } 
 }
 function getCheckinDate()
 {
@@ -145,6 +205,7 @@ function getUserServices($user_id)
 						{ ?>
 					<td style="padding:5px";>
 						 <form method="POST" action="">
+						 	<input type="hidden" name="msg" value="<?php echo $getUserServices['message']; ?>">
                             <input type="hidden" name="service" value="<?php echo $getUserServices['service_id']; ?>"> <!-- Gets the value of that row -->
                             <input type="submit" name="cancelService"  value="Pending" data-content="Click here to cancel this service!" data-placement="right" data-trigger="hover" class="btn btn-info popovers btn-danger">
                          </form>

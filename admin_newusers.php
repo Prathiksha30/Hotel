@@ -152,9 +152,12 @@ function getDeptName($dept_id)
  		{
  			$stmt->execute();
  			$stmt->close() ?>
- 			<script> alert("Staff has successfully been verified!")</script> 
+ 			<script> alert("Staff has successfully been verified!")
+      </script> 
+      <script type="text/javascript"></script>
  		<?php
- 		/*window.location.href = ".php";*/
+ 		/*window.location.href = ".php";*/ 
+    
  		}
  		else
  		{?>
@@ -170,7 +173,8 @@ function getDeptName($dept_id)
  		{
  			$stmt->execute();
  			$stmt->close(); ?>
- 			<script> alert("Staff has successfully been deleted!")</script> 
+ 			<script> alert("Staff has successfully been deleted!")
+      </script> 
  		<?php
  		}
  		else{
