@@ -186,35 +186,26 @@ if(isset($_POST['submit1']))
     $stmt->close();
   }
 	else{
-		?>
-		<script> alert("Something went wrong. Please try again!")</script>
-	<?php }
-
-   if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?,?,?)"))
+		printf("Error message: %s\n", $conn->error);
+  }
+  if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?,?,?)"))
   {
     $stmt->bind_param('isi', $uid, $bill_item1, $price1);
     $stmt->execute();
     $stmt->close();
   }
-  else
-  {
-    ?>
-    <script> alert("Something went wrong. Please try again!")</script>
-  <?php 
-  }
+  else{
+   printf("Error message: %s\n", $conn->error);
+    }
   if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?,?,?)"))
   {
     $stmt->bind_param('isi', $uid, $bill_item2, $price1);
     $stmt->execute();
     $stmt->close();
   }
-  else
-  {
-    ?>
-    <script> alert("Something went wrong. Please try again!")</script>
-  <?php 
-  }
-  
+  else{
+    printf("Error message: %s\n", $conn->error);
+    }
 }
 
 ?>

@@ -159,8 +159,10 @@ include('header.php');
                                                   <div class="col-lg-2 control-label">Bill Items: 
                                                     <label id="BillItems"></label>
                                                     </div>
-                                                    <div class="col-lg-2 control-label">Total Bill Amount: 
-                                                    <label id="cartTotal">0</label>
+                                                    <div class="col-lg-2 control-label">Total Bill Amount:
+                                                      <div class="col-sm-6" >
+                                                        <label id="cartTotal">0</label>
+                                                      </div>
                                                     </div>
                                                     <div class="col-lg-2 control-label" ><!-- Total Bill Items:  -->
                                                     <button type="button" class"btn btn-success" id="checkOut" value="CheckOut">Check Out </button>
@@ -427,7 +429,7 @@ function getMenu($category)
     $comment = $_POST['comment'];
     $message=$req."-".$comment;  
     echo $message;
-    if ($stmt = $conn->prepare("INSERT INTO `user_services`(`dept_id`, `user_id`, `room_no`, `status`, `message`) VALUES ('1','1','101','pending',?)")) 
+    if ($stmt = $conn->prepare("INSERT INTO `user_services`(`dept_id`, `user_id`, `room_no`, `status`, `message`) VALUES ('1',$_SESSION['user_id'],'$_SESSION['roomno']','pending',?)")) 
     {
       $stmt->bind_param("s",$message);
       $stmt->execute();
