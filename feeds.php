@@ -13,13 +13,11 @@
 		<div class="row">
             <div class="col-md-12 portlets">
               <!-- Widget -->
-              <div class="panel panel-default">
+				<div class="panel panel-default">
 				<div class="panel-heading">
-                  <div class="pull-left">Live Feed</div>
-                  <div class="widget-icons pull-right">
-                    <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
-                    <a href="#" class="wclose"><i class="fa fa-times"></i></a>
-                  </div>  
+				<div class="pull-left">Live Feed</div>
+				<div class="widget-icons pull-right">
+				</div>  
                   <?php
           				incrementNumberOfVisits();
           		  ?>
