@@ -93,7 +93,7 @@
                             <?php 
                             		foreach (getCommentDetails() as $getCommentDetails) 
                             		{ 
-                            				if($getCommentDetails['cfeed_id'] == $feedDetails['feed_id']);
+                            				if($getCommentDetails['cfeed_id'] == $feedDetails['feed_id'])
                             				{ ?>
 	                            				<div id="CommentArea" class="commentTextArea">
 	                            				<?php  
@@ -108,6 +108,9 @@
 					                          	}
 	                            				echo "<strong>".$name."</strong>: ".$getCommentDetails['comment_text'];	
 	                            			}
+	                            			else{ ?>
+	                            					<div id="CommentArea" class="commentTextArea">
+	                            		<?php	}
                             		}
                             ?>
                             <textarea name="CommentText" id="CommentText" class="form-comment" placeholder="Type commenent here.." >
