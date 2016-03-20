@@ -166,27 +166,6 @@ if(isset($_POST['submit1']))
   $price = $_POST['roomprice'];
 	// $checkin=now();
 	$geender = $_POST['sex'];
- if($stmt = $conn->prepare("SELECT email_id FROM user_guest WHERE email_id=?"))
-  {
-    $stmt->bind_param('s', $email_id);
-    $stmt->execute();
-    $stmt->bind_result($email_id);
-    $count1=0;
-    while($stmt->fetch())
-    {
-      $count1=$count1+1;
-      $rows[]=array('email_id'=>$email_id);
-    }
-    $stmt->close();
-    if($count1>0)
-    { ?>
-      <script>
-      alert("This email ID has already been registered with us! Please enter another one.");
-      </script>
-    <?php
-    }
-    else
-    {
       if($stmt=$conn->prepare("INSERT INTO user_guest(name, email_id, ph_no, age, user_image, gender, room_no) VALUES(?, ?, ?,	 ?, ?, ?, ?)"))
     	{
     		$stmt->bind_param('sssissi', $name, $email_id, $ph_no,$age1, $guest_img, $geender, $roomno);
@@ -226,8 +205,6 @@ if(isset($_POST['submit1']))
         printf("Error message: %s\n", $conn->error);
         }
     }
-}
-}
 ?>
 <?php
   $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "PNG",  "GIF", "JPEG");
