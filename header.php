@@ -163,7 +163,7 @@ function getStaffDetails($s_id)
                             if(isset($_SESSION['S_id']))
                             { 
                               /*$staff = $_SESSION['staff_id']*/;
-                              if( $_SESSION['S_id'] == 6) //admin has id 6
+                              if( $_SESSION['S_id'] == 0) //admin has id 0
                               { ?>
                                 
                               <a href="admin_newusers.php"><i class="icon-task-l"></i> My Dashboard</a> 
@@ -243,7 +243,7 @@ function getStaffDetails($s_id)
                   <li>
                   <?php if(isset($_SESSION['S_id']))
                         { 
-                          if( $_SESSION['S_id'] == 6)
+                          if( $_SESSION['S_id'] == 0)
                             { ?>
                            <a href="admin_newusers.php" class="">My Dashboard
                           <i class="icon_desktop"></i></a> 

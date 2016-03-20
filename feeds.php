@@ -92,8 +92,28 @@
                           <form id="form1" method="POST" action="">
                           	<input type="hidden" name="feedid" value="<?php echo $feedDetails['feed_id'];?>">
                            <span class="pull-right">
-                              <div id="CommentArea" class="commentTextArea">
-                            asdasdasdsads 
+                              
+                           
+                            <?php 
+                            		foreach (getCommentDetails() as $getCommentDetails) 
+                            		{ 
+                            				if($getCommentDetails['cfeed_id'] == $feedDetails['feed_id']);
+                            				{ ?>
+	                            				<div id="CommentArea" class="commentTextArea">
+	                            				<?php  
+	                            				$feed_uid = $getCommentDetails['user_id'];
+					                            if($feed_uid[0] == "s")
+						                            {
+						                              $staff_dept = getStaffDept($feed_uid);
+						                              $name = getDeptName($staff_dept);
+						                            }
+					                            else { 	
+					                            		$name = getUserName($getCommentDetails['user_id']); 
+					                          	}
+	                            				echo "<strong>".$name."</strong>: ".$getCommentDetails['comment_text'];	
+	                            			}
+                            		}
+                            ?>
                             <textarea name="CommentText" id="CommentText" class="form-comment" placeholder="Type commenent here.." >
                             </textarea>
                             <span class="pull-right"> <button type="submit" name="submitComment" value="<?php echo $feedDetails['feed_id'];?>" id="submitComment" class="btn btn-success"> Submit </button></span>
@@ -211,6 +231,22 @@ if(isset($_POST['delete']))
 ?>
 <!-- Fetching Feed data. WORKS! -->
 <?php
+	function getCommentDetails()
+	{
+		global $conn;
+		if($stmt = $conn->prepare("SELECT c.comm_id,c.comment_text,c.comment_date,f.cfeed_id,u.user_id FROM user_comment u LEFT JOIN feed_comment f ON u.comment_id=f.c_id LEFT JOIN comments c ON u.comment_id=c.comm_id"))
+		{
+			$stmt->execute();
+			$stmt->bind_result($comm_id, $comment_text, $comment_date, $cfeed_id, $user_id);
+			while($stmt->fetch())
+			{
+				$rows[]= array('comm_id' => $comm_id, 'comment_text' => $comment_text , 'comment_date' => $comment_date, 'cfeed_id' => $cfeed_id, 'user_id' =>$user_id );
+			}
+			$stmt->close();
+			return $rows;
+		}
+	} 
+
 	function incrementNumberOfVisits()
 	{
 		global $conn;

@@ -56,6 +56,21 @@ if(isset($_POST['cancelService']))
     echo "Error with in insertion";
   }
  }
+ else{
+ 	/*$foodbill =explode("-", $msg);
+ 	 $amt= $foodbill[0];*/
+ 	/* $pattern = "-";
+	$amt= strstr($msg, $pattern, true);*/
+	//$tok = strtok($msg, "-");
+	
+$tok = substr($msg, strpos($msg, '-') + 1);
+ 	
+ 	if($stmt = $conn->prepare("UPDATE bill SET amount=amount-$tok WHERE user_id=$_SESSION[user_id] AND bill_item='Restaurant'"))
+ 	{
+ 		$stmt->execute();
+ 		$stmt->close();
+ 	}
+ } 
 }
 function getCheckinDate()
 {
