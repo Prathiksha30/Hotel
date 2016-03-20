@@ -8,6 +8,14 @@
 
   <!--main content start-->
   <section id="main-content">
+  <br><br><br><br>
+  <div class="col-lg-12">
+	<ol class="breadcrumb">
+		<li><i class="fa fa-home"></i>Overview</a></li>
+		<li><i class="icon_document_alt"><a href="admin_newusers.php"></i>Staff</a></li>
+		<li><i class="icon_profile"><a href="newguests.php"></i>Guests</a></li>
+	</ol>
+</div>
       <section class="wrapper">
       	<div class="row">
       		<div class="col-lg-6 col-md-12">	

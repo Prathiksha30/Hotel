@@ -154,15 +154,15 @@ include('header.php');
                                                   <a class="btn btn-danger" data-toggle="modal" href="#myModal3">
                                                       Dinner
                                                   </a>
-                                                  <!-- <a class="btn btn-info popovers" data-toggle="modal" href="#myModal4">
-                                                      Snacks and Drinks
-                                                  </a> -->
-                                                  <a class="btn btn-info popovers" data-toggle="modal" href="#myModal4">
-                                                      Bill
-                                                  </a>
+                                                 
                                                   <div class="login-wrap">
-                                                    <div class="col-lg-2 control-label">Total Bill Amount: 
-                                                    <label id="cartTotal">0</label>
+                                                  <div class="col-lg-2 control-label">Bill Items: 
+                                                    <label id="BillItems"></label>
+                                                    </div>
+                                                    <div class="col-lg-2 control-label">Total Bill Amount:
+                                                      <div class="col-sm-6" >
+                                                        <label id="cartTotal">0</label>
+                                                      </div>
                                                     </div>
                                                     <div class="col-lg-2 control-label" ><!-- Total Bill Items:  -->
                                                     <button type="button" class"btn btn-success" id="checkOut" value="CheckOut">Check Out </button>
@@ -214,23 +214,7 @@ include('header.php');
                                                           </div>
                                                       </div>
                                                   </div>
-                                                  <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                      <div class="modal-dialog">
-                                                          <div class="modal-content">
-                                                              <div class="modal-header">
-                                                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                  <h4 class="modal-title">Bill</h4>
-                                                              </div>
-                                                              <div class="modal-body">
-                                                                <p><?php echo $_SESSION['totalItems'];?></p>
-                                                              </div>
-                                                              <div class="modal-footer">
-                                                                  <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                                                                  <button class="btn btn-danger" type="button"> Confirm</button>
-                                                              </div>
-                                                          </div>
-                                                      </div>
-                                                  </div>
+                                                  
                                                   <!-- modal -->
                                                   <!-- Modal -->
                                                   <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -445,9 +429,9 @@ function getMenu($category)
     $comment = $_POST['comment'];
     $message=$req."-".$comment;  
     echo $message;
-    if ($stmt = $conn->prepare("INSERT INTO `user_services`(`dept_id`, `user_id`, `room_no`, `status`, `message`) VALUES ('1','1','101','pending',?)")) 
+    if ($stmt = $conn->prepare("INSERT INTO `user_services`(`dept_id`, `user_id`, `room_no`, `status`, `message`) VALUES ('1',?,?,'pending',?)")) 
     {
-      $stmt->bind_param("s",$message);
+      $stmt->bind_param("iis",$_SESSION['user_id'],$_SESSION['roomno'],$message);
       $stmt->execute();
     }
   }

@@ -1,19 +1,6 @@
 var totalamount;
 var totalitems=[];
 var result=[];
-
-function sendMyAjax()
-{
-    $.ajax({
-        type: 'POST',
-        url: 'bill_session.php',
-        data: { 'totalItems': totalitems },
-        success: function(response){
-            alert(response);
-        }
-    });
-}
-
 $('.qtyplus').click(function(e){
     // Stop acting like a button
     e.preventDefault();
@@ -43,31 +30,10 @@ $('.qtyplus').click(function(e){
     if (!totalitems)
         totalitems=[];
     totalitems.push(name);
-     document.getElementById("cartTotal").innerHTML = totalitems;
-    sendMyAjax();
-    alert(totalitems);
-    // loop array
-    for (i = 0; i < totalitems.length; i++) {
-        // get inner array
-        var vals = totalitems[i];
-        // create tr element
-        var row = document.createElement('tr');
-        // loop inner array
-        for (var b = 0; b < vals.length; b++) {
-            // create td element
-            var cell = document.createElement('td');
-            // set text
-            cell.textContent = vals[b];
-            // append td to tr
-            row.appendChild(cell);
-        }
-        //append tr to tbody
-        tbody.appendChild(row);
-    }
-    // append tbody to table
-    table.appendChild(tbody);
-    // append table to container
-    container.appendChild(table);
+    document.getElementById("cartTotal").innerHTML = totalamount;
+    document.getElementById("BillItems").innerHTML = totalitems;
+
+    
 });
 
 // This button will decrement the value till 0
@@ -105,9 +71,8 @@ $(".qtyminus").click(function(e) {
     if (index > -1) 
     {
         totalitems.splice(index, 1);
+        document.getElementById("BillItems").innerHTML = totalitems;
     }
-    sendMyAjax();
-    alert(totalitems);
 });
 
 $('#checkOut').click(function(){
@@ -119,9 +84,9 @@ $('#checkOut').click(function(){
         'totalItems': totalitems
       },
       success: function(response){
-        alert(response);
+        // alert(response);
         alert('Cart saved');
-       // window.location.reload();
+       window.location.reload();
       }
   });  
 });

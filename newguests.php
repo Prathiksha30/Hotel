@@ -6,7 +6,7 @@
 <section id="main-content">
 <div class="col-lg-12">
 	<ol class="breadcrumb">
-		<li><i class="fa fa-home"></i><a href="index.php">Home</a></li>
+		<li><i class="fa fa-home"></i><a href="admin_dashboard.php">Overview</a></li>
 		<li><i class="icon_document_alt"><a href="admin_newusers.php"></i>Staff</a></li>
 		<li><i class="icon_profile"></i>Guests</a></li>
 	<!-- 	<li><i class="fa fa-files-o"></i>Spa facilities</li> -->
@@ -166,6 +166,8 @@ if(isset($_POST['submit1']))
   $price = $_POST['roomprice'];
 	// $checkin=now();
 	$geender = $_POST['sex'];
+
+ 
 	if($stmt=$conn->prepare("INSERT INTO user_guest(name, email_id, ph_no, age, user_image, gender, room_no) VALUES(?, ?, ?,	 ?, ?, ?, ?)"))
 	{
 		$stmt->bind_param('sssissi', $name, $email_id, $ph_no,$age1, $guest_img, $geender, $roomno);
@@ -173,18 +175,37 @@ if(isset($_POST['submit1']))
 		$stmt->close();
 	}
   $uid = $conn->insert_id;
-  $bill_item = "Room Price";
-  if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?, ?, ?)"))
+  $bill_item = "Room";
+  $bill_item1 = "Spa";
+  $price1=0;
+  $bill_item2 = "Restaurant";
+  if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?,?,?)"))
   {
     $stmt->bind_param('isi', $uid, $bill_item, $price);
     $stmt->execute();
     $stmt->close();
   }
 	else{
-		?>
-		<script> alert("Something went wrong. Please try again!"</script>
-	<?php }
-  
+		printf("Error message: %s\n", $conn->error);
+  }
+  if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?,?,?)"))
+  {
+    $stmt->bind_param('isi', $uid, $bill_item1, $price1);
+    $stmt->execute();
+    $stmt->close();
+  }
+  else{
+   printf("Error message: %s\n", $conn->error);
+    }
+  if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?,?,?)"))
+  {
+    $stmt->bind_param('isi', $uid, $bill_item2, $price1);
+    $stmt->execute();
+    $stmt->close();
+  }
+  else{
+    printf("Error message: %s\n", $conn->error);
+    }
 }
 
 ?>
