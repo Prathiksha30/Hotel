@@ -96,16 +96,14 @@
                             asdasdasdsads 
                             <textarea name="CommentText" id="CommentText" class="form-comment" placeholder="Type commenent here.." >
                             </textarea>
-                            <span class="pull-right"> <input type="button" value="Submit" id="submitComment" class="btn btn-success"></span>
+                            <span class="pull-right"> <button type="submit" name="submitComment" value="<?php echo $feedDetails['feed_id'];?>" id="submitComment" class="btn btn-success"> Submit </button></span>
                           </div>
                           </span>
                           </form>
                         </div>
                       </li> 
                     </ul>
-
                   </div>
-
                   <?php 
               }
               endforeach;
@@ -118,20 +116,44 @@
               </div>
 	</section>
 </section>
- <script type="text/javascript">
-	$(document).ready(function(){
-		$('#submitComment').click(function(){
-			/*alert("HEllo there!");
-			console.log("Button works!");*/
-			var text= $("textarea").val();
-			var fid = '<?php echo "".$_POST["feedid"]; ?>';
-					alert("Successfully entered: " +text + fid);
-				
-		});
-	});
-</script>
-
 <?php
+if(isset($_POST['submitComment']))
+{
+	global $conn;
+	$fid = $_POST["feedid"];
+	$text = $_POST["CommentText"];
+	if($stmt = $conn->prepare("INSERT INTO comments(comment_text, comment_date) VALUES(?, now())"))
+	{
+		$stmt->bind_param('s', $text);
+		$stmt->execute();
+		$stmt->close();
+		if($stmt2 = $conn->prepare("INSERT INTO feed_comment(cfeed_id) VALUES(?)"))
+		{
+			$stmt2->bind_param('i', $fid);
+			$stmt2->execute();
+			$stmt2->close();
+		}
+		if($stmt3 = $conn->prepare("INSERT INTO user_comment(user_id) VALUES(?)"))
+		{
+			if(isset($_SESSION['S_id']))
+        	{
+	          $staffid = "s".$_SESSION['S_id'];
+	          $stmt3->bind_param('s', $staffid);
+        	}
+        	else
+        	{
+  			   $stmt3->bind_param('i', $_SESSION['user_id']);
+        	}
+        	$stmt3->execute();
+        	$stmt3->close();
+		}
+	}
+	else{?>
+       <script>alert("There was an error, please try after sometime.")</script>
+  <?php
+	}
+}
+
 if(isset($_POST['delete']))
   {
     global $conn;
