@@ -7,7 +7,7 @@ if(isset($_POST['competeService']))
   updateServiceStatusToComplete($_POST['completedServiceID']);
   ?>
   <script>
-  window.location.href = "requests.php"
+  window.location.href = "staff_dashboard.php"
   </script>
   <?php
 }
