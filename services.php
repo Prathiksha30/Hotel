@@ -429,9 +429,9 @@ function getMenu($category)
     $comment = $_POST['comment'];
     $message=$req."-".$comment;  
     echo $message;
-    if ($stmt = $conn->prepare("INSERT INTO `user_services`(`dept_id`, `user_id`, `room_no`, `status`, `message`) VALUES ('1',$_SESSION['user_id'],'$_SESSION['roomno']','pending',?)")) 
+    if ($stmt = $conn->prepare("INSERT INTO `user_services`(`dept_id`, `user_id`, `room_no`, `status`, `message`) VALUES ('1',?,?,'pending',?)")) 
     {
-      $stmt->bind_param("s",$message);
+      $stmt->bind_param("iis",$_SESSION['user_id'],$_SESSION['roomno'],$message);
       $stmt->execute();
     }
   }
