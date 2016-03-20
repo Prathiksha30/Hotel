@@ -92,8 +92,6 @@
                           <form id="form1" method="POST" action="">
                           	<input type="hidden" name="feedid" value="<?php echo $feedDetails['feed_id'];?>">
                            <span class="pull-right">
-                              
-                           
                             <?php 
                             		foreach (getCommentDetails() as $getCommentDetails) 
                             		{ 
