@@ -4,12 +4,13 @@
 	$totalAmount = $_GET['totalAmount'];
 	$totalItems = $_GET['totalItems'];
 	$totalItems = implode(",", $totalItems);
+	$message=$totalItems."-".$totalAmount;
 	global $conn;
 	if ($totalItems!=NULL)
 	{
 		if ($stmt = $conn->prepare("INSERT INTO user_services(dept_id, user_id, room_no, status, message) VALUES (2, ?, ?, 'pending', ?)")) 
 	  	{
-	    	$stmt->bind_param("iis", $_SESSION['user_id'], $_SESSION['roomno'], $totalItems);
+	    	$stmt->bind_param("iis", $_SESSION['user_id'], $_SESSION['roomno'], $message);
 	    	$stmt->execute();
 	    	$stmt->close();
 	  	}
