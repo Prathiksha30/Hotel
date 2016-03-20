@@ -2,7 +2,16 @@
  	include('header.php'); 
 	session_start();
 	include('hoteldb.php');
-
+if(isset($_POST['cancelService']))
+{
+	$service_id = $_POST["service"];
+	global $conn;
+	if($stmt = $conn->prepare("UPDATE user_services SET status = 'Cancelled' WHERE service_id = $service_id "))
+	{
+		$stmt->execute();
+		$stmt->close();
+	}
+}
 function getCheckinDate()
 {
     global $conn;
@@ -19,6 +28,25 @@ function getCheckinDate()
    else {
       printf("Error message: %s\n", $conn->error);
     }
+}
+function getUserServices($user_id)
+{
+	global $conn;
+	/*$user_id=$_SESSION['user_id'];*/
+	if($stmt = $conn->prepare("SELECT service_id, status, message, request_time FROM user_services WHERE user_id= $user_id"))
+	{
+		$stmt->execute();
+		$stmt->bind_result($service_id, $status, $message, $request_time);
+		while ($stmt->fetch()) 
+		{
+			$rows[] = array('service_id' => $service_id , 'status' => $status, 'message' => $message, 'request_time' => $request_time);
+		}
+		$stmt->close();
+		return $rows;
+	}
+	else{
+		echo "Error while fetching!";
+	}
 }
 ?>
 
@@ -86,6 +114,63 @@ function getCheckinDate()
 				</div>
 			</div>
 		</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-11 ">
+			<div class="panel panel-info panelcustom">
+				<div class="panel-heading">
+					<center><h2><i class="fa fa-flag-o red"></i><strong>Requested Services</strong></h2></center>
+				</div>
+				<div class="panel-body">
+					<table class="table bootstrap-datable countries">
+					<tr>
+						<th></th> 
+						<th></th> 
+						<th></th>
+						<th>Service</th>
+						<th>Request Time</th>
+						<th>Status</th>
+					</tr>
+					<?php 
+						foreach(getUserServices($_SESSION['user_id']) as $getUserServices): 
+					?>
+					<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					 <td style="padding:5px;"> <?php echo "".$getUserServices['message'];?> </td>
+					<td style="padding:5px;"> <?php echo "".$getUserServices['request_time'];?> </td>
+					<?php 
+						if($getUserServices['status'] == 'pending')
+						{ ?>
+					<td style="padding:5px";>
+						 <form method="POST" action="">
+                            <input type="hidden" name="service" value="<?php echo $getUserServices['service_id']; ?>"> <!-- Gets the value of that row -->
+                            <input type="submit" name="cancelService"  value="Pending" data-content="Click here to cancel this service!" data-placement="right" data-trigger="hover" class="btn btn-info popovers btn-danger">
+                         </form>
+					 </td>		
+						<?php }
+						else{ 
+								if($getUserServices['status'] == 'completed')
+								{
+							?>
+						<td style="padding:5px;">Completed</span> </td> 
+
+					<?php }
+					else { ?>
+								<td style="padding:5px; color:#c7cbd4;">Cancelled</span> </td> 
+					<?php }
+					}
+						
+					?>
+					
+					</tr>
+				<?php endforeach; ?>
+					</table>
+				</div>
+			</div>
+				 
+			</div>
 		</div>
 	</section>
 </section>
