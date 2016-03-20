@@ -166,6 +166,8 @@ if(isset($_POST['submit1']))
   $price = $_POST['roomprice'];
 	// $checkin=now();
 	$geender = $_POST['sex'];
+
+ 
 	if($stmt=$conn->prepare("INSERT INTO user_guest(name, email_id, ph_no, age, user_image, gender, room_no) VALUES(?, ?, ?,	 ?, ?, ?, ?)"))
 	{
 		$stmt->bind_param('sssissi', $name, $email_id, $ph_no,$age1, $guest_img, $geender, $roomno);
@@ -173,8 +175,11 @@ if(isset($_POST['submit1']))
 		$stmt->close();
 	}
   $uid = $conn->insert_id;
-  $bill_item = "Room Price";
-  if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?, ?, ?)"))
+  $bill_item = "Room";
+  $bill_item1 = "Spa";
+  $price1=0;
+  $bill_item2 = "Restaurant";
+  if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?,?,?)"))
   {
     $stmt->bind_param('isi', $uid, $bill_item, $price);
     $stmt->execute();
@@ -182,8 +187,33 @@ if(isset($_POST['submit1']))
   }
 	else{
 		?>
-		<script> alert("Something went wrong. Please try again!"</script>
+		<script> alert("Something went wrong. Please try again!")</script>
 	<?php }
+
+   if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?,?,?)"))
+  {
+    $stmt->bind_param('isi', $uid, $bill_item1, $price1);
+    $stmt->execute();
+    $stmt->close();
+  }
+  else
+  {
+    ?>
+    <script> alert("Something went wrong. Please try again!")</script>
+  <?php 
+  }
+  if($stmt = $conn->prepare("INSERT INTO bill(user_id, bill_item, amount) VALUES(?,?,?)"))
+  {
+    $stmt->bind_param('isi', $uid, $bill_item2, $price1);
+    $stmt->execute();
+    $stmt->close();
+  }
+  else
+  {
+    ?>
+    <script> alert("Something went wrong. Please try again!")</script>
+  <?php 
+  }
   
 }
 

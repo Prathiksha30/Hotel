@@ -154,13 +154,11 @@ include('header.php');
                                                   <a class="btn btn-danger" data-toggle="modal" href="#myModal3">
                                                       Dinner
                                                   </a>
-                                                  <!-- <a class="btn btn-info popovers" data-toggle="modal" href="#myModal4">
-                                                      Snacks and Drinks
-                                                  </a> -->
-                                                  <a class="btn btn-info popovers" data-toggle="modal" href="#myModal4">
-                                                      Bill
-                                                  </a>
+                                                 
                                                   <div class="login-wrap">
+                                                  <div class="col-lg-2 control-label">Bill Items: 
+                                                    <label id="BillItems"></label>
+                                                    </div>
                                                     <div class="col-lg-2 control-label">Total Bill Amount: 
                                                     <label id="cartTotal">0</label>
                                                     </div>
@@ -214,23 +212,7 @@ include('header.php');
                                                           </div>
                                                       </div>
                                                   </div>
-                                                  <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                      <div class="modal-dialog">
-                                                          <div class="modal-content">
-                                                              <div class="modal-header">
-                                                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                  <h4 class="modal-title">Bill</h4>
-                                                              </div>
-                                                              <div class="modal-body">
-                                                                <p><?php echo $_SESSION['totalItems'];?></p>
-                                                              </div>
-                                                              <div class="modal-footer">
-                                                                  <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                                                                  <button class="btn btn-danger" type="button"> Confirm</button>
-                                                              </div>
-                                                          </div>
-                                                      </div>
-                                                  </div>
+                                                  
                                                   <!-- modal -->
                                                   <!-- Modal -->
                                                   <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
