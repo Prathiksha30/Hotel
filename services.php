@@ -209,7 +209,7 @@ include('header.php');
                                                               </div>
                                                               <div class="modal-footer">
                                                                   <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                                                                  <button class="btn btn-danger" type="button"> Confirm</button>
+                                                                  <!-- <button class="btn btn-danger" type="button"> Confirm</button> -->
                                                               </div>
                                                           </div>
                                                       </div>
@@ -250,7 +250,7 @@ include('header.php');
                                                               </div>
                                                               <div class="modal-footer">
                                                                   <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                                                                  <button class="btn btn-warning" type="button"> Confirm</button>
+                                                                  <!-- <button class="btn btn-warning" type="button"> Confirm</button> -->
                                                               </div>
                                                           </div>
                                                       </div>
@@ -290,7 +290,7 @@ include('header.php');
                                                               </div>
                                                               <div class="modal-footer">
                                                                   <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                                                                  <button class="btn btn-danger" type="button"> Confirm</button>
+                                                                  <!-- <button class="btn btn-danger" type="button"> Confirm</button> -->
                                                               </div>
                                                           </div>
                                                       </div>
@@ -330,7 +330,7 @@ include('header.php');
                                                               </div>
                                                               <div class="modal-footer">
                                                                   <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                                                                  <button class="btn btn-danger" type="button"> Confirm</button>
+                                                                  <!-- <button class="btn btn-danger" type="button"> Confirm</button> -->
                                                               </div>
                                                           </div>
                                                       </div>
