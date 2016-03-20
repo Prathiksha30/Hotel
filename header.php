@@ -143,7 +143,16 @@ function getStaffDetails($s_id)
                        <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="profile.php"><i class="icon_profile"></i> My Profile</a>
+                             <?php
+
+                            if(isset($_SESSION['S_id']))
+                            { 
+                            	?><a href="staff_profile.php"><i class="icon_profile"></i> My Profile</a><?php
+                            }
+                            else
+                            {
+                                ?><a href="profile.php"><i class="icon_profile"></i> My Profile</a><?php
+                            }?>
                             </li>
                             <li>
                                 <a href="feeds.php"><i class="icon-dashboard-l"></i>Feeds</a>
@@ -161,7 +170,7 @@ function getStaffDetails($s_id)
                             <?php  }
 
                                else { ?>
-                                <a href="staff_dashboard.php"><i class="icon-task-l"></i> Dashboard & Service Requests</a> 
+                                <a href="staff_dashboard.php"><i class="icon-task-l"></i> Dashboard & Services</a> 
                               <?php  }  
                               ?>
                               </li>
@@ -222,12 +231,12 @@ function getStaffDetails($s_id)
                   </li>
                   <?php if(isset($_SESSION['user_id']))
                   {?>
-                    <li>
+                  <!--   <li>
                       <a href="404.html" class="">Chat
                           <i class="icon_document_alt"></i>                          
                       </a>
                       
-                  </li>
+                  </li> -->
                   <?php
                   }?>
                   
@@ -241,7 +250,7 @@ function getStaffDetails($s_id)
                        <?php   
                             }
                            else { ?>
-                          <a href="requests.php" class="">Service Requests
+                          <a href="staff_dashboard.php" class="">Service Requests
                           <i class="icon_desktop"></i></a> 
                          <?php  
                           }

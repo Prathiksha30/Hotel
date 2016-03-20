@@ -6,7 +6,7 @@
 <section id="main-content">
 <div class="col-lg-12">
 	<ol class="breadcrumb">
-		<li><i class="fa fa-home"></i><a href="index.php">Home</a></li>
+		<li><i class="fa fa-home"></i><a href="admin_dashboard.php">Overview</a></li>
 		<li><i class="icon_document_alt"><a href="admin_newusers.php"></i>Staff</a></li>
 		<li><i class="icon_profile"></i>Guests</a></li>
 	<!-- 	<li><i class="fa fa-files-o"></i>Spa facilities</li> -->
