@@ -65,7 +65,7 @@
             $_SESSION['StaffName']=$name;
             $_SESSION['S_id']=$s_id;
             $_SESSION['Dept_id']=$dept_id;
-            header("Location: index.php");
+            header("Location: feeds.php");
         }
      
     else
