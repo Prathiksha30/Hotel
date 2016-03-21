@@ -13,13 +13,11 @@
 		<div class="row">
             <div class="col-md-12 portlets">
               <!-- Widget -->
-              <div class="panel panel-default">
+				<div class="panel panel-default">
 				<div class="panel-heading">
-                  <div class="pull-left">Live Feed</div>
-                  <div class="widget-icons pull-right">
-                    <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
-                    <a href="#" class="wclose"><i class="fa fa-times"></i></a>
-                  </div>  
+				<div class="pull-left">Live Feed</div>
+				<div class="widget-icons pull-right">
+				</div>  
                   <?php
           				incrementNumberOfVisits();
           		  ?>
@@ -95,7 +93,7 @@
                             <?php 
                             		foreach (getCommentDetails() as $getCommentDetails) 
                             		{ 
-                            				if($getCommentDetails['cfeed_id'] == $feedDetails['feed_id']);
+                            				if($getCommentDetails['cfeed_id'] == $feedDetails['feed_id'])
                             				{ ?>
 	                            				<div id="CommentArea" class="commentTextArea">
 	                            				<?php  
@@ -110,6 +108,9 @@
 					                          	}
 	                            				echo "<strong>".$name."</strong>: ".$getCommentDetails['comment_text'];	
 	                            			}
+	                            			else{ ?>
+	                            					<div id="CommentArea" class="commentTextArea">
+	                            		<?php	}
                             		}
                             ?>
                             <textarea name="CommentText" id="CommentText" class="form-comment" placeholder="Type commenent here.." >
