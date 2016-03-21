@@ -34,8 +34,7 @@ function getStaffDetails($s_id)
         return $rows;
     }
     else {
-        printf("Error message: %s\n", $conn->error);
-    }
+        printf("Error message: %s\n", $conn->error);    }
 }
 ?>
 
