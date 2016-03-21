@@ -105,9 +105,16 @@ function getStaffDetails($s_id)
                 <!--  search form start -->
                 <ul class="nav top-menu">                    
                     <li>
-                        <form class="navbar-form">
-                            <input class="form-control" placeholder="Search" type="text">
-                        </form>
+                       <!--  <form class="navbar-form">
+                            <input  class="form-control" placeholder="Search" type="text">
+                            <button type="submit" class="btn btn-default btn-primary">Search</button>
+                        </form> -->
+                        <form class="navbar-form navbar-left" role="search" method="GET" action="search.php">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" name="q">
+        </div>
+        <button type="submit" class="btn btn-default btn-primary">Search</button>
+      </form>
                     </li>                    
                 </ul>
                 <!--  search form end -->                
